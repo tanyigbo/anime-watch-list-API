@@ -1,4 +1,4 @@
-package com.example.AnimeAPI.model;
+package com.example.AnimeAPI.enums;
 
 public enum UserType {
     GENERAL, ADMIN

@@ -1,6 +1,6 @@
 package com.example.AnimeAPI.model;
 
-import org.junit.Before;
+import com.example.AnimeAPI.compositeKeys.AnimeListKey;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

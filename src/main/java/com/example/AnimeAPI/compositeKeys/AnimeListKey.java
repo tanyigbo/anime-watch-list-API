@@ -1,4 +1,4 @@
-package com.example.AnimeAPI.model;
+package com.example.AnimeAPI.compositeKeys;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

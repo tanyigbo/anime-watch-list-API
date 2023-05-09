@@ -1,5 +1,6 @@
 package com.example.AnimeAPI.model;
 
+import com.example.AnimeAPI.enums.UserType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
