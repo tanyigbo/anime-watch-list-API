@@ -1,6 +1,7 @@
 package com.example.AnimeAPI.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "genres")
@@ -16,6 +17,10 @@ public class Genre {
 
     @Column(nullable = false)
     private String description;
+
+    @Column
+    @OneToMany(mappedBy = "genre",orphanRemoval = true)
+    private Set<AnimeDetail> animeDetailsSet;
 
     public Genre() {
     }
@@ -43,5 +48,13 @@ public class Genre {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<AnimeDetail> getAnimeDetailsSet() {
+        return animeDetailsSet;
+    }
+
+    public void setAnimeDetailsSet(Set<AnimeDetail> animeDetailsSet) {
+        this.animeDetailsSet = animeDetailsSet;
     }
 }
