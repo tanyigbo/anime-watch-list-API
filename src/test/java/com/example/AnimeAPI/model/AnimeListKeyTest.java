@@ -7,10 +7,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AnimeListKeyTest {
 
-    private AnimeListKey key1 = new AnimeListKey(1L, 1L);
-    private AnimeListKey key2 = new AnimeListKey(1L, 1L);
-    private AnimeListKey key3 = new AnimeListKey(1L, 2L);
-    private AnimeListKey key4 = new AnimeListKey(2L, 1L);
+    private final AnimeListKey key1 = new AnimeListKey(1L, 1L);
+    private final AnimeListKey key2 = new AnimeListKey(1L, 1L);
+    private final AnimeListKey key3 = new AnimeListKey(1L, 2L);
+    private final AnimeListKey key4 = new AnimeListKey(2L, 1L);
 
     @Test
     public void testEqualsReturnsTrueForKeyWithSameValues() {
