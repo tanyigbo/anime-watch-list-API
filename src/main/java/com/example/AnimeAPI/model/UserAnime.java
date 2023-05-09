@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
-public class UserAnimeList {
+public class UserAnime {
 
     @EmbeddedId
     AnimeListKey id;
@@ -30,10 +30,10 @@ public class UserAnimeList {
     @Column
     private WatchStatus watchStatus;
 
-    public UserAnimeList() {
+    public UserAnime() {
     }
 
-    public UserAnimeList(AnimeListKey id, User user, Anime anime, int rating, WatchStatus watchStatus) {
+    public UserAnime(AnimeListKey id, User user, Anime anime, int rating, WatchStatus watchStatus) {
         this.id = id;
         this.user = user;
         this.anime = anime;
