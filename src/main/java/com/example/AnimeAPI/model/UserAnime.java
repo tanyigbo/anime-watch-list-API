@@ -1,26 +1,26 @@
 package com.example.AnimeAPI.model;
 
-import com.example.AnimeAPI.compositeKeys.AnimeListKey;
 import com.example.AnimeAPI.enums.WatchStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name = "user_animes")
 public class UserAnime {
 
-    @EmbeddedId
-    AnimeListKey id;
+    @Id
+    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @JsonIgnore
     @ManyToOne
-    @MapsId("userId")
     @JoinColumn(name = "user_id")
     private User user;
 
     @JsonIgnore
     @ManyToOne
-    @MapsId("animeId")
     @JoinColumn(name = "anime_id")
     private Anime anime;
 
@@ -33,7 +33,7 @@ public class UserAnime {
     public UserAnime() {
     }
 
-    public UserAnime(AnimeListKey id, User user, Anime anime, int rating, WatchStatus watchStatus) {
+    public UserAnime(Long id, User user, Anime anime, int rating, WatchStatus watchStatus) {
         this.id = id;
         this.user = user;
         this.anime = anime;
@@ -41,11 +41,11 @@ public class UserAnime {
         this.watchStatus = watchStatus;
     }
 
-    public AnimeListKey getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(AnimeListKey id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
