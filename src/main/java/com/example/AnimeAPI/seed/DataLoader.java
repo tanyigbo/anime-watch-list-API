@@ -2,9 +2,11 @@ package com.example.AnimeAPI.seed;
 
 import com.example.AnimeAPI.exceptions.InformationNotFoundException;
 import com.example.AnimeAPI.model.Anime;
+import com.example.AnimeAPI.model.Genre;
 import com.example.AnimeAPI.model.User;
 import com.example.AnimeAPI.model.UserAnime;
 import com.example.AnimeAPI.repository.AnimeRepository;
+import com.example.AnimeAPI.repository.GenreRepository;
 import com.example.AnimeAPI.repository.UserAnimeRepository;
 import com.example.AnimeAPI.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +30,17 @@ public class DataLoader implements CommandLineRunner {
     AnimeRepository animeRepository;
 
     @Autowired
+    GenreRepository genreRepository;
+
+    @Autowired
     UserAnimeRepository userAnimeRepository;
 
     @Override
     public void run(String... args) throws Exception{
-        loudUserData();
-        loudAnimeData();
-        loudUserAnimeData();
+        loadUserData();
+        loadAnimeData();
+        loadGenreData();
+        loadUserAnimeData();
     }
 
     private User getUser(Long id) {
@@ -55,7 +61,7 @@ public class DataLoader implements CommandLineRunner {
         }
     }
 
-    private void  loudUserData(){
+    private void loadUserData(){
         if(userRepository.count() == 0){
             User user1 = new User("Username1", "Email1@gmail.com","password1", GENERAL);
             User user2 = new User("Username2", "Email2@gmail.com","password2", GENERAL);
@@ -66,7 +72,7 @@ public class DataLoader implements CommandLineRunner {
         }
     }
 
-    private  void loudAnimeData(){
+    private  void loadAnimeData(){
         if(animeRepository.count() == 0){
             Anime anime1 = new Anime("BDZ", "Monkey fights ugly anliens");
             Anime anime2 = new Anime("BDZ2", "Monkey fights ugly anliens part 2");
@@ -83,7 +89,16 @@ public class DataLoader implements CommandLineRunner {
         }
     }
 
-    private  void loudUserAnimeData() {
+    private  void  loadGenreData(){
+        if(genreRepository.count() == 0){
+            Genre genre1 = new Genre("Teen","For ages13+");
+            Genre genre2 = new Genre("Adult","For ages18+");
+            genreRepository.save(genre1);
+            genreRepository.save(genre2);
+        }
+    }
+
+    private  void loadUserAnimeData() {
         if (userAnimeRepository.count() == 0) {
             User user1 = getUser(1L);
             User user2 = getUser(2L);
