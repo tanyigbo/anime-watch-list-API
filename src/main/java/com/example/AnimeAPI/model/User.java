@@ -18,6 +18,7 @@ public class User {
     @Column(unique = true)
     private String email;
 
+    @Column
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
