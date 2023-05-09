@@ -1,9 +1,13 @@
 package com.example.AnimeAPI.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
-@Table(name = "animes")// Table name in database
+@Table(name = "anime")// Table name in database
 public class Anime {
 
     @Id
@@ -11,12 +15,20 @@ public class Anime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(unique = true,nullable = false)
     private String title;
 
-    @Column
+    @Column (nullable = false)
     private String description;
 
+    @OneToMany(mappedBy = "anime",orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    Set<UserAnime> userAnimeList;
+
+    @Column
+    @OneToMany(mappedBy = "anime",orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    Set<AnimeDetail> animeDetailSet;
 
     public Anime() {
     }
@@ -54,5 +66,13 @@ public class Anime {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 '}';
+    }
+
+    public Set<UserAnime> getUserAnimeList() {
+        return userAnimeList;
+    }
+
+    public void setUserAnimeList(Set<UserAnime> userAnimeList) {
+        this.userAnimeList = userAnimeList;
     }
 }
