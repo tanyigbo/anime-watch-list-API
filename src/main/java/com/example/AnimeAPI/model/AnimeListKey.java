@@ -30,6 +30,12 @@ public class AnimeListKey implements Serializable {
     }
 
     public boolean isEqualTo(AnimeListKey key){
+        if(this.getUserId() != key.getUserId()){
+            return false;
+        }
+        if(this.getAnimeId() != key.getAnimeId()){
+            return false;
+        }
         return true;
     }
 }
