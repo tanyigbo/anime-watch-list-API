@@ -14,10 +14,10 @@ public class AnimeDataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception{
-        loudUserData();
+        loudAnimeData();
     }
 
-    private  void loudUserData(){
+    private  void loudAnimeData(){
         if(animeRepository.count() == 0){
             Anime anime1 = new Anime("BDZ", "Monkey fights ugly anliens");
             Anime anime2 = new Anime("BDZ2", "Monkey fights ugly anliens part 2");
