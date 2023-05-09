@@ -7,9 +7,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AnimeListKeyTest {
 
-    private AnimeListKey key1 = new AnimeListKey(1L,1L);
-    private AnimeListKey key2 = new AnimeListKey(1L,1L);
-    private AnimeListKey key3 = new AnimeListKey(1L,2L);
+    private AnimeListKey key1 = new AnimeListKey(1L, 1L);
+    private AnimeListKey key2 = new AnimeListKey(1L, 1L);
+    private AnimeListKey key3 = new AnimeListKey(1L, 2L);
+    private AnimeListKey key4 = new AnimeListKey(2L, 1L);
 
     @Test
     public void testEqualsReturnsTrueForKeyWithSameValues() {
@@ -17,8 +18,13 @@ class AnimeListKeyTest {
     }
 
     @Test
-    public void testEqualsReturnsFalseForKeyWithDifferentValues(){
+    public void testEqualsReturnsFalseForKeyDifferentAnimeID() {
         assertFalse(key1.isEqualTo(key3));
+    }
+
+    @Test
+    public void testEqualsReturnsFalseForKeyDifferentUserID() {
+        assertFalse(key1.isEqualTo(key4));
     }
 
 }
