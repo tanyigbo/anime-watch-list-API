@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_animes")
+@Table(name = "user_anime")
 public class UserAnime {
 
     @Id
@@ -33,8 +33,7 @@ public class UserAnime {
     public UserAnime() {
     }
 
-    public UserAnime(Long id, User user, Anime anime, int rating, WatchStatus watchStatus) {
-        this.id = id;
+    public UserAnime(User user, Anime anime, int rating, WatchStatus watchStatus) {
         this.user = user;
         this.anime = anime;
         this.rating = rating;
@@ -43,10 +42,6 @@ public class UserAnime {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public User getUser() {
