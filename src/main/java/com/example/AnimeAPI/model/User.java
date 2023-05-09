@@ -4,10 +4,12 @@ import com.example.AnimeAPI.enums.UserType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +27,10 @@ public class User {
 
     @Column
     private final Enum<UserType> userType;
+
+    @Column
+    @OneToMany(mappedBy = "user",orphanRemoval = true)
+    private Set<UserAnime> userAnimeSet;
 
     public User() {
         this.userType = UserType.GENERAL;
@@ -75,5 +81,24 @@ public class User {
     // getter
     public Enum<UserType> getUserType() {
         return userType;
+    }
+
+    public Set<UserAnime> getUserAnimeSet() {
+        return userAnimeSet;
+    }
+
+    public void setUserAnimeSet(Set<UserAnime> userAnimeSet) {
+        this.userAnimeSet = userAnimeSet;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", userType=" + userType +
+                ", userAnimeSet=" + userAnimeSet +
+                '}';
     }
 }
