@@ -23,7 +23,7 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private Enum<UserType> userType;
+    private String userType;
 
     @Column
     @OneToMany(mappedBy = "user", orphanRemoval = true)
@@ -32,7 +32,7 @@ public class User {
     public User() {
     }
 
-    public User(String userName, String password, Enum<UserType> userType) {
+    public User(String userName, String password, String userType) {
         this.userName = userName;
         this.password = password;
         this.userType = userType;
@@ -58,7 +58,7 @@ public class User {
         this.password = password;
     }
 
-    public Enum<UserType> getUserType() {
+    public String getUserType() {
         return userType;
     }
 
@@ -78,5 +78,9 @@ public class User {
                 ", userType=" + userType +
                 ", userAnimeSet=" + userAnimeSet +
                 '}';
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 }
