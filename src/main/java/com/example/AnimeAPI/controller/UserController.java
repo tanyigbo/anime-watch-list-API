@@ -40,6 +40,12 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.FOUND);
     }
 
+    /**
+     * A Post request to create a new user
+     * Creates a ResponseEntity that holds a response message and the created user
+     * @param userObj The user login information
+     * @return ResponseEntity with the responding message
+     */
     @PostMapping(path = "/users/register")
     // http://localhost:{portNumber}/auth/users/register
     public ResponseEntity<?> createUser(@RequestBody User userObj){
