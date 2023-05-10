@@ -18,6 +18,8 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.AnimeAPI.enums.UserType.GENERAL;
+
 @CucumberContextConfiguration
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = AnimeApiApplication.class)
 public class SpringBootTestDefinitions {
@@ -47,8 +49,9 @@ public class SpringBootTestDefinitions {
         JSONObject requestBody = new JSONObject();
         requestBody.put("userName","JohnDoe");
         requestBody.put("password","12345");
-        requestBody.put("userType",UserType.GENERAL);
-        response = request.body(requestBody.toString()).post(BASE_URL+port+"/auth/user");
+        requestBody.put("userType",GENERAL);
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).post(BASE_URL+port+"/auth/users/register");
     }
 
     @Then("A new user account is created and returned")
@@ -58,6 +61,6 @@ public class SpringBootTestDefinitions {
         Map<String, String> user = response.jsonPath().get("data");
         Assert.assertEquals("user created",message);
         Assert.assertEquals("userName",user.get("userName"));
-        Assert.assertEquals(UserType.GENERAL,user.get("userType"));
+        Assert.assertEquals(GENERAL,user.get("userType"));
     }
 }

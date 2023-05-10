@@ -1,14 +1,12 @@
 package com.example.AnimeAPI.controller;
 
+import com.example.AnimeAPI.exceptions.InformationExistException;
 import com.example.AnimeAPI.model.User;
 import com.example.AnimeAPI.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -40,5 +38,22 @@ public class UserController {
         response.put("message","success");
         response.put("data", users);
         return new ResponseEntity<>(response, HttpStatus.FOUND);
+    }
+
+    @PostMapping(path = "/users/register")
+    // http://localhost:{portNumber}/auth/users/register
+    public ResponseEntity<?> createUser(@RequestBody User userObj){
+        response = new HashMap<>();
+        try {
+            System.out.println(userObj.toString());
+            User newUser = userService.createUser(userObj);
+            System.out.println(newUser.toString());
+            response.put("message","user created");
+            response.put("data",newUser);
+            return new ResponseEntity<>(response,HttpStatus.CREATED);
+        }catch (InformationExistException e){
+            response.put("message",e.getMessage());
+            return new ResponseEntity<>(response,HttpStatus.CONFLICT);
+        }
     }
 }
