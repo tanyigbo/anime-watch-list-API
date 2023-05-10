@@ -13,18 +13,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private AuthenticationManager authenticationManager;
-    private MyUserDetails myUserDetails;
-    private JWTUtils jwtUtils;
+//    private final PasswordEncoder passwordEncoder;
+//    private AuthenticationManager authenticationManager;
+//    private MyUserDetails myUserDetails;
+//    private JWTUtils jwtUtils;
 
     @Autowired
-    public UserService(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder, @Lazy AuthenticationManager authenticationManager, @Lazy MyUserDetails myUserDetails, JWTUtils jwtUtils) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.authenticationManager = authenticationManager;
-        this.myUserDetails = myUserDetails;
-        this.jwtUtils = jwtUtils;
     }
 
     public User createUser(User userObject) {
