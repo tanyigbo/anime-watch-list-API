@@ -15,7 +15,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 public class SpringBootTestDefinitions {
 
     private static final String BASE_URL = "http://localhost:";
-    private static final RequestSpecification request = RestAssured.given();
+    private static final RequestSpecification request  = RestAssured.given();
     private static Response response;
 
     @LocalServerPort
@@ -30,4 +30,9 @@ public class SpringBootTestDefinitions {
 
     }
 
+
+    @Given("A list of users is available")
+    public void aListOfUsersIsAvailable() {
+        response = request.get(BASE_URL + port + "/api/auth/users");
+    }
 }
