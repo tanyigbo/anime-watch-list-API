@@ -18,9 +18,6 @@ public class User {
     @Column(unique = true, nullable = false)
     private String userName;
 
-    @Column(unique = true, nullable = false)
-    private String email;
-
     @Column(nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
@@ -37,7 +34,6 @@ public class User {
 
     public User(String userName, String email, String password, Enum<UserType> userType) {
         this.userName = userName;
-        this.email = email;
         this.password = password;
         this.userType = userType;
     }
@@ -52,14 +48,6 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPassword() {
@@ -87,7 +75,6 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
-                ", email='" + email + '\'' +
                 ", userType=" + userType +
                 ", userAnimeSet=" + userAnimeSet +
                 '}';
