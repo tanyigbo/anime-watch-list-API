@@ -63,4 +63,14 @@ public class SpringBootTestDefinitions {
         Assert.assertEquals("JohnDoe",user.get("username"));
         Assert.assertEquals("GENERAL",user.get("userType"));
     }
+
+    @When("A registered user enters username and password")
+    public void aRegisteredUserEntersUsernameAndPassword() throws JSONException {
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("username","Username2");
+        requestBody.put("password","password2");
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).post(BASE_URL+port+"/auth/users/login");
+        Assert.assertEquals(200,response.getStatusCode());
+    }
 }
