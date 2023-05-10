@@ -1,4 +1,4 @@
-Feature: Rest API functionalities
+Feature: Anime Watch List Rest API functionalities
 
-  Scenario: User able to add and remove book
-    Given A list of books are available
+  Scenario: New user able to register an account
+    Given A user information is not registered
