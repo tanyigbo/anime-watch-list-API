@@ -26,14 +26,13 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private final Enum<UserType> userType;
+    private Enum<UserType> userType;
 
     @Column
-    @OneToMany(mappedBy = "user",orphanRemoval = true)
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
     private Set<UserAnime> userAnimeSet;
 
     public User() {
-        this.userType = UserType.GENERAL;
     }
 
     public User(String userName, String email, String password, Enum<UserType> userType) {
@@ -43,42 +42,34 @@ public class User {
         this.userType = userType;
     }
 
-    // getter
     public Long getId() {
         return id;
     }
 
-    // getter
     public String getUserName() {
         return userName;
     }
 
-    // setter
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    // getter
     public String getEmail() {
         return email;
     }
 
-    // setter
     public void setEmail(String email) {
         this.email = email;
     }
 
-    // getter
     public String getPassword() {
         return password;
     }
 
-    // setter
     public void setPassword(String password) {
         this.password = password;
     }
 
-    // getter
     public Enum<UserType> getUserType() {
         return userType;
     }
