@@ -1,7 +1,9 @@
 package definitions;
 
 import com.example.AnimeAPI.AnimeApiApplication;
+import com.example.AnimeAPI.enums.UserType;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
 import io.cucumber.spring.CucumberContextConfiguration;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -28,14 +30,8 @@ public class SpringBootTestDefinitions {
         RestAssured.baseURI = BASE_URL;
     }
 
-    @Given("A user information is not registered")
-    public void aUserInformationIsNotRegistered() {
-
-    }
-
-
-    @Given("A list of users is available")
-    public void aListOfUsersIsAvailable() {
+    @Given("A list of users are available")
+    public void aListOfUsersAreAvailable() {
         response = request.get(BASE_URL + port + "/api/auth/users");
         String message = response.jsonPath().getString("message");
         List<Map<String, String>> users = response.jsonPath().get("data");
