@@ -8,6 +8,8 @@ import io.cucumber.spring.CucumberContextConfiguration;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -32,10 +34,19 @@ public class SpringBootTestDefinitions {
 
     @Given("A list of users are available")
     public void aListOfUsersAreAvailable() {
-        response = request.get(BASE_URL + port + "/api/auth/users");
+        response = request.get(BASE_URL + port + "/auth/users");
         String message = response.jsonPath().getString("message");
         List<Map<String, String>> users = response.jsonPath().get("data");
         Assert.assertEquals("success",message);
         Assert.assertTrue(users.size()>0);
+    }
+
+    @When("A user registers with unique username and a password")
+    public void aUserRegistersWithUniqueUsernameAndAPassword() throws JSONException {
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("userName","JohnDoe");
+        requestBody.put("password","12345");
+        requestBody.put("userType",UserType.GENERAL);
+        response = request.body(requestBody.toString()).post(BASE_URL+port+"/auth/user");
     }
 }
