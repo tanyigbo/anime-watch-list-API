@@ -73,4 +73,28 @@ public class SpringBootTestDefinitions {
         response = request.body(requestBody.toString()).post(BASE_URL+port+"/auth/users/login");
 //        Assert.assertEquals(200,response.getStatusCode());
     }
+
+
+    @Given("A list of animes are available")
+    public void aListOfAnimesAreAvailable(){
+        response = request.get(BASE_URL + port + "/api/animes");
+        String message = response.jsonPath().getString("message");
+        List<Map<String, String>> animes = response.jsonPath().get("data");
+        Assert.assertEquals("success", message);
+        Assert.assertTrue(animes.size() > 0);
+
+    }
+
+    @When("I add an anime to my watchlist")
+    public void iAddAnAnimeToMyWatchlist() throws JSONException {
+//        JSONObject requestBody = new JSONObject();
+//        requestBody.put("title", "title1");
+//        requestBody.put("description", "description1");
+//        request.header("Content-Type", "application/json");
+//        response = request.body(requestBody.toString()).post(BASE_URL+port+"/api/animes");
+    }
+
+    @Then("the anime is added")
+    public void theAnimeIsAdded() {
+    }
 }

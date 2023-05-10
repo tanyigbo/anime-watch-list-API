@@ -7,3 +7,7 @@ Feature: Anime Watch List Rest API functionalities
     When A registered user enters username and password
 #    Then The user is logged into the account
 
+  Scenario: A user can add and remove anime
+    Given A list of animes are available
+#    When I add an anime to my watchlist
+#    Then the anime is added
