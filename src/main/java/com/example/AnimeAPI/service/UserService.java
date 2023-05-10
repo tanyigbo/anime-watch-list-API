@@ -1,29 +1,32 @@
 package com.example.AnimeAPI.service;
 
+import com.example.AnimeAPI.exceptions.InformationExistException;
 import com.example.AnimeAPI.model.User;
 import com.example.AnimeAPI.repository.UserRepository;
-import com.example.AnimeAPI.security.JWTUtils;
-import com.example.AnimeAPI.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
-//    private final PasswordEncoder passwordEncoder;
-//    private AuthenticationManager authenticationManager;
-//    private MyUserDetails myUserDetails;
-//    private JWTUtils jwtUtils;
 
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
+    public List<User> getAllUsers(){
+        return userRepository.findAll();
+    }
+
     public User createUser(User userObject) {
-        return new User();
+        Optional<User> user = userRepository.findUserByUserName(userObject.getUserName());
+        if(user.isEmpty()){
+           return userRepository.save(userObject);
+        }
+        throw new InformationExistException("User with username " + userObject.getUserName() + " already exists.");
     }
 }
