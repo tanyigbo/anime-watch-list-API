@@ -79,12 +79,12 @@ public class DataLoader implements CommandLineRunner {
 
     private  void loadAnimeData(){
         if(animeRepository.count() == 0){
-            Anime anime1 = new Anime("BDZ", "Monkey fights ugly aliens");
-            Anime anime2 = new Anime("BDZ2", "Monkey fights ugly aliens part 2");
-            Anime anime3 = new Anime("BDZ3", "Monkey fights ugly aliens part 3");
-            Anime anime4 = new Anime("BDZ4", "Monkey fights ugly aliens part 4");
-            Anime anime5 = new Anime("BDZ5", "Monkey fights ugly aliens part 5");
-            Anime anime6 = new Anime("BDZ6", "Monkey fights ugly aliens part 6");
+            Anime anime1 = new Anime("DBZ", "Monkey fights ugly aliens");
+            Anime anime2 = new Anime("DBZ2", "Monkey fights ugly aliens part 2");
+            Anime anime3 = new Anime("DBZ3", "Monkey fights ugly aliens part 3");
+            Anime anime4 = new Anime("DBZ4", "Monkey fights ugly aliens part 4");
+            Anime anime5 = new Anime("DBZ5", "Monkey fights ugly aliens part 5");
+            Anime anime6 = new Anime("DBZ6", "Monkey fights ugly aliens part 6");
             animeRepository.save(anime1);
             animeRepository.save(anime2);
             animeRepository.save(anime3);

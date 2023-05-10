@@ -34,7 +34,7 @@ static HashMap<String, Object> message = new HashMap<>();
             return new ResponseEntity<>(message, HttpStatus.CREATED);
         }else {
             message.put("message", "Failed to create anime");
-            return new ResponseEntity<>(message, HttpStatus.OK);
+            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
         }
 
     }
