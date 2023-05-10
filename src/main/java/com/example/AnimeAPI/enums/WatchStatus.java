@@ -1,5 +1,5 @@
 package com.example.AnimeAPI.enums;
 
 public enum WatchStatus {
-    PLANTOWATCH, COMPLETED, WATCHING, DROPPED
+    PLAN_TO_WATCH, COMPLETED, WATCHING, DROPPED
 }
