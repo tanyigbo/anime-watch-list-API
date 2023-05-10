@@ -24,10 +24,10 @@ public class UserAnime {
     @JoinColumn(name = "anime_id")
     private Anime anime;
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     private int rating;
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     private WatchStatus watchStatus;
 
     public UserAnime() {

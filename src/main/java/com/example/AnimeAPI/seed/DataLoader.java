@@ -23,17 +23,22 @@ import static com.example.AnimeAPI.enums.WatchStatus.DROPPED;
 @Component
 public class DataLoader implements CommandLineRunner {
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    private final AnimeRepository animeRepository;
+
+    private final GenreRepository genreRepository;
+
+    private final UserAnimeRepository userAnimeRepository;
 
     @Autowired
-    AnimeRepository animeRepository;
-
-    @Autowired
-    GenreRepository genreRepository;
-
-    @Autowired
-    UserAnimeRepository userAnimeRepository;
+    public DataLoader(UserRepository userRepository, AnimeRepository animeRepository,
+                      GenreRepository genreRepository, UserAnimeRepository userAnimeRepository) {
+        this.userRepository = userRepository;
+        this.animeRepository = animeRepository;
+        this.genreRepository = genreRepository;
+        this.userAnimeRepository = userAnimeRepository;
+    }
 
     @Override
     public void run(String... args) throws Exception{
@@ -111,7 +116,7 @@ public class DataLoader implements CommandLineRunner {
             UserAnime userAnime1 = new UserAnime(user1, anime1, 10, COMPLETED);
             UserAnime userAnime2 = new UserAnime(user1, anime2, 1, COMPLETED);
             UserAnime userAnime3 = new UserAnime(user2, anime1, 7, WATCHING);
-            UserAnime userAnime4 = new UserAnime(user3, anime3, 0, PLANTOWATCH);
+            UserAnime userAnime4 = new UserAnime(user3, anime3, 0, PLAN_TO_WATCH);
             UserAnime userAnime5 = new UserAnime(user1, anime3, 0, DROPPED);
 
             userAnimeRepository.save(userAnime1);
