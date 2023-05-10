@@ -1,13 +1,9 @@
 package definitions;
 
 import com.example.AnimeAPI.AnimeApiApplication;
-import com.example.AnimeAPI.model.User;
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
-import io.cucumber.java.et.Ja;
 import io.cucumber.spring.CucumberContextConfiguration;
 import io.restassured.RestAssured;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.Assert;
@@ -45,6 +41,5 @@ public class SpringBootTestDefinitions {
         List<Map<String, String>> users = response.jsonPath().get("data");
         Assert.assertEquals("success",message);
         Assert.assertTrue(users.size()>0);
-        System.out.println(users.toString());
     }
 }
