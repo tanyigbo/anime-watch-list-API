@@ -87,14 +87,16 @@ public class SpringBootTestDefinitions {
 
     @When("I add an anime to my watchlist")
     public void iAddAnAnimeToMyWatchlist() throws JSONException {
-//        JSONObject requestBody = new JSONObject();
-//        requestBody.put("title", "title1");
-//        requestBody.put("description", "description1");
-//        request.header("Content-Type", "application/json");
-//        response = request.body(requestBody.toString()).post(BASE_URL+port+"/api/animes");
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("title", "title1");
+        requestBody.put("description", "description1");
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).post(BASE_URL+port+"/api/animes");
+
     }
 
     @Then("the anime is added")
     public void theAnimeIsAdded() {
+        Assert.assertEquals(201, response.getStatusCode());
     }
 }

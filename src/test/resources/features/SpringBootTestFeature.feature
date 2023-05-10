@@ -9,5 +9,5 @@ Feature: Anime Watch List Rest API functionalities
 
   Scenario: A user can add and remove anime
     Given A list of animes are available
-#    When I add an anime to my watchlist
-#    Then the anime is added
+    When I add an anime to my watchlist
+    Then the anime is added
