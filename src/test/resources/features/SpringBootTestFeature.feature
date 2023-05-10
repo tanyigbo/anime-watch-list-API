@@ -1,9 +1,9 @@
 Feature: Anime Watch List Rest API functionalities
 
-  Scenario: New user able to register an account
-    Given A user information is not registered
+  Scenario: A new user is able to register and log in
+    Given A list of users are available
+#    When A user registers with unique username and a password
+#    Then A new user account is created
+#    When A registered user enters username and password
+#    Then The user is logged into the account
 
-  Scenario: An admin deletes a user account
-    Given A list of users is available
-#    When An admin deletes a user account
-#    Then The user account is removed from the system
