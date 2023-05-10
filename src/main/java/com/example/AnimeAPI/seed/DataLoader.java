@@ -79,12 +79,12 @@ public class DataLoader implements CommandLineRunner {
 
     private  void loadAnimeData(){
         if(animeRepository.count() == 0){
-            Anime anime1 = new Anime("BDZ", "Monkey fights ugly anliens");
-            Anime anime2 = new Anime("BDZ2", "Monkey fights ugly anliens part 2");
-            Anime anime3 = new Anime("BDZ3", "Monkey fights ugly anliens part 3");
-            Anime anime4 = new Anime("BDZ4", "Monkey fights ugly anliens part 4");
-            Anime anime5 = new Anime("BDZ5", "Monkey fights ugly anliens part 5");
-            Anime anime6 = new Anime("BDZ6", "Monkey fights ugly anliens part 6");
+            Anime anime1 = new Anime("BDZ", "Monkey fights ugly aliens");
+            Anime anime2 = new Anime("BDZ2", "Monkey fights ugly aliens part 2");
+            Anime anime3 = new Anime("BDZ3", "Monkey fights ugly aliens part 3");
+            Anime anime4 = new Anime("BDZ4", "Monkey fights ugly aliens part 4");
+            Anime anime5 = new Anime("BDZ5", "Monkey fights ugly aliens part 5");
+            Anime anime6 = new Anime("BDZ6", "Monkey fights ugly aliens part 6");
             animeRepository.save(anime1);
             animeRepository.save(anime2);
             animeRepository.save(anime3);
@@ -96,10 +96,12 @@ public class DataLoader implements CommandLineRunner {
 
     private  void  loadGenreData(){
         if(genreRepository.count() == 0){
-            Genre genre1 = new Genre("Teen","For ages13+");
-            Genre genre2 = new Genre("Adult","For ages18+");
+            Genre genre1 = new Genre("Action","Fight stuff");
+            Genre genre2 = new Genre("Adventure","Explore places");
+            Genre genre3 = new Genre("Drama","Hatch plans");
             genreRepository.save(genre1);
             genreRepository.save(genre2);
+            genreRepository.save(genre3);
         }
     }
 
