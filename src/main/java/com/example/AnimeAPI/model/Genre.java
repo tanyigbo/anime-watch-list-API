@@ -19,7 +19,7 @@ public class Genre {
     private String description;
 
     @Column
-    @OneToMany(mappedBy = "genre",orphanRemoval = true)
+    @OneToMany(mappedBy = "genre", orphanRemoval = true)
     private Set<AnimeDetail> animeDetailsSet;
 
     public Genre() {
@@ -56,5 +56,15 @@ public class Genre {
 
     public void setAnimeDetailsSet(Set<AnimeDetail> animeDetailsSet) {
         this.animeDetailsSet = animeDetailsSet;
+    }
+
+    @Override
+    public String toString() {
+        return "Genre{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", animeDetailsSet=" + animeDetailsSet +
+                '}';
     }
 }
