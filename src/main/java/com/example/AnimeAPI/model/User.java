@@ -1,6 +1,5 @@
 package com.example.AnimeAPI.model;
 
-import com.example.AnimeAPI.enums.UserType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -16,7 +15,7 @@ public class User {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    private String userName;
+    private String username;
 
     @Column(nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -32,8 +31,8 @@ public class User {
     public User() {
     }
 
-    public User(String userName, String password, String userType) {
-        this.userName = userName;
+    public User(String username, String password, String userType) {
+        this.username = username;
         this.password = password;
         this.userType = userType;
     }
@@ -42,12 +41,12 @@ public class User {
         return id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String userName) {
+        this.username = userName;
     }
 
     public String getPassword() {
@@ -74,7 +73,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
+                ", userName='" + username + '\'' +
                 ", userType=" + userType +
                 ", userAnimeSet=" + userAnimeSet +
                 '}';

@@ -47,7 +47,7 @@ public class SpringBootTestDefinitions {
     @When("A user registers with unique username and a password")
     public void aUserRegistersWithUniqueUsernameAndAPassword() throws JSONException {
         JSONObject requestBody = new JSONObject();
-        requestBody.put("userName","JohnDoe");
+        requestBody.put("username","JohnDoe");
         requestBody.put("password","12345");
         requestBody.put("userType","GENERAL");
         request.header("Content-Type", "application/json");
@@ -60,7 +60,7 @@ public class SpringBootTestDefinitions {
         String message = response.jsonPath().get("message");
         Map<String, String> user = response.jsonPath().get("data");
         Assert.assertEquals("user created",message);
-        Assert.assertEquals("JohnDoe",user.get("userName"));
+        Assert.assertEquals("JohnDoe",user.get("username"));
         Assert.assertEquals("GENERAL",user.get("userType"));
     }
 }

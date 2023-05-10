@@ -23,10 +23,10 @@ public class UserService {
     }
 
     public User createUser(User userObject) {
-        Optional<User> user = userRepository.findUserByUserName(userObject.getUserName());
+        Optional<User> user = userRepository.findUserByUsername(userObject.getUsername());
         if(user.isEmpty()){
            return userRepository.save(userObject);
         }
-        throw new InformationExistException("User with username " + userObject.getUserName() + " already exists.");
+        throw new InformationExistException("User with username " + userObject.getUsername() + " already exists.");
     }
 }
