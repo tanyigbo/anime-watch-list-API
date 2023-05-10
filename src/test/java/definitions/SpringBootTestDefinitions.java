@@ -3,6 +3,7 @@ package definitions;
 import com.example.AnimeAPI.AnimeApiApplication;
 import com.example.AnimeAPI.enums.UserType;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.spring.CucumberContextConfiguration;
 import io.restassured.RestAssured;
@@ -48,5 +49,15 @@ public class SpringBootTestDefinitions {
         requestBody.put("password","12345");
         requestBody.put("userType",UserType.GENERAL);
         response = request.body(requestBody.toString()).post(BASE_URL+port+"/auth/user");
+    }
+
+    @Then("A new user account is created and returned")
+    public void aNewUserAccountIsCreatedAndReturned() {
+        Assert.assertEquals(201,response.getStatusCode());
+        String message = response.jsonPath().get("message");
+        Map<String, String> user = response.jsonPath().get("data");
+        Assert.assertEquals("user created",message);
+        Assert.assertEquals("userName",user.get("userName"));
+        Assert.assertEquals(UserType.GENERAL,user.get("userType"));
     }
 }
