@@ -10,25 +10,21 @@ import java.util.Set;
 @Table(name = "anime")// Table name in database
 public class Anime {
 
+    @OneToMany(mappedBy = "anime", orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    Set<UserAnime> userAnimeList;
+    @Column
+    @OneToMany(mappedBy = "anime", orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    Set<AnimeDetail> animeDetailSet;
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(unique = true,nullable = false)
+    @Column(unique = true, nullable = false)
     private String title;
-
-    @Column (nullable = false)
+    @Column(nullable = false)
     private String description;
-
-    @OneToMany(mappedBy = "anime",orphanRemoval = true)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    Set<UserAnime> userAnimeList;
-
-    @Column
-    @OneToMany(mappedBy = "anime",orphanRemoval = true)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    Set<AnimeDetail> animeDetailSet;
 
     public Anime() {
     }
@@ -73,5 +69,13 @@ public class Anime {
 
     public void setUserAnimeList(Set<UserAnime> userAnimeList) {
         this.userAnimeList = userAnimeList;
+    }
+
+    public Set<AnimeDetail> getAnimeDetailSet() {
+        return animeDetailSet;
+    }
+
+    public void setAnimeDetailSet(Set<AnimeDetail> animeDetailSet) {
+        this.animeDetailSet = animeDetailSet;
     }
 }
