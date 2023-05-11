@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface AnimeRepository extends JpaRepository<Anime, Long> {
    Optional<Anime> findByTitle(String title);
+
+   Optional<Anime> findById(Long id);
 }

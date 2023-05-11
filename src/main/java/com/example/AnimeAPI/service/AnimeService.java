@@ -1,7 +1,6 @@
 package com.example.AnimeAPI.service;
 
-import com.example.AnimeAPI.exceptions.InformationExistException;
-import com.example.AnimeAPI.exceptions.InformationNotFoundException;
+import com.example.AnimeAPI.exception.InformationNotFoundException;
 import com.example.AnimeAPI.model.Anime;
 import com.example.AnimeAPI.repository.AnimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +28,15 @@ public class AnimeService {
             return animeRepository.save(animeObject);
         }
 
+    }
+
+    public Anime deleteAnime(Long animeId) {
+        Optional<Anime> anime = animeRepository.findById(animeId);
+        if (anime.isPresent()) {
+            animeRepository.delete(anime.get());
+            return anime.get();
+        } else {
+            throw new InformationNotFoundException("Anime with given id " + animeId + " does not exist.");
+        }
     }
 }
