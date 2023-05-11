@@ -195,4 +195,12 @@ public class SpringBootTestDefinitions {
     public void thatGenreIsReturnedFromGenreModel() {
         Assert.assertEquals(200, response.getStatusCode());
     }
+
+    @When("I add a new anime to my watchlist")
+    public void iAddANewAnimeToMyWatchlist() {
+    }
+
+    @Given("anime exists")
+    public void animeExists() {
+    }
 }

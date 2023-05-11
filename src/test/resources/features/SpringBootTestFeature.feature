@@ -29,7 +29,7 @@ Feature: Anime Watch List Rest API functionalities
     When an admin search genre by id
     Then that genre is returned from genre model
 
-  Scenario: A registered user can add, update, and remove anime
-    Given A list of anime available for logged in user
-    When I add a new anime to my watchlist
-    Then the new anime is added
+  Scenario: Any logged in user can add anime to their watchlist
+    Given anime exists
+    When user adds anime to watchlist
+    Then the anime is added to user watchlist
