@@ -2,6 +2,7 @@ package definitions;
 
 import com.example.AnimeAPI.AnimeApiApplication;
 import com.example.AnimeAPI.enums.UserType;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -218,5 +219,25 @@ public class SpringBootTestDefinitions {
     @Then("the anime is added to user watchlist")
     public void theAnimeIsAddedToUserWatchlist() {
         Assert.assertEquals(201, response.getStatusCode());
+    }
+
+
+    @Given("a list of anime exist")
+    public void aListOfAnimeExist() {
+        response = request.get(BASE_URL + port + "/api/animes");
+        String message = response.jsonPath().getString("message");
+        List<Map<String, String>> animes = response.jsonPath().get("data");
+        Assert.assertEquals("success", message);
+        Assert.assertTrue(animes.size() > 0);
+
+    }
+
+    @And("a list of genre exists")
+    public void aListOfGenreExists() {
+        response = request.get(BASE_URL + port + "/api/genres");
+        String message = response.jsonPath().getString("message");
+        List<Map<String, String>> genres = response.jsonPath().get("data");
+        Assert.assertEquals("success",message);
+        Assert.assertTrue(genres.size()>0);
     }
 }
