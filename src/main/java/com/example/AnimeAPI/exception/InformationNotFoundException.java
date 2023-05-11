@@ -1,4 +1,4 @@
-package com.example.AnimeAPI.exceptions;
+package com.example.AnimeAPI.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
