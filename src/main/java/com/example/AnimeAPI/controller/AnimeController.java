@@ -18,6 +18,10 @@ static HashMap<String, Object> message = new HashMap<>();
     @Autowired
     private AnimeService animeService;
 
+    /***
+     * A GET endpoint that returns all animes
+     * @return ResponseEntity
+     */
     @GetMapping(path = "/animes")
     public ResponseEntity<?>  getAllAnimes(){
         List<Anime> animeList = animeService.getAllAnimes();
@@ -26,6 +30,11 @@ static HashMap<String, Object> message = new HashMap<>();
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    /***
+     * A POST endpoint that creates an anime
+     * @param anime
+     * @return ResponseEntity
+     */
     @PostMapping(path = "/animes")
     public ResponseEntity<?> createAnime(@RequestBody Anime anime){
         Anime newAnime =  animeService.createAnime(anime);
@@ -70,6 +79,11 @@ static HashMap<String, Object> message = new HashMap<>();
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    /**
+     * A GET method to find animes by ID.
+     * @param animeId {Long}
+     * @return ResponseEntity
+     */
     @GetMapping(path = "/animes/{animeId}")
     public  ResponseEntity<?> getAnimeById(@PathVariable Long animeId){
         Anime anime = animeService.getAnimeById(animeId);
