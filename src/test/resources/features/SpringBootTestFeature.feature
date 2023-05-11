@@ -5,7 +5,7 @@ Feature: Anime Watch List Rest API functionalities
     When A user registers with unique username and a password
     Then A new user account is created and returned
     When A registered user enters username and password
-#    Then The user is logged into the account
+    Then The user is logged into the account
 
   Scenario: A user can get, add, remove, and update anime
     Given A list of animes are available
