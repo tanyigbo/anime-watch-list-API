@@ -92,4 +92,20 @@ public class GenreService {
             throw new InformationNotFoundException("Genre with given id " + genreId + " does not exist.");
         }
     }
+
+    /**
+     * Retrieves a genre from the repository by its ID.
+     *
+     * @param genreId the ID of the genre to be retrieved.
+     * @return the requested Genre object.
+     * @throws InformationNotFoundException if the genre with the specified ID is not found.
+     */
+    public Genre getGenreById(Long genreId){
+        Optional<Genre> genre = genreRepository.findById(genreId);
+        if (genre.isEmpty()){
+            throw new InformationNotFoundException("Genre with id" + genreId + "not found");
+        }else {
+            return genre.get();
+        }
+    }
 }
