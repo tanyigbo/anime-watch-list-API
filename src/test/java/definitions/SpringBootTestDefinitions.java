@@ -25,7 +25,7 @@ import static com.example.AnimeAPI.enums.UserType.GENERAL;
 public class SpringBootTestDefinitions {
 
     private static final String BASE_URL = "http://localhost:";
-    private static final RequestSpecification request  = RestAssured.given();
+    private static final RequestSpecification request = RestAssured.given();
     private static Response response;
     private static String generalUserToken;
     private static String adminUserToken;
@@ -36,21 +36,236 @@ public class SpringBootTestDefinitions {
     public SpringBootTestDefinitions() {
         RestAssured.baseURI = BASE_URL;
     }
+
+
+    /**
+     * User Login
+     */
+    @When("An admin provides their username and password to an account")
+    public void anAdminProvidesTheirUsernameAndPasswordToAnAccount() throws JSONException {
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("username", "Username3");
+        requestBody.put("password", "password3");
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).post(BASE_URL + port + "/auth/users/login");
+        Assert.assertEquals(200, response.getStatusCode());
+    }
+
+    @Then("The admin is logged into their admin account and a token is provided")
+    public void theAdminIsLoggedIntoTheirAdminAccountAndATokenIsProvided() {
+        String message = response.jsonPath().get("message");
+        String token = response.jsonPath().get("data");
+        Assert.assertEquals("user logged in", message);
+        Assert.assertEquals(String.class, token.getClass());
+        adminUserToken = token;
+    }
+
+
+    @Given("A list of registered users")
+    public void aListOfRegisteredUsers() {
+    }
+
+    @When("A registered user enters username and password")
+    public void aRegisteredUserEntersUsernameAndPassword() throws JSONException {
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("username", "Username2");
+        requestBody.put("password", "password2");
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).post(BASE_URL + port + "/auth/users/login");
+        Assert.assertEquals(200, response.getStatusCode());
+    }
+
+    @Then("The user is logged into the account and provided a token")
+    public void theUserIsLoggedIntoTheAccountAndProvidedAToken() {
+        String message = response.jsonPath().get("message");
+        String token = response.jsonPath().get("data");
+        Assert.assertEquals("user logged in", message);
+        Assert.assertEquals(String.class, token.getClass());
+        generalUserToken = token;
+    }
+
+
+    /**
+     * All User
+     */
+    @Given("A username is not registered")
+    public void aUsernameIsNotRegistered() throws JSONException {
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("username", "JohnDoe");
+        requestBody.put("password", "12345");
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).post(BASE_URL + port + "/auth/users/login");
+        Assert.assertEquals(418, response.getStatusCode());
+    }
+
+    @When("A user registers with unique username and a password")
+    public void aUserRegistersWithUniqueUsernameAndAPassword() throws JSONException {
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("username", "JohnDoe");
+        requestBody.put("password", "12345");
+        requestBody.put("userType", "GENERAL");
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).post(BASE_URL + port + "/auth/users/register");
+    }
+
+    @Then("A new user account is created and returned")
+    public void aNewUserAccountIsCreatedAndReturned() {
+        Assert.assertEquals(201, response.getStatusCode());
+        String message = response.jsonPath().get("message");
+        Map<String, String> user = response.jsonPath().get("data");
+        Assert.assertEquals("user created", message);
+        Assert.assertEquals("JohnDoe", user.get("username"));
+        Assert.assertEquals("GENERAL", user.get("userType"));
+
+    }
+
+    @Given("A list of anime are available")
+    public void aListOfAnimeAreAvailable() {
+        response = request.get(BASE_URL + port + "/api/anime");
+        String message = response.jsonPath().getString("message");
+        List<Map<String, String>> anime = response.jsonPath().get("data");
+        Assert.assertEquals("success", message);
+        Assert.assertTrue(anime.size() > 0);
+    }
+
+    @When("A user searches for all anime")
+    public void aUserSearchesForAllAnime() {
+    }
+
+    @Then("A list of all anime is returned")
+    public void aListOfAllAnimeIsReturned() {
+    }
+
+    @When("A user searches for an anime by Id")
+    public void aUserSearchesForAnAnimeById() {
+        request.header("Content-Type", "application/json");
+        response = request.get(BASE_URL + port + "/api/anime/2");
+    }
+
+    @Then("The anime with provided Id is returned")
+    public void theAnimeWithProvidedIdIsReturned() {
+        Assert.assertEquals(200, response.getStatusCode());
+    }
+
+    @Given("A list of genre are available")
+    public void aListOfGenreAreAvailable() {
+    }
+
+    @When("A user searches for all genres")
+    public void aUserSearchesForAllGenres() {
+    }
+
+    @Then("A list of all genres is returned")
+    public void aListOfAllGenresIsReturned() {
+    }
+
+    @When("A user searches for an genre by Id")
+    public void aUserSearchesForAnGenreById() {
+        request.header("Content-Type", "application/json");
+        response = request.get(BASE_URL + port + "/api/genres/2");
+    }
+
+    @Then("The genre with provided Id is returned")
+    public void theGenreWithProvidedIdIsReturned() {
+        Assert.assertEquals(200, response.getStatusCode());
+    }
+
+
+    /**
+     *
+     * Registered Users
+     *
+     */
+
+    /**
+     * Scenario: Any logged-in user can add or remove an anime to their watchlist
+     */
+    @Given("a list of anime exists")
+    public void aListOfAnimeExists() {
+    }
+
+    @When("user adds anime to watchlist")
+    public void userAddsAnimeToWatchlist() {
+    }
+
+    @Then("the anime is added to user watchlist")
+    public void theAnimeIsAddedToUserWatchlist() {
+    }
+
+    @When("user removes an anime form their watch list")
+    public void userRemovesAnAnimeFormTheirWatchList() {
+    }
+
+    @Then("the anime is removed from the user watchlist")
+    public void theAnimeIsRemovedFromTheUserWatchlist() {
+    }
+
+    /**
+     * Scenario: Any logged-in user can update watch status of an anime
+     */
+    @Given("A an anime exists")
+    public void aAnAnimeExists() {
+    }
+
+    @When("A user updates the watch status")
+    public void aUserUpdatesTheWatchStatus() {
+    }
+
+    @Then("The anime in their watch list is updated")
+    public void theAnimeInTheirWatchListIsUpdated() {
+
+    }
+
+    /**
+     *
+     * Admin User Stories
+     *
+     */
+
+    /**
+     * Scenario: An admin can add and remove an anime
+     */
+    @When("an admin add an anime")
+    public void anAdminAddAnAnime() {
+    }
+
+    @Then("the anime is added to anime model")
+    public void theAnimeIsAddedToAnimeModel() {
+    }
+
+    @When("an admin remove an anime")
+    public void anAdminRemoveAnAnime() {
+    }
+
+    @Then("the anime is removed from anime model")
+    public void theAnimeIsRemovedFromAnimeModel() {
+    }
+
+
+    /**
+     *   Scenario: An admin can add and remove
+     */
+    @Given("A list of genres are available")
+    public void aListOfGenresAreAvailable() {
+    }
+
+    @When("an admin add a genre")
+    public void anAdminAddAGenre() {
+    }
+
+    @Then("the genre is added to genre model")
+    public void theGenreIsAddedToGenreModel() {
+    }
+
+    @When("an admin remove a genre")
+    public void anAdminRemoveAGenre() {
+    }
+
+    @Then("the genre is removed from genre model")
+    public void theGenreIsRemovedFromGenreModel() {
+    }
 //
-//    /**
-//     *
-//     * Admin user stories
-//     *
-//     */
-//
-//    @Given("A list of anime are available")
-//    public void aListOfAnimeAreAvailable(){
-//        response = request.get(BASE_URL + port + "/api/animes");
-//        String message = response.jsonPath().getString("message");
-//        List<Map<String, String>> animes = response.jsonPath().get("data");
-//        Assert.assertEquals("success", message);
-//        Assert.assertTrue(animes.size() > 0);
-//    }
+
 //
 //    @When("an admin add an anime")
 //    public void anAdminAddAnAnime() throws JSONException {
@@ -58,7 +273,7 @@ public class SpringBootTestDefinitions {
 //        requestBody.put("title", "title1");
 //        requestBody.put("description", "description1");
 //        request.header("Content-Type", "application/json");
-//        response = request.body(requestBody.toString()).post(BASE_URL+port+"/api/animes");
+//        response = request.body(requestBody.toString()).post(BASE_URL+port+"/api/anime");
 //    }
 //
 //    @Then("the anime is added to anime model")
@@ -69,7 +284,7 @@ public class SpringBootTestDefinitions {
 //    @When("an admin remove an anime")
 //    public void anAdminRemoveAnAnime() {
 //        request.header("Content-Type", "application/json");
-//        response = request.delete(BASE_URL + port + "/api/animes/1");
+//        response = request.delete(BASE_URL + port + "/api/anime/1");
 //    }
 //
 //    @Then("the anime is removed from anime model")
@@ -149,32 +364,14 @@ public class SpringBootTestDefinitions {
 //        Assert.assertEquals(200, response.getStatusCode());
 //    }
 //
-//    @When("an admin search genre by id")
-//    public void anAdminSearchGenreById() {
-//        request.header("Content-Type", "application/json");
-//        response = request.get(BASE_URL + port + "/api/genres/2");
-//    }
+
 //
-//    @Then("that genre is returned from genre model")
-//    public void thatGenreIsReturnedFromGenreModel() {
-//        Assert.assertEquals(200, response.getStatusCode());
-//        Assert.assertEquals(200,response.getStatusCode());
-//    }
-//
-//    @Then("The user is logged into the account and provided a token")
-//    public void theUserIsLoggedIntoTheAccountAndProvidedAToken() {
-//        String message = response.jsonPath().get("message");
-//        String token = response.jsonPath().get("data");
-//        Assert.assertEquals("user logged in",message);
-//        Assert.assertEquals(String.class,token.getClass());
-//        generalUserToken = token;
-//
-//    }
+
 //
 //    // Scenario: Any logged-in user can add anime to their watchlist
 //    @Given("a list of anime exists")
 //    public void aListOfAnimeExists() {
-//        response = request.get(BASE_URL + port + "/api/animes");
+//        response = request.get(BASE_URL + port + "/api/anime");
 //        String message = response.jsonPath().getString("message");
 //        List<Map<String, String>> animes = response.jsonPath().get("data");
 //        Assert.assertEquals("success", message);
@@ -200,47 +397,7 @@ public class SpringBootTestDefinitions {
 //     * Unregistered Users user stories
 //     *
 //     */
-//    @Given("A username is not registered")
-//    public void aUsernameIsNotRegistered() throws JSONException {
-//        JSONObject requestBody = new JSONObject();
-//        requestBody.put("username","JohnDoe");
-//        requestBody.put("password","12345");
-//        request.header("Content-Type", "application/json");
-//        response = request.body(requestBody.toString()).post(BASE_URL+port+"/auth/users/login");
-//        Assert.assertEquals(418,response.getStatusCode());
-//    }
-//
-//    @When("A user registers with unique username and a password")
-//    public void aUserRegistersWithUniqueUsernameAndAPassword() throws JSONException {
-//        JSONObject requestBody = new JSONObject();
-//        requestBody.put("username","JohnDoe");
-//        requestBody.put("password","12345");
-//        requestBody.put("userType","GENERAL");
-//        request.header("Content-Type", "application/json");
-//        response = request.body(requestBody.toString()).post(BASE_URL+port+"/auth/users/register");
-//    }
-//
-//    @Then("A new user account is created and returned")
-//    public void aNewUserAccountIsCreatedAndReturned() {
-//        Assert.assertEquals(201,response.getStatusCode());
-//        String message = response.jsonPath().get("message");
-//        Map<String, String> user = response.jsonPath().get("data");
-//        Assert.assertEquals("user created",message);
-//        Assert.assertEquals("JohnDoe",user.get("username"));
-//        Assert.assertEquals("GENERAL",user.get("userType"));
-//    }
-//
-//    @When("an admin search anime by id")
-//    public void anAdminSearchAnimeById() {
-//        request.header("Content-Type", "application/json");
-//        response = request.get(BASE_URL + port + "/api/animes/2");
-//
-//    }
-//
-//    @Then("that anime is returned from anime model")
-//    public void thatAnimeIsReturnedFromAnimeModel() {
-//        Assert.assertEquals(200, response.getStatusCode());
-//    }
+
 //
 //    // Scenario: An admin can get, add, remove, and update genre
 //    @Given("A list of genres are available")
@@ -253,3 +410,5 @@ public class SpringBootTestDefinitions {
 //    }
 
 }
+
+
