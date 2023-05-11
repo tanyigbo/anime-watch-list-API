@@ -3,6 +3,7 @@ package com.example.AnimeAPI.controller;
 import com.example.AnimeAPI.exception.InformationExistException;
 import com.example.AnimeAPI.model.User;
 import com.example.AnimeAPI.model.login.LoginRequest;
+import com.example.AnimeAPI.model.login.LoginResponse;
 import com.example.AnimeAPI.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -67,9 +68,9 @@ public class UserController {
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
         response = new HashMap<>();
         try {
-            User user = userService.loginUser(loginRequest);
+            LoginResponse loginResponse = userService.loginUser(loginRequest);
             response.put("message", "user logged in");
-            response.put("data",user);
+            response.put("data",loginResponse.getMessage());
             return new ResponseEntity<>(response,HttpStatus.OK);
         }catch (RuntimeException e){
             response.put("message",e.getMessage());
