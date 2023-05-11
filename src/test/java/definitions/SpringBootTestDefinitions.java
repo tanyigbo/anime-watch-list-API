@@ -184,4 +184,15 @@ public class SpringBootTestDefinitions {
     public void theGenreIsUpdated() {
         Assert.assertEquals(200, response.getStatusCode());
     }
+
+    @When("I search genre by id")
+    public void iSearchGenreById() {
+        request.header("Content-Type", "application/json");
+        response = request.get(BASE_URL + port + "/api/genres/2");
+    }
+
+    @Then("that genre is returned")
+    public void thatGenreIsReturned() {
+        Assert.assertEquals(200, response.getStatusCode());
+    }
 }

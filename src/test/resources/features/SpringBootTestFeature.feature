@@ -26,5 +26,5 @@ Feature: Anime Watch List Rest API functionalities
     Then the genre is removed
     When I update an genre
     Then the genre is updated
-#    When I search genre by id
-#    Then that genre is returned
+    When I search genre by id
+    Then that genre is returned
