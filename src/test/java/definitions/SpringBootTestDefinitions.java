@@ -35,6 +35,7 @@ public class SpringBootTestDefinitions {
         RestAssured.baseURI = BASE_URL;
     }
 
+    // Scenario: A new user is able to register and log in
     @Given("A list of users are available")
     public void aListOfUsersAreAvailable() {
         response = request.get(BASE_URL + port + "/auth/users");
@@ -74,7 +75,7 @@ public class SpringBootTestDefinitions {
 //        Assert.assertEquals(200,response.getStatusCode());
     }
 
-
+    // Scenario: An admin can get, add, remove, and update anime
     @Given("A list of animes are available")
     public void aListOfAnimesAreAvailable(){
         response = request.get(BASE_URL + port + "/api/animes");
@@ -82,37 +83,35 @@ public class SpringBootTestDefinitions {
         List<Map<String, String>> animes = response.jsonPath().get("data");
         Assert.assertEquals("success", message);
         Assert.assertTrue(animes.size() > 0);
-
     }
 
-    @When("I add an anime to my watchlist")
-    public void iAddAnAnimeToMyWatchlist() throws JSONException {
+    @When("an admin add an anime")
+    public void anAdminAddAnAnime() throws JSONException {
         JSONObject requestBody = new JSONObject();
         requestBody.put("title", "title1");
         requestBody.put("description", "description1");
         request.header("Content-Type", "application/json");
         response = request.body(requestBody.toString()).post(BASE_URL+port+"/api/animes");
-
     }
 
-    @Then("the anime is added")
-    public void theAnimeIsAdded() {
+    @Then("the anime is added to anime model")
+    public void theAnimeIsAddedToAnimeModel() {
         Assert.assertEquals(201, response.getStatusCode());
     }
 
-    @When("I remove an anime")
-    public void iRemoveAnAnime() {
+    @When("an admin remove an anime")
+    public void anAdminRemoveAnAnime() {
         request.header("Content-Type", "application/json");
         response = request.delete(BASE_URL + port + "/api/animes/1");
     }
 
-    @Then("the anime is removed")
-    public void theAnimeIsRemoved() {
+    @Then("the anime is removed from anime model")
+    public void theAnimeIsRemovedFromAnimeModel() {
         Assert.assertEquals(204, response.getStatusCode());
     }
 
-    @When("I update an anime")
-    public void iUpdateAnAnime() throws JSONException {
+    @When("an admin update an anime")
+    public void anAdminUpdateAnAnime() throws JSONException {
         JSONObject requestBody = new JSONObject();
         requestBody.put("title", "Naruto");
         requestBody.put("description", "Ninjas at war");
@@ -120,23 +119,24 @@ public class SpringBootTestDefinitions {
         response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/animes/2");
     }
 
-    @Then("the anime is updated")
-    public void theAnimeIsUpdated() {
+    @Then("the anime is updated in anime model")
+    public void theAnimeIsUpdatedInAnimeModel() {
         Assert.assertEquals(200, response.getStatusCode());
     }
 
-    @When("I search anime by id")
-    public void iSearchAnimeById() {
+    @When("an admin search anime by id")
+    public void anAdminSearchAnimeById() {
         request.header("Content-Type", "application/json");
         response = request.get(BASE_URL + port + "/api/animes/2");
 
     }
 
-    @Then("that anime is returned")
-    public void thatAnimeIsReturned() {
+    @Then("that anime is returned from anime model")
+    public void thatAnimeIsReturnedFromAnimeModel() {
         Assert.assertEquals(200, response.getStatusCode());
     }
 
+    // Scenario: An admin can get, add, remove, and update genre
     @Given("A list of genres are available")
     public void aListOfGenresAreAvailable() {
         response = request.get(BASE_URL + port + "/api/genres");
@@ -146,8 +146,8 @@ public class SpringBootTestDefinitions {
         Assert.assertTrue(genres.size()>0);
     }
 
-    @When("I add an genre to my watchlist")
-    public void iAddAnGenreToMyWatchlist() throws JSONException {
+    @When("an admin add a genre")
+    public void anAdminAddAGenre() throws JSONException {
         JSONObject requestBody = new JSONObject();
         requestBody.put("name", "name1");
         requestBody.put("description", "description1");
@@ -155,24 +155,24 @@ public class SpringBootTestDefinitions {
         response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/genres");
     }
 
-    @Then("the genre is added")
-    public void theGenreIsAdded() {
+    @Then("the genre is added to genre model")
+    public void theGenreIsAddedToGenreModel() {
         Assert.assertEquals(201, response.getStatusCode());
     }
 
-    @When("I remove an genre")
-    public void iRemoveAnGenre() {
+    @When("an admin remove a genre")
+    public void anAdminRemoveAGenre() {
         request.header("Content-Type", "application/json");
         response = request.delete(BASE_URL + port + "/api/genres/1");
     }
 
-    @Then("the genre is removed")
-    public void theGenreIsRemoved() {
+    @Then("the genre is removed from genre model")
+    public void theGenreIsRemovedFromGenreModel() {
         Assert.assertEquals(204, response.getStatusCode());
     }
 
-    @When("I update an genre")
-    public void iUpdateAnGenre() throws JSONException {
+    @When("an admin update a genre")
+    public void anAdminUpdateAGenre() throws JSONException {
         JSONObject requestBody = new JSONObject();
         requestBody.put("name", "Shonen");
         requestBody.put("description", "Martial arts.");
@@ -180,19 +180,19 @@ public class SpringBootTestDefinitions {
         response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/genres/2");
     }
 
-    @Then("the genre is updated")
-    public void theGenreIsUpdated() {
+    @Then("the genre is updated in genre model")
+    public void theGenreIsUpdatedInGenreModel() {
         Assert.assertEquals(200, response.getStatusCode());
     }
 
-    @When("I search genre by id")
-    public void iSearchGenreById() {
+    @When("an admin search genre by id")
+    public void anAdminSearchGenreById() {
         request.header("Content-Type", "application/json");
         response = request.get(BASE_URL + port + "/api/genres/2");
     }
 
-    @Then("that genre is returned")
-    public void thatGenreIsReturned() {
+    @Then("that genre is returned from genre model")
+    public void thatGenreIsReturnedFromGenreModel() {
         Assert.assertEquals(200, response.getStatusCode());
     }
 }

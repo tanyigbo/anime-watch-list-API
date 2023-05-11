@@ -7,29 +7,29 @@ Feature: Anime Watch List Rest API functionalities
     When A registered user enters username and password
 #    Then The user is logged into the account
 
-  Scenario: A user can get, add, remove, and update anime
+  Scenario: An admin can get, add, remove, and update anime
     Given A list of animes are available
-    When I add an anime to my watchlist
-    Then the anime is added
-    When I remove an anime
-    Then the anime is removed
-    When I update an anime
-    Then the anime is updated
-    When I search anime by id
-    Then that anime is returned
+    When an admin add an anime
+    Then the anime is added to anime model
+    When an admin remove an anime
+    Then the anime is removed from anime model
+    When an admin update an anime
+    Then the anime is updated in anime model
+    When an admin search anime by id
+    Then that anime is returned from anime model
 
-  Scenario: A user can get, add, remove, and update genre
+  Scenario: An admin can get, add, remove, and update genre
     Given A list of genres are available
-    When I add an genre to my watchlist
-    Then the genre is added
-    When I remove an genre
-    Then the genre is removed
-    When I update an genre
-    Then the genre is updated
-    When I search genre by id
-    Then that genre is returned
+    When an admin add a genre
+    Then the genre is added to genre model
+    When an admin remove a genre
+    Then the genre is removed from genre model
+    When an admin update a genre
+    Then the genre is updated in genre model
+    When an admin search genre by id
+    Then that genre is returned from genre model
 
   Scenario: A registered user can add, update, and remove anime
-    Given User list of anime available
+    Given A list of anime available for logged in user
     When I add a new anime to my watchlist
     Then the new anime is added
