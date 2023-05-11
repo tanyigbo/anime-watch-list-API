@@ -226,19 +226,28 @@ public class SpringBootTestDefinitions {
      * Scenario: An admin can add and remove an anime
      */
     @When("an admin add an anime")
-    public void anAdminAddAnAnime() {
+    public void anAdminAddAnAnime() throws JSONException {
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("title", "title1");
+        requestBody.put("description", "description1");
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/anime");
     }
 
     @Then("the anime is added to anime model")
     public void theAnimeIsAddedToAnimeModel() {
+        Assert.assertEquals(201, response.getStatusCode());
     }
 
     @When("an admin remove an anime")
     public void anAdminRemoveAnAnime() {
+        request.header("Content-Type", "application/json");
+        response = request.delete(BASE_URL + port + "/api/anime/1");
     }
 
     @Then("the anime is removed from anime model")
     public void theAnimeIsRemovedFromAnimeModel() {
+        Assert.assertEquals(204, response.getStatusCode());
     }
 
 
@@ -250,7 +259,8 @@ public class SpringBootTestDefinitions {
     }
 
     @When("an admin add a genre")
-    public void anAdminAddAGenre() {
+    public void anAdminAddAGenre() throws JSONException {
+
     }
 
     @Then("the genre is added to genre model")
@@ -264,34 +274,9 @@ public class SpringBootTestDefinitions {
     @Then("the genre is removed from genre model")
     public void theGenreIsRemovedFromGenreModel() {
     }
-//
 
-//
-//    @When("an admin add an anime")
-//    public void anAdminAddAnAnime() throws JSONException {
-//        JSONObject requestBody = new JSONObject();
-//        requestBody.put("title", "title1");
-//        requestBody.put("description", "description1");
-//        request.header("Content-Type", "application/json");
-//        response = request.body(requestBody.toString()).post(BASE_URL+port+"/api/anime");
-//    }
-//
-//    @Then("the anime is added to anime model")
-//    public void theAnimeIsAddedToAnimeModel() {
-//        Assert.assertEquals(201, response.getStatusCode());
-//    }
-//
-//    @When("an admin remove an anime")
-//    public void anAdminRemoveAnAnime() {
-//        request.header("Content-Type", "application/json");
-//        response = request.delete(BASE_URL + port + "/api/anime/1");
-//    }
-//
-//    @Then("the anime is removed from anime model")
-//    public void theAnimeIsRemovedFromAnimeModel() {
-//        Assert.assertEquals(204, response.getStatusCode());
-//    }
-//
+
+
 //    @When("an admin update an anime")
 //    public void anAdminUpdateAnAnime() throws JSONException {
 //        JSONObject requestBody = new JSONObject();
