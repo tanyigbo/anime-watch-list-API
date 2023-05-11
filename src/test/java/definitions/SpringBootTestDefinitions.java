@@ -240,4 +240,15 @@ public class SpringBootTestDefinitions {
         Assert.assertEquals("success",message);
         Assert.assertTrue(genres.size()>0);
     }
+
+    @When("an admin adds a anime to a genre")
+    public void anAdminAddsAAnimeToAGenre(){
+        request.header("Content-Type", "application/json");
+        response = request.post(BASE_URL + port + "/api/anime-details/1/1");
+    }
+
+    @Then("the amime is added to genre model")
+    public void theAmimeIsAddedToGenreModel() {
+        Assert.assertEquals(200, response.getStatusCode());
+    }
 }

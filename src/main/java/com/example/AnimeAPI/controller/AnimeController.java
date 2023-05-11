@@ -92,4 +92,6 @@ public class AnimeController {
         message.put("data", anime);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
+
+    
 }

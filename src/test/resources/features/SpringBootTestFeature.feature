@@ -37,7 +37,7 @@ Feature: Anime Watch List Rest API functionalities
   Scenario: An admin can add a anime to a genre
     Given a list of anime exist
     And a list of genre exists
-#    When an admin adds a anime to a genre
-#    Then the amime is added to genre model
+    When an admin adds a anime to a genre
+    Then the amime is added to genre model
 #    When an admin removes an anime
 #    Then the anime is removed from genre model
