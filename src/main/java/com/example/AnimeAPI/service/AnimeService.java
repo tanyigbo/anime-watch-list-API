@@ -114,16 +114,5 @@ public class AnimeService {
 
     }
 
-    public Genre addAnimeToGenre(Long animeId, Genre genreObject){
-        Optional<Anime> anime = animeRepository.findById(animeId);
-        if(anime.isEmpty()){
-            throw new InformationNotFoundException("Anime with id:" + animeId + "does not exist");
-        }
-        Optional<Genre> genre = genreRepository.findByName(String.valueOf(genreObject));
-        if(genre.isEmpty()){
-            throw new InformationNotFoundException("Genre:" + genreObject + "does not exist");
-        }
-        genreObject.setName(String.valueOf(anime));
-        return genreRepository.save(genreObject);
-    }
+
 }

@@ -250,5 +250,9 @@ public class SpringBootTestDefinitions {
     @Then("the amime is added to genre model")
     public void theAmimeIsAddedToGenreModel() {
         Assert.assertEquals(200, response.getStatusCode());
+        String responseMessage = response.jsonPath().get("message");
+        Assert.assertEquals("success", responseMessage);
+
     }
+
 }

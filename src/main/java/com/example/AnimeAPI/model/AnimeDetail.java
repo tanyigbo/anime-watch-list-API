@@ -27,8 +27,7 @@ public class AnimeDetail {
     public AnimeDetail() {
     }
 
-    public AnimeDetail(Long id, Genre genre, Anime anime) {
-        this.id = id;
+    public AnimeDetail(Genre genre, Anime anime) {
         this.genre = genre;
         this.anime = anime;
     }
