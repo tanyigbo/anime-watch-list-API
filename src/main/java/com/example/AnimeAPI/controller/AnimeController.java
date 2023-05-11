@@ -14,6 +14,7 @@ import java.util.List;
 @RequestMapping(path = "/api")
 public class AnimeController {
 static HashMap<String, Object> message = new HashMap<>();
+
     @Autowired
     private AnimeService animeService;
 
@@ -36,6 +37,13 @@ static HashMap<String, Object> message = new HashMap<>();
             message.put("message", "Failed to create anime");
             return new ResponseEntity<>(message, HttpStatus.CONFLICT);
         }
+    }
 
+    @DeleteMapping("/animes/{animeId}")
+    public ResponseEntity<?> deleteAnime(@PathVariable Long animeId) {
+        Anime anime = animeService.deleteAnime(animeId);
+        message.put("message", "Anime with id " + animeId + " deleted");
+        message.put("data", anime);
+        return new ResponseEntity<>(message, HttpStatus.NO_CONTENT);
     }
 }
