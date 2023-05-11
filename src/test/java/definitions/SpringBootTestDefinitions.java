@@ -27,6 +27,7 @@ public class SpringBootTestDefinitions {
     private static final String BASE_URL = "http://localhost:";
     private static final RequestSpecification request  = RestAssured.given();
     private static Response response;
+    private static String generalUserToken;
 
     @LocalServerPort
     String port;
@@ -35,13 +36,14 @@ public class SpringBootTestDefinitions {
         RestAssured.baseURI = BASE_URL;
     }
 
-    @Given("A list of users are available")
-    public void aListOfUsersAreAvailable() {
-        response = request.get(BASE_URL + port + "/auth/users");
-        String message = response.jsonPath().getString("message");
-        List<Map<String, String>> users = response.jsonPath().get("data");
-        Assert.assertEquals("success",message);
-        Assert.assertTrue(users.size()>0);
+    @Given("A username is not registered")
+    public void aUsernameIsNotRegistered() throws JSONException {
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("username","JohnDoe");
+        requestBody.put("password","12345");
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).post(BASE_URL+port+"/auth/users/login");
+        Assert.assertEquals(418,response.getStatusCode());
     }
 
     @When("A user registers with unique username and a password")
@@ -74,12 +76,12 @@ public class SpringBootTestDefinitions {
         Assert.assertEquals(200,response.getStatusCode());
     }
 
-    @Then("The user is logged into the account")
-    public void theUserIsLoggedIntoTheAccount() {
+    @Then("The user is logged into the account and provided a token")
+    public void theUserIsLoggedIntoTheAccountAndProvidedAToken() {
         String message = response.jsonPath().get("message");
-        Map<String, String> user = response.jsonPath().get("data");
+        String token = response.jsonPath().get("data");
         Assert.assertEquals("user logged in",message);
-        Assert.assertEquals("Username2",user.get("username"));
-        Assert.assertEquals("GENERAL",user.get("userType"));
+        Assert.assertEquals(String.class,token.getClass());
+        generalUserToken = token;
     }
 }
