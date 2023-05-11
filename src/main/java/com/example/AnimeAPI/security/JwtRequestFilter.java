@@ -19,13 +19,17 @@ import java.util.logging.Logger;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    private final MyUserDetailsService myUserDetailsService;
-    private final JWTUtils jwtUtils;
     Logger logger = Logger.getLogger(JwtRequestFilter.class.getName());
+    private MyUserDetailsService myUserDetailsService;
+    private JWTUtils jwtUtils;
 
     @Autowired
-    public JwtRequestFilter(MyUserDetailsService myUserDetailsService, JWTUtils jwtUtils) {
+    public void setMyUserDetailsService(MyUserDetailsService myUserDetailsService) {
         this.myUserDetailsService = myUserDetailsService;
+    }
+
+    @Autowired
+    public void setJwtUtils(JWTUtils jwtUtils) {
         this.jwtUtils = jwtUtils;
     }
 
