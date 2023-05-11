@@ -139,7 +139,11 @@ public class SpringBootTestDefinitions {
 
     @Given("A list of genres are available")
     public void aListOfGenresAreAvailable() {
-        
+        response = request.get(BASE_URL + port + "/api/genres");
+        String message = response.jsonPath().getString("message");
+        List<Map<String, String>> genres = response.jsonPath().get("data");
+        Assert.assertEquals("success",message);
+        Assert.assertTrue(genres.size()>0);
     }
 
     @When("I add an genre to my watchlist")
