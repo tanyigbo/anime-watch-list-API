@@ -113,11 +113,11 @@ public class DataLoader implements CommandLineRunner {
             Anime anime2 = getAnime(2L);
             Anime anime3 = getAnime(3L);
 
-            UserAnime userAnime1 = new UserAnime(user1, anime1, 10, COMPLETED);
-            UserAnime userAnime2 = new UserAnime(user1, anime2, 1, COMPLETED);
-            UserAnime userAnime3 = new UserAnime(user2, anime1, 7, WATCHING);
-            UserAnime userAnime4 = new UserAnime(user3, anime3, 0, PLAN_TO_WATCH);
-            UserAnime userAnime5 = new UserAnime(user1, anime3, 0, DROPPED);
+            UserAnime userAnime1 = new UserAnime(user1, anime1, 10, "COMPLETED");
+            UserAnime userAnime2 = new UserAnime(user1, anime2, 1, "COMPLETED");
+            UserAnime userAnime3 = new UserAnime(user2, anime1, 7, "WATCHING");
+            UserAnime userAnime4 = new UserAnime(user3, anime3, 0, "PLAN_TO_WATCH");
+            UserAnime userAnime5 = new UserAnime(user1, anime3, 0, "DROPPED");
 
             userAnimeRepository.save(userAnime1);
             userAnimeRepository.save(userAnime2);
