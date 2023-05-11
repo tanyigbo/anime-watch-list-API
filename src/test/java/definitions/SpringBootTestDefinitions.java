@@ -110,4 +110,18 @@ public class SpringBootTestDefinitions {
     public void theAnimeIsRemoved() {
         Assert.assertEquals(204, response.getStatusCode());
     }
+
+    @When("I update an anime")
+    public void iUpdateAnAnime() throws JSONException {
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("title", "Naruto");
+        requestBody.put("description", "Ninjas at war");
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/animes/2");
+    }
+
+    @Then("the anime is updated")
+    public void theAnimeIsUpdated() {
+        Assert.assertEquals(200, response.getStatusCode());
+    }
 }
