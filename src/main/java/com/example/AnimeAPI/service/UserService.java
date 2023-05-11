@@ -4,7 +4,9 @@ import com.example.AnimeAPI.exception.InformationExistException;
 import com.example.AnimeAPI.exception.InformationNotFoundException;
 import com.example.AnimeAPI.model.User;
 import com.example.AnimeAPI.model.login.LoginRequest;
+import com.example.AnimeAPI.model.login.LoginResponse;
 import com.example.AnimeAPI.repository.UserRepository;
+import com.example.AnimeAPI.security.JWTUtils;
 import com.example.AnimeAPI.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -23,15 +25,17 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
+    private JWTUtils jwtUtils;
     private MyUserDetails myUserDetails;
 
     @Autowired
     public UserService(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder,
-                       @Lazy AuthenticationManager authenticationManager, @Lazy MyUserDetails myUserDetails) {
+                       @Lazy AuthenticationManager authenticationManager,JWTUtils jwtUtils, @Lazy MyUserDetails myUserDetails) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
+        this.jwtUtils = jwtUtils;
         this.myUserDetails = myUserDetails;
     }
     public List<User> getAllUsers() {
@@ -55,13 +59,14 @@ public class UserService {
         throw new InformationNotFoundException("User with username "+ username + " was not found.");
     }
 
-    public User loginUser(LoginRequest loginRequest){
+    public LoginResponse loginUser(LoginRequest loginRequest){
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
             myUserDetails = (MyUserDetails) authentication.getPrincipal();
-            return myUserDetails.getUser();
+            final String jwtToken = jwtUtils.generateJwtToken(myUserDetails);
+            return new LoginResponse(jwtToken);
         }catch (Exception e)
         {
             throw new RuntimeException("Username or Password is incorrect.");
