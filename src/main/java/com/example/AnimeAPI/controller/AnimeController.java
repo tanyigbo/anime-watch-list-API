@@ -53,4 +53,12 @@ static HashMap<String, Object> message = new HashMap<>();
         message.put("data", anime);
         return new ResponseEntity<>(message, HttpStatus.NO_CONTENT);
     }
+
+    @PutMapping("/animes/{animeId}")
+    public ResponseEntity<?> updateAnime(@PathVariable Long animeId, @RequestBody Anime animeObject) {
+        Anime anime = animeService.updateAnime(animeId, animeObject);
+        message.put("message", "success");
+        message.put("data", anime);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
 }
