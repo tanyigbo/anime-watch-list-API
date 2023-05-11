@@ -170,4 +170,18 @@ public class SpringBootTestDefinitions {
     public void theGenreIsRemoved() {
         Assert.assertEquals(204, response.getStatusCode());
     }
+
+    @When("I update an genre")
+    public void iUpdateAnGenre() throws JSONException {
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("name", "Shonen");
+        requestBody.put("description", "Martial arts.");
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/genres/1");
+    }
+
+    @Then("the genre is updated")
+    public void theGenreIsUpdated() {
+        Assert.assertEquals(200, response.getStatusCode());
+    }
 }
