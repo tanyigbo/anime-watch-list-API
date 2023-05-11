@@ -63,4 +63,20 @@ public class GenreController {
         message.put("data", genre);
         return new ResponseEntity<>(message, HttpStatus.NO_CONTENT);
     }
+
+    /**
+     * A PUT endpoint routing to updateGenre business logic.
+     *
+     * @param genreId     {Long}
+     * @param genreObject {Object}
+     * @return ResponseEntity
+     */
+    // http://localhost:8080/api/genres/1
+    @PutMapping(path = "/genres/{genreId}")
+    public ResponseEntity<?> updateGenre(@PathVariable Long genreId, @RequestBody Genre genreObject) {
+        Genre genre = genreService.updateGenre(genreId, genreObject);
+        message.put("message", "success");
+        message.put("data", genre);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
 }
