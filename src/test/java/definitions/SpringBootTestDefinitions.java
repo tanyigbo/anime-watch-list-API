@@ -71,7 +71,16 @@ public class SpringBootTestDefinitions {
         requestBody.put("password","password2");
         request.header("Content-Type", "application/json");
         response = request.body(requestBody.toString()).post(BASE_URL+port+"/auth/users/login");
-//        Assert.assertEquals(200,response.getStatusCode());
+        Assert.assertEquals(200,response.getStatusCode());
+    }
+
+    @Then("The user is logged into the account")
+    public void theUserIsLoggedIntoTheAccount() {
+        String message = response.jsonPath().get("message");
+        Map<String, String> user = response.jsonPath().get("data");
+        Assert.assertEquals("user logged in",message);
+        Assert.assertEquals("Username2",user.get("username"));
+        Assert.assertEquals("GENERAL",user.get("userType"));
     }
 
 
@@ -148,10 +157,12 @@ public class SpringBootTestDefinitions {
 
     @When("I add an genre to my watchlist")
     public void iAddAnGenreToMyWatchlist() throws JSONException {
+
         JSONObject requestBody = new JSONObject();
         requestBody.put("name", "name1");
         requestBody.put("description", "description1");
         request.header("Content-Type", "application/json");
+        request.header("Authorization", )
         response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/genres");
     }
 
