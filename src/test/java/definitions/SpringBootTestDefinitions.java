@@ -177,7 +177,7 @@ public class SpringBootTestDefinitions {
         requestBody.put("name", "Shonen");
         requestBody.put("description", "Martial arts.");
         request.header("Content-Type", "application/json");
-        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/genres/1");
+        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/genres/2");
     }
 
     @Then("the genre is updated")
