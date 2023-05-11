@@ -26,7 +26,7 @@ static HashMap<String, Object> message = new HashMap<>();
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @PostMapping("/animes")
+    @PostMapping(path = "/animes")
     public ResponseEntity<?> createAnime(@RequestBody Anime anime){
         Anime newAnime =  animeService.createAnime(anime);
         if(newAnime != null){
@@ -46,7 +46,7 @@ static HashMap<String, Object> message = new HashMap<>();
      * @return ResponseEntity
      */
     // http://localhost:8080/api/animes/1
-    @DeleteMapping("/animes/{animeId}")
+    @DeleteMapping(path = "/animes/{animeId}")
     public ResponseEntity<?> deleteAnime(@PathVariable Long animeId) {
         Anime anime = animeService.deleteAnime(animeId);
         message.put("message", "Anime with id " + animeId + " deleted");
@@ -62,7 +62,7 @@ static HashMap<String, Object> message = new HashMap<>();
      * @return ResponseEntity
      */
     // http://localhost:8080/api/animes/1
-    @PutMapping("/animes/{animeId}")
+    @PutMapping(path = "/animes/{animeId}")
     public ResponseEntity<?> updateAnime(@PathVariable Long animeId, @RequestBody Anime animeObject) {
         Anime anime = animeService.updateAnime(animeId, animeObject);
         message.put("message", "success");
@@ -70,5 +70,11 @@ static HashMap<String, Object> message = new HashMap<>();
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-
+    @GetMapping(path = "/animes/{animeId}")
+    public  ResponseEntity<?> getAnimeById(@PathVariable Long animeId){
+        Anime anime = animeService.getAnimeById(animeId);
+        message.put("message", "success");
+        message.put("data", anime);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
 }
