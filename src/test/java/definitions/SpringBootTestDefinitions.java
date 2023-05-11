@@ -196,11 +196,27 @@ public class SpringBootTestDefinitions {
         Assert.assertEquals(200, response.getStatusCode());
     }
 
-    @When("I add a new anime to my watchlist")
-    public void iAddANewAnimeToMyWatchlist() {
+    // Scenario: Any logged-in user can add anime to their watchlist
+    @Given("a list of anime exists")
+    public void aListOfAnimeExists() {
+        response = request.get(BASE_URL + port + "/api/animes");
+        String message = response.jsonPath().getString("message");
+        List<Map<String, String>> animes = response.jsonPath().get("data");
+        Assert.assertEquals("success", message);
+        Assert.assertTrue(animes.size() > 0);
     }
 
-    @Given("anime exists")
-    public void animeExists() {
+    @When("user adds anime to watchlist")
+    public void userAddsAnimeToWatchlist() throws JSONException {
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("rating", "10");
+        requestBody.put("watchStatus", "COMPLETED");
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/animes/1");
+    }
+
+    @Then("the anime is added to user watchlist")
+    public void theAnimeIsAddedToUserWatchlist() {
+        Assert.assertEquals(201, response.getStatusCode());
     }
 }
