@@ -76,4 +76,14 @@ public class AnimeService {
             throw new InformationNotFoundException("Anime with given id " + animeId + " does not exist.");
         }
     }
+
+//    private Anime getAnimeById(Long animeId){
+//        Optional<Anime> anime = animeRepository.findById(animeId);
+//        if (anime == null){
+//            throw new InformationNotFoundException("Anime with id" + animeId + "not found");
+//        }else {
+//            return Optional.of(anime);
+//        }
+//
+//    }
 }

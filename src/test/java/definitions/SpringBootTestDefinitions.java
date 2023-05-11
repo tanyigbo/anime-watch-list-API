@@ -124,4 +124,16 @@ public class SpringBootTestDefinitions {
     public void theAnimeIsUpdated() {
         Assert.assertEquals(200, response.getStatusCode());
     }
+
+    @When("I search anime by id")
+    public void iSearchAnimeById() {
+        request.header("Content-Type", "application/json");
+        response = request.get(BASE_URL + port + "/api/animes/2");
+
+    }
+
+    @Then("that anime is returned")
+    public void thatAnimeIsReturned() {
+        Assert.assertEquals(200, response.getStatusCode());
+    }
 }

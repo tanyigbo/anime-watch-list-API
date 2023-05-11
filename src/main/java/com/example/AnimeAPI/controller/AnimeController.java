@@ -69,4 +69,6 @@ static HashMap<String, Object> message = new HashMap<>();
         message.put("data", anime);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
+
+
 }
