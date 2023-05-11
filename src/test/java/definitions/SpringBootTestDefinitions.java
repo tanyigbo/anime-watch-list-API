@@ -99,4 +99,15 @@ public class SpringBootTestDefinitions {
     public void theAnimeIsAdded() {
         Assert.assertEquals(201, response.getStatusCode());
     }
+
+    @When("I remove an anime")
+    public void iRemoveAnAnime() {
+        request.header("Content-Type", "application/json");
+        response = request.delete(BASE_URL + port + "/api/animes/1");
+    }
+
+    @Then("the anime is removed")
+    public void theAnimeIsRemoved() {
+        Assert.assertEquals(204, response.getStatusCode());
+    }
 }
