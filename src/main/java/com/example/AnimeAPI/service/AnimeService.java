@@ -17,10 +17,23 @@ public class AnimeService {
     @Autowired
     public AnimeService(AnimeRepository animeRepository){this.animeRepository = animeRepository;}
 
+    /**
+     * Retrieves all the animes from the repository.
+     *
+     * @return a list of all available animes.
+     */
     public List<Anime> getAllAnimes(){
         return animeRepository.findAll();
     }
 
+    /**
+     * Creates a new anime and saves it to the repository.
+     * Throws an exception if the anime already exists.
+     *
+     * @param animeObject an instance of Anime to be created.
+     * @return the saved Anime object.
+     * @throws InformationNotFoundException if the anime already exists.
+     */
     public Anime createAnime(Anime animeObject){
         Optional<Anime> anime = animeRepository.findByTitle(animeObject.getTitle());
         if(anime.isPresent()){
@@ -77,6 +90,13 @@ public class AnimeService {
         }
     }
 
+    /**
+     * Retrieves an anime from the repository by its ID.
+     *
+     * @param animeId the ID of the anime to be retrieved.
+     * @return the requested Anime object.
+     * @throws InformationNotFoundException if the anime with the specified ID is not found.
+     */
     public Anime getAnimeById(Long animeId){
         Optional<Anime> anime = animeRepository.findById(animeId);
         if (anime.isEmpty()){

@@ -136,4 +136,23 @@ public class SpringBootTestDefinitions {
     public void thatAnimeIsReturned() {
         Assert.assertEquals(200, response.getStatusCode());
     }
+
+    @Given("A list of genres are available")
+    public void aListOfGenresAreAvailable() {
+        
+    }
+
+    @When("I add an genre to my watchlist")
+    public void iAddAnGenreToMyWatchlist() {
+        
+    }
+
+    @Then("the genre is added")
+    public void theGenreIsAdded() {
+        
+    }
+
+    @When("I remove an genre")
+    public void iRemoveAnGenre() {
+    }
 }
