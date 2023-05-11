@@ -1,6 +1,5 @@
 package com.example.AnimeAPI.controller;
 
-import com.example.AnimeAPI.model.Anime;
 import com.example.AnimeAPI.model.Genre;
 import com.example.AnimeAPI.service.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +31,8 @@ public class GenreController {
     }
 
     /***
-     * A POST endpoint that creates an genre
-     * @param genre
+     * A POST endpoint that creates a genre
+     * @param genre {Object}
      * @return ResponseEntity
      */
     @PostMapping(path = "/genres")

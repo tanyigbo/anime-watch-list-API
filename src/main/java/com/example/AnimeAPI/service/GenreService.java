@@ -2,7 +2,6 @@ package com.example.AnimeAPI.service;
 
 import com.example.AnimeAPI.exception.InformationExistException;
 import com.example.AnimeAPI.exception.InformationNotFoundException;
-import com.example.AnimeAPI.model.Anime;
 import com.example.AnimeAPI.model.Genre;
 import com.example.AnimeAPI.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +47,8 @@ public class GenreService {
     }
 
     /**
-     * Takes in an integer of an genre id and tries to
-     * find an genre record in the genre repository. If
+     * Takes in an integer of a genre id and tries to
+     * find a genre record in the genre repository. If
      * it exists, then the record will be deleted from the repository.
      * Otherwise, throw not found exception.
      *

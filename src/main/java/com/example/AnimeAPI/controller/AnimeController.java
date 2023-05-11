@@ -32,7 +32,7 @@ public class AnimeController {
 
     /***
      * A POST endpoint that creates an anime
-     * @param anime
+     * @param anime {Object}
      * @return ResponseEntity
      */
     @PostMapping(path = "/animes")
