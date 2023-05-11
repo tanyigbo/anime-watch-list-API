@@ -1,13 +1,12 @@
 package com.example.AnimeAPI.controller;
 
+import com.example.AnimeAPI.model.Anime;
 import com.example.AnimeAPI.model.Genre;
 import com.example.AnimeAPI.service.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,5 +29,23 @@ public class GenreController {
         message.put("message", "success");
         message.put("data", genreList);
         return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    /***
+     * A POST endpoint that creates an genre
+     * @param genre
+     * @return ResponseEntity
+     */
+    @PostMapping(path = "/genres")
+    public ResponseEntity<?> createGenre(@RequestBody Genre genre) {
+        Genre newGenre = genreService.createGenre(genre);
+        if (newGenre != null) {
+            message.put("message", "success");
+            message.put("data", newGenre);
+            return new ResponseEntity<>(message, HttpStatus.CREATED);
+        } else {
+            message.put("message", "Failed to create genre");
+            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+        }
     }
 }
