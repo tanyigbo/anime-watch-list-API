@@ -1,6 +1,6 @@
 package com.example.AnimeAPI.controller;
 
-import com.example.AnimeAPI.exceptions.InformationExistException;
+import com.example.AnimeAPI.exception.InformationExistException;
 import com.example.AnimeAPI.model.User;
 import com.example.AnimeAPI.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
