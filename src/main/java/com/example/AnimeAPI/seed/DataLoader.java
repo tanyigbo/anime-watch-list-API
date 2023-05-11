@@ -9,6 +9,7 @@ import com.example.AnimeAPI.repository.AnimeRepository;
 import com.example.AnimeAPI.repository.GenreRepository;
 import com.example.AnimeAPI.repository.UserAnimeRepository;
 import com.example.AnimeAPI.repository.UserRepository;
+import com.example.AnimeAPI.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -22,17 +23,16 @@ import static com.example.AnimeAPI.enums.WatchStatus.DROPPED;
 public class DataLoader implements CommandLineRunner {
 
     private final UserRepository userRepository;
-
+    private final UserService userService;
     private final AnimeRepository animeRepository;
-
     private final GenreRepository genreRepository;
-
     private final UserAnimeRepository userAnimeRepository;
 
     @Autowired
-    public DataLoader(UserRepository userRepository, AnimeRepository animeRepository,
+    public DataLoader(UserRepository userRepository, UserService userService,AnimeRepository animeRepository,
                       GenreRepository genreRepository, UserAnimeRepository userAnimeRepository) {
         this.userRepository = userRepository;
+        this.userService = userService;
         this.animeRepository = animeRepository;
         this.genreRepository = genreRepository;
         this.userAnimeRepository = userAnimeRepository;
@@ -69,9 +69,9 @@ public class DataLoader implements CommandLineRunner {
             User user1 = new User("Username1", "password1", "GENERAL");
             User user2 = new User("Username2", "password2", "GENERAL");
             User admin1 = new User("Username3", "password3", "ADMIN");
-            userRepository.save(user1);
-            userRepository.save(user2);
-            userRepository.save(admin1);
+            userService.createUser(user1);
+            userService.createUser(user2);
+            userService.createUser(admin1);
         }
     }
 
