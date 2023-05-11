@@ -147,13 +147,17 @@ public class SpringBootTestDefinitions {
     }
 
     @When("I add an genre to my watchlist")
-    public void iAddAnGenreToMyWatchlist() {
-        
+    public void iAddAnGenreToMyWatchlist() throws JSONException {
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("name", "name1");
+        requestBody.put("description", "description1");
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/genres");
     }
 
     @Then("the genre is added")
     public void theGenreIsAdded() {
-        
+        Assert.assertEquals(201, response.getStatusCode());
     }
 
     @When("I remove an genre")
