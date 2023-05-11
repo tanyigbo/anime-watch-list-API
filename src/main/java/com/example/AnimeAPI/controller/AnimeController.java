@@ -42,10 +42,10 @@ static HashMap<String, Object> message = new HashMap<>();
     /**
      * A DELETE endpoint routing to deleteAnime() business logic.
      *
-     * @param animeId {int}
-     * @return ResponseEntity</?>
+     * @param animeId {Long}
+     * @return ResponseEntity
      */
-    // http://localhost:9092/api/categories/1
+    // http://localhost:8080/api/animes/1
     @DeleteMapping("/animes/{animeId}")
     public ResponseEntity<?> deleteAnime(@PathVariable Long animeId) {
         Anime anime = animeService.deleteAnime(animeId);
@@ -54,6 +54,14 @@ static HashMap<String, Object> message = new HashMap<>();
         return new ResponseEntity<>(message, HttpStatus.NO_CONTENT);
     }
 
+    /**
+     * A PUT endpoint routing to updateAnime business logic.
+     *
+     * @param animeId {Long}
+     * @param animeObject {Object}
+     * @return ResponseEntity
+     */
+    // http://localhost:8080/api/animes/1
     @PutMapping("/animes/{animeId}")
     public ResponseEntity<?> updateAnime(@PathVariable Long animeId, @RequestBody Anime animeObject) {
         Anime anime = animeService.updateAnime(animeId, animeObject);
