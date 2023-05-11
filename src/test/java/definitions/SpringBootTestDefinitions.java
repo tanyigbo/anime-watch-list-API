@@ -162,5 +162,12 @@ public class SpringBootTestDefinitions {
 
     @When("I remove an genre")
     public void iRemoveAnGenre() {
+        request.header("Content-Type", "application/json");
+        response = request.delete(BASE_URL + port + "/api/genres/1");
+    }
+
+    @Then("the genre is removed")
+    public void theGenreIsRemoved() {
+        Assert.assertEquals(204, response.getStatusCode());
     }
 }

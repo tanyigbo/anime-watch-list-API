@@ -22,8 +22,8 @@ Feature: Anime Watch List Rest API functionalities
     Given A list of genres are available
     When I add an genre to my watchlist
     Then the genre is added
-#    When I remove an genre
-#    Then the genre is removed
+    When I remove an genre
+    Then the genre is removed
 #    When I update an genre
 #    Then the genre is updated
 #    When I search genre by id
