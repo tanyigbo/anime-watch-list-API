@@ -79,4 +79,18 @@ public class GenreController {
         message.put("data", genre);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
+
+    /**
+     * A GET method to find genre by ID.
+     *
+     * @param genreId {Long}
+     * @return ResponseEntity
+     */
+    @GetMapping(path = "/genres/{genreId}")
+    public ResponseEntity<?> getGenreById(@PathVariable Long genreId) {
+        Genre genre = genreService.getGenreById(genreId);
+        message.put("message", "success");
+        message.put("data", genre);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
 }
