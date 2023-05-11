@@ -28,12 +28,12 @@ public class UserAnime {
     private int rating;
 
     @Column(nullable = false)
-    private WatchStatus watchStatus;
+    private String watchStatus;
 
     public UserAnime() {
     }
 
-    public UserAnime(User user, Anime anime, int rating, WatchStatus watchStatus) {
+    public UserAnime(User user, Anime anime, int rating, String watchStatus) {
         this.user = user;
         this.anime = anime;
         this.rating = rating;
@@ -68,11 +68,11 @@ public class UserAnime {
         this.rating = rating;
     }
 
-    public WatchStatus getWatchStatus() {
+    public String getWatchStatus() {
         return watchStatus;
     }
 
-    public void setWatchStatus(WatchStatus watchStatus) {
+    public void setWatchStatus(String watchStatus) {
         this.watchStatus = watchStatus;
     }
 
