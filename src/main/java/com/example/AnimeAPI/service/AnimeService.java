@@ -30,6 +30,15 @@ public class AnimeService {
 
     }
 
+    /**
+     * Takes in an integer of an anime id and tries to
+     * find an anime record in the anime repository. If
+     * it exists, then the record will be deleted from the repository.
+     * Otherwise, throw not found exception.
+     *
+     * @param animeId {int}
+     * @return Anime {object}
+     */
     public Anime deleteAnime(Long animeId) {
         Optional<Anime> anime = animeRepository.findById(animeId);
         if (anime.isPresent()) {

@@ -39,6 +39,13 @@ static HashMap<String, Object> message = new HashMap<>();
         }
     }
 
+    /**
+     * A DELETE endpoint routing to deleteAnime() business logic.
+     *
+     * @param animeId {int}
+     * @return ResponseEntity</?>
+     */
+    // http://localhost:9092/api/categories/1
     @DeleteMapping("/animes/{animeId}")
     public ResponseEntity<?> deleteAnime(@PathVariable Long animeId) {
         Anime anime = animeService.deleteAnime(animeId);
