@@ -46,4 +46,23 @@ public class GenreService {
         }
     }
 
+    /**
+     * Takes in an integer of an genre id and tries to
+     * find an genre record in the genre repository. If
+     * it exists, then the record will be deleted from the repository.
+     * Otherwise, throw not found exception.
+     *
+     * @param genreId {Long}
+     * @return Genre {Object}
+     */
+    public Genre deleteGenre(Long genreId) {
+        Optional<Genre> genre = genreRepository.findById(genreId);
+        if (genre.isPresent()) {
+            genreRepository.delete(genre.get());
+            return genre.get();
+        } else {
+            throw new InformationNotFoundException("Genre with given id " + genreId + " does not exist.");
+        }
+    }
+
 }

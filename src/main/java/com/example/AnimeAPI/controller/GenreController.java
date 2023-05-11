@@ -48,4 +48,19 @@ public class GenreController {
             return new ResponseEntity<>(message, HttpStatus.CONFLICT);
         }
     }
+
+    /**
+     * A DELETE endpoint routing to deleteGenre() business logic.
+     *
+     * @param genreId {Long}
+     * @return ResponseEntity
+     */
+    // http://localhost:8080/api/genres/1
+    @DeleteMapping(path = "/genres/{genreId}")
+    public ResponseEntity<?> deleteGenre(@PathVariable Long genreId) {
+        Genre genre = genreService.deleteGenre(genreId);
+        message.put("message", "Genre with id " + genreId + " deleted");
+        message.put("data", genre);
+        return new ResponseEntity<>(message, HttpStatus.NO_CONTENT);
+    }
 }
