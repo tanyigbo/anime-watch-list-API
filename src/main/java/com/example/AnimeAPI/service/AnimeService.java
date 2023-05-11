@@ -37,8 +37,8 @@ public class AnimeService {
      * it exists, then the record will be deleted from the repository.
      * Otherwise, throw not found exception.
      *
-     * @param animeId {int}
-     * @return Anime {object}
+     * @param animeId {Long}
+     * @return Anime {Object}
      */
     public Anime deleteAnime(Long animeId) {
         Optional<Anime> anime = animeRepository.findById(animeId);
@@ -50,6 +50,18 @@ public class AnimeService {
         }
     }
 
+    /**
+     * Takes an integer anime id and anime object, then
+     * tries to find anime record with given id. If it is found
+     * and the given title within the given object is different from the
+     * anime title in the repository, then update the anime's record in the
+     * repository. Otherwise, throws new exception for non-existing anime record or
+     * given object's title equals record's title.
+     *
+     * @param animeId {Long}
+     * @param animeObject {Object}
+     * @return Anime {Object}
+     */
     public Anime updateAnime(Long animeId, Anime animeObject) {
         Optional<Anime> anime = animeRepository.findById(animeId);
         if (anime.isPresent()) {
