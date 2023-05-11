@@ -28,3 +28,8 @@ Feature: Anime Watch List Rest API functionalities
     Then the genre is updated
     When I search genre by id
     Then that genre is returned
+
+  Scenario: A registered user can add, update, and remove anime
+    Given User list of anime available
+    When I add a new anime to my watchlist
+    Then the new anime is added
