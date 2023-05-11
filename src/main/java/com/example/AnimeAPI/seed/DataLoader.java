@@ -1,6 +1,6 @@
 package com.example.AnimeAPI.seed;
 
-import com.example.AnimeAPI.exceptions.InformationNotFoundException;
+import com.example.AnimeAPI.exception.InformationNotFoundException;
 import com.example.AnimeAPI.model.Anime;
 import com.example.AnimeAPI.model.Genre;
 import com.example.AnimeAPI.model.User;
@@ -15,8 +15,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-import static com.example.AnimeAPI.enums.UserType.ADMIN;
-import static com.example.AnimeAPI.enums.UserType.GENERAL;
 import static com.example.AnimeAPI.enums.WatchStatus.*;
 import static com.example.AnimeAPI.enums.WatchStatus.DROPPED;
 
