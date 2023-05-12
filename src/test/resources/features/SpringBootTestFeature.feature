@@ -18,22 +18,27 @@ Feature: Anime Watch List Rest API functionalities
     When A user registers with unique username and a password
     Then A new user account is created and returned
 
-#  Scenario: Any user is able to view an anime or all anime
-#    Given A list of anime are available
-#    When A user searches for all anime
-#    Then A list of all anime is returned
-#    When A user searches for an anime by Id
-#    Then The anime with provided Id is returned
+  Scenario: Any user is able to view  all anime
+    Given A list of anime are available
+    When A user searches for all anime
+    Then A list of all anime is returned
+
 #
-#  Scenario: Any user is able to view a genre or all genres
+#  Scenario: Any user is able to view all genres
 #    Given A list of genre are available
 #    When A user searches for all genres
 #    Then A list of all genres is returned
-#    When A user searches for an genre by Id
-#    Then The genre with provided Id is returned
+
 #
 #
 ## Registered User user stories
+
+#  Scenario: Any logged-in user can view an anime or genre by id
+#    When A user searches for an anime by Id
+#    Then The anime with provided Id is returned
+#    When A user searches for an genre by Id
+#    Then The genre with provided Id is returned
+
 #  Scenario: Any logged-in user can add or remove an anime to their watchlist
 #    Given a list of anime exists
 #    When user adds anime to watchlist
