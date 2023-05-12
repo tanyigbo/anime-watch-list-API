@@ -194,10 +194,11 @@ public class SpringBootTestDefinitions {
      */
 
     /**
-     * Any logged-in user can view an anime or genre by id
+     * Scenario: Any logged-in user can view an anime or genre by id
      */
     @When("A user searches for an anime by Id")
     public void aUserSearchesForAnAnimeById() {
+        request.header("Authorization", "Bearer " + generalUserToken);
         response = request.get(BASE_URL + port + "/api/anime/2");
     }
 
@@ -214,6 +215,7 @@ public class SpringBootTestDefinitions {
 
     @When("A user searches for an genre by Id")
     public void aUserSearchesForAnGenreById() {
+        request.header("Authorization", "Bearer " + generalUserToken);
         response = request.get(BASE_URL + port + "/api/genres/2");
     }
 
