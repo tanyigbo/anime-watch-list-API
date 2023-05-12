@@ -46,13 +46,14 @@ public class UserAnimeController {
      *
      * @param animeId {Long}
      * @param userAnimeObj {Object}
-     * @return
+     * @return ResponseEntity
      */
     // http://localhost:8080/api/user-anime/1
     @PutMapping(path = "/user-anime/{animeId}")
     public ResponseEntity<?> updateAnimeInUserWatchlist(@PathVariable Long animeId, @RequestBody UserAnime userAnimeObj) {
         message = new HashMap<>();
-        userAnimService.updateAnimeInUserWatchlist(animeId, userAnimeObj);
+        UserAnime userAnime = userAnimService.updateAnimeInUserWatchlist(animeId, userAnimeObj);
+        message.put("data", userAnime);
         message.put("message", "Successfully updated");
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
