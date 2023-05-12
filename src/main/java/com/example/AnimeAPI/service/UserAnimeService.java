@@ -28,6 +28,17 @@ public class UserAnimeService {
         return userDetails.getUser();
     }
 
+    /**
+     * Takes in a long anime id and watch details for user-anime watchlist.
+     * Then, tries to find a record in the repository with current logged-in
+     * user and existing anime as a set in the database. Throws exception if
+     * already exist, otherwise, add a new record.
+     *
+     * @param animeId {Long}
+     * @param userAnimeObj {Object}
+     * @throws InformationExistException if record exists
+     * @return UserAnime
+     */
     public UserAnime addAnimeToUserWatchlist(Long animeId, UserAnime userAnimeObj) {
         Anime anime = animeService.getAnimeById(animeId);
         UserAnime userAnime = userAnimeRepository.findByUserAndAnime(getCurrentLoggedInUser(), anime);

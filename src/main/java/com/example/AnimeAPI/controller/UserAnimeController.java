@@ -22,6 +22,14 @@ public class UserAnimeController {
         this.userAnimService = userAnimService;
     }
 
+    /**
+     * A POST request to add an existing anime to the
+     * current logged-in user's watchlist.
+     *
+     * @param animeId {Long}
+     * @param userAnimeObj {Object}
+     * @return ResponseEntity
+     */
     // http://localhost:8080/api/user-anime/1
     @PostMapping(path = "/user-anime/{animeId}")
     public ResponseEntity<?> addAnimeToUserWatchlist(@PathVariable Long animeId, @RequestBody UserAnime userAnimeObj) {
