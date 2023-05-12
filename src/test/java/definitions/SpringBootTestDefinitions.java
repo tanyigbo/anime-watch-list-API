@@ -191,6 +191,7 @@ public class SpringBootTestDefinitions {
 
     @Then("the anime is added to user watchlist")
     public void theAnimeIsAddedToUserWatchlist() {
+        Assert.assertEquals(201, response.getStatusCode());
     }
 
     @When("user removes an anime form their watch list")
@@ -395,13 +396,13 @@ public class SpringBootTestDefinitions {
 //        Assert.assertTrue(genres.size()>0);
 //    }
 
-}
+//}
 
 
-    @Then("the anime is added to user watchlist")
-    public void theAnimeIsAddedToUserWatchlist() {
-        Assert.assertEquals(201, response.getStatusCode());
-    }
+//    @Then("the anime is added to user watchlist")
+//    public void theAnimeIsAddedToUserWatchlist() {
+//
+//    }
 
 
     @Given("a list of anime exist")
@@ -445,7 +446,7 @@ public class SpringBootTestDefinitions {
 
     @Then("the anime is removed from genre model")
     public void theAnimeIsRemovedFromGenreModel() {
-        Assert.assertEquals(204, response.getStatusCode());
+        Assert.assertEquals(200, response.getStatusCode());
     }
 }
 

@@ -31,6 +31,7 @@ public class AnimeDetailController {
      * @param genreId The ID of the genre to add the anime to.
      * @return A ResponseEntity containing a message and HTTP status code.
      */
+    // http://localhost:8080/api/anime-details/1/1
      @PostMapping(path = "/anime-details/{animeId}/{genreId}")
     public ResponseEntity<?> addAnimeToGenre(@PathVariable Long animeId, @PathVariable Long genreId){
             AnimeDetail animeDetail = animeDetailService.addAnimeToGenre(animeId, genreId);
@@ -38,6 +39,7 @@ public class AnimeDetailController {
                 message.put("message", "success");
                 return new ResponseEntity<>(message, HttpStatus.OK);
             }else {
+                message.put("message", "failed");
                 return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
             }
 
@@ -55,12 +57,13 @@ public class AnimeDetailController {
      * @param genreId The ID of the genre to remove the anime from.
      * @return A ResponseEntity containing a message and HTTP status code.
      */
+    // http://localhost:8080/api/anime-details/1/1
     @DeleteMapping(path = "/anime-details/{animeId}/{genreId}")
     public ResponseEntity<?> removeAnimeFromGenre(@PathVariable Long animeId, @PathVariable Long genreId){
         AnimeDetail animeDetail = animeDetailService.removeAnimeFromGenre(animeId, genreId);
         if (animeDetail != null) {
             message.put("message", "success");
-            return new ResponseEntity<>(message, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(message, HttpStatus.OK);
         }else {
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
