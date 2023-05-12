@@ -241,7 +241,7 @@ public class SpringBootTestDefinitions {
     @When("user adds anime to watchlist")
     public void userAddsAnimeToWatchlist() {
         request.header("Authorization", "Bearer " + generalUserToken);
-        response = request.post(BASE_URL + port + "/api/anime/5");
+        response = request.post(BASE_URL + port + "/api/user-anime/5");
     }
 
     @Then("the anime is added to user watchlist")
@@ -258,7 +258,7 @@ public class SpringBootTestDefinitions {
     @When("user removes an anime form their watch list")
     public void userRemovesAnAnimeFormTheirWatchList() {
         request.header("Authorization", "Bearer " + generalUserToken);
-        response = request.post(BASE_URL + port + "/api/anime/5");
+        response = request.post(BASE_URL + port + "/api/user-anime/5");
     }
 
     @Then("the anime is removed from the user watchlist")
@@ -277,15 +277,31 @@ public class SpringBootTestDefinitions {
      */
     @Given("A an anime exists")
     public void aAnAnimeExists() {
+        request.header("Authorization", "Bearer " + generalUserToken);
+        response = request.get(BASE_URL + port + "/api/anime/5");
+        Assert.assertEquals(302,response.getStatusCode());
     }
 
     @When("A user updates the watch status")
-    public void aUserUpdatesTheWatchStatus() {
+    public void aUserUpdatesTheWatchStatus() throws JSONException {
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("rating",5);
+        requestBody.put("watchStatus","DROPPED");
+        request.header("Authorization", "Bearer " + generalUserToken);
+        response = request.body(requestBody.toString()).put(BASE_URL + port+"/api/user-anime/5");
     }
 
     @Then("The anime in their watch list is updated")
     public void theAnimeInTheirWatchListIsUpdated() {
-
+        Assert.assertEquals(200,response.getStatusCode());
+        String message = response.jsonPath().get("message");
+        Map<String, String> userAnime = response.jsonPath().get("data");
+        Assert.assertEquals("update success",message);
+        Assert.assertEquals("5",userAnime.get("id"));
+        Assert.assertTrue(userAnime.get("anime").contains("DBZ5"));
+        Assert.assertTrue(userAnime.get("user").contains("GENERAL"));
+        Assert.assertEquals("5",userAnime.get("rating"));
+        Assert.assertEquals("DROPPED",userAnime.get("watchStatus"));
     }
 
     /*
