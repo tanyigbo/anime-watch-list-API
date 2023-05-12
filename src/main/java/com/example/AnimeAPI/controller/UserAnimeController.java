@@ -34,7 +34,8 @@ public class UserAnimeController {
     @PostMapping(path = "/user-anime/{animeId}")
     public ResponseEntity<?> addAnimeToUserWatchlist(@PathVariable Long animeId, @RequestBody UserAnime userAnimeObj) {
         message = new HashMap<>();
-        userAnimService.addAnimeToUserWatchlist(animeId, userAnimeObj);
+        UserAnime userAnime = userAnimService.addAnimeToUserWatchlist(animeId, userAnimeObj);
+        message.put("data", userAnime);
         message.put("message", "Successfully added anime with id " + animeId + " to your watchlist");
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
