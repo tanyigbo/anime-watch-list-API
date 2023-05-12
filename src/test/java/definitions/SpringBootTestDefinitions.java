@@ -318,17 +318,24 @@ public class SpringBootTestDefinitions {
         JSONObject requestBody = new JSONObject();
         requestBody.put("title", "title1");
         requestBody.put("description", "description1");
+        request.header("Authorization", "Bearer " + adminUserToken);
         request.header("Content-Type", "application/json");
-        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/anime");
+        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/anime/add");
     }
 
     @Then("the anime is added to anime model")
     public void theAnimeIsAddedToAnimeModel() {
         Assert.assertEquals(201, response.getStatusCode());
+        String message = response.jsonPath().get("message");
+        Map<String, String> anime = response.jsonPath().get("data");
+        Assert.assertEquals("created anime",message);
+        Assert.assertEquals("title1",anime.get("title"));
+        Assert.assertEquals("description1",anime.get("description"));
     }
 
     @When("an admin remove an anime")
     public void anAdminRemoveAnAnime() {
+        request.header("Authorization", "Bearer " + adminUserToken);
         request.header("Content-Type", "application/json");
         response = request.delete(BASE_URL + port + "/api/anime/1");
     }
