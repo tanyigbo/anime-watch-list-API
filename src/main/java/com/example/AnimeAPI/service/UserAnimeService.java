@@ -30,7 +30,7 @@ public class UserAnimeService {
     }
 
     /**
-     * Takes in a long anime id and watch details for user-anime watchlist.
+     * Takes in a long anime id and anime request-body for user-anime watchlist.
      * Then, tries to find a record in the repository with current logged-in
      * user and existing anime as a set in the database. Throws exception if
      * already exist, otherwise, add a new record.
