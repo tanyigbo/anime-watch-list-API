@@ -75,7 +75,7 @@ public class SpringBootTestDefinitions {
     public void aListOfRegisteredUsers() {
         request.header("Authorization", "Bearer " + adminUserToken);
         response = request.get(BASE_URL + port + "/auth/users");
-        Assert.assertEquals(302,response.getStatusCode());
+        Assert.assertEquals(302, response.getStatusCode());
         List<Map<String, String>> users = response.jsonPath().get("data");
         Assert.assertTrue(users.size() > 0);
     }
@@ -174,15 +174,15 @@ public class SpringBootTestDefinitions {
 
     @When("A user searches for all genres")
     public void aUserSearchesForAllGenres() {
-        response = request.get(BASE_URL + port +"/api/genres");
+        response = request.get(BASE_URL + port + "/api/genres");
     }
 
     @Then("A list of all genres is returned")
     public void aListOfAllGenresIsReturned() {
-        Assert.assertEquals(200,response.getStatusCode());
-        List<Map<String, String >> genres = response.jsonPath().get("data");
+        Assert.assertEquals(200, response.getStatusCode());
+        List<Map<String, String>> genres = response.jsonPath().get("data");
         String message = response.jsonPath().get("message");
-        Assert.assertEquals("genres found",message);
+        Assert.assertEquals("genres found", message);
         Assert.assertTrue(genres.size() > 0);
     }
 
@@ -207,10 +207,10 @@ public class SpringBootTestDefinitions {
         Assert.assertEquals(200, response.getStatusCode());
         String message = response.jsonPath().get("message");
         Map<String, String> anime = response.jsonPath().get("data");
-        Assert.assertEquals("success",message);
-        Assert.assertEquals("2",anime.get("id"));
-        Assert.assertEquals("DBZ2",anime.get("title"));
-        Assert.assertEquals("Monkey fights ugly aliens part 2",anime.get("description"));
+        Assert.assertEquals("success", message);
+        Assert.assertEquals("2", anime.get("id"));
+        Assert.assertEquals("DBZ2", anime.get("title"));
+        Assert.assertEquals("Monkey fights ugly aliens part 2", anime.get("description"));
     }
 
     @When("A user searches for an genre by Id")
@@ -224,10 +224,10 @@ public class SpringBootTestDefinitions {
         Assert.assertEquals(200, response.getStatusCode());
         String message = response.jsonPath().get("message");
         Map<String, String> genre = response.jsonPath().get("data");
-        Assert.assertEquals("success",message);
-        Assert.assertEquals("2",genre.get("id"));
-        Assert.assertEquals("Adventure",genre.get("name"));
-        Assert.assertEquals("Explore places",genre.get("description"));
+        Assert.assertEquals("success", message);
+        Assert.assertEquals("2", genre.get("id"));
+        Assert.assertEquals("Adventure", genre.get("name"));
+        Assert.assertEquals("Explore places", genre.get("description"));
     }
 
     /**
@@ -249,8 +249,8 @@ public class SpringBootTestDefinitions {
         Assert.assertEquals(201, response.getStatusCode());
         String message = response.jsonPath().get("message");
         Map<String, String> userAnime = response.jsonPath().get("data");
-        Assert.assertEquals("success",message);
-        Assert.assertEquals("5",userAnime.get("id"));
+        Assert.assertEquals("success", message);
+        Assert.assertEquals("5", userAnime.get("id"));
         Assert.assertTrue(userAnime.get("anime").contains("DBZ5"));
         Assert.assertTrue(userAnime.get("user").contains("GENERAL"));
     }
@@ -266,8 +266,8 @@ public class SpringBootTestDefinitions {
         Assert.assertEquals(200, response.getStatusCode());
         String message = response.jsonPath().get("message");
         Map<String, String> userAnime = response.jsonPath().get("data");
-        Assert.assertEquals("delete success",message);
-        Assert.assertEquals("5",userAnime.get("id"));
+        Assert.assertEquals("delete success", message);
+        Assert.assertEquals("5", userAnime.get("id"));
         Assert.assertTrue(userAnime.get("anime").contains("DBZ5"));
         Assert.assertTrue(userAnime.get("user").contains("GENERAL"));
     }
@@ -279,29 +279,29 @@ public class SpringBootTestDefinitions {
     public void aAnAnimeExists() {
         request.header("Authorization", "Bearer " + generalUserToken);
         response = request.get(BASE_URL + port + "/api/anime/5");
-        Assert.assertEquals(302,response.getStatusCode());
+        Assert.assertEquals(302, response.getStatusCode());
     }
 
     @When("A user updates the watch status")
     public void aUserUpdatesTheWatchStatus() throws JSONException {
         JSONObject requestBody = new JSONObject();
-        requestBody.put("rating",5);
-        requestBody.put("watchStatus","DROPPED");
+        requestBody.put("rating", 5);
+        requestBody.put("watchStatus", "DROPPED");
         request.header("Authorization", "Bearer " + generalUserToken);
-        response = request.body(requestBody.toString()).put(BASE_URL + port+"/api/user-anime/5");
+        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/user-anime/5");
     }
 
     @Then("The anime in their watch list is updated")
     public void theAnimeInTheirWatchListIsUpdated() {
-        Assert.assertEquals(200,response.getStatusCode());
+        Assert.assertEquals(200, response.getStatusCode());
         String message = response.jsonPath().get("message");
         Map<String, String> userAnime = response.jsonPath().get("data");
-        Assert.assertEquals("update success",message);
-        Assert.assertEquals("5",userAnime.get("id"));
+        Assert.assertEquals("update success", message);
+        Assert.assertEquals("5", userAnime.get("id"));
         Assert.assertTrue(userAnime.get("anime").contains("DBZ5"));
         Assert.assertTrue(userAnime.get("user").contains("GENERAL"));
-        Assert.assertEquals("5",userAnime.get("rating"));
-        Assert.assertEquals("DROPPED",userAnime.get("watchStatus"));
+        Assert.assertEquals("5", userAnime.get("rating"));
+        Assert.assertEquals("DROPPED", userAnime.get("watchStatus"));
     }
 
     /*
@@ -328,9 +328,9 @@ public class SpringBootTestDefinitions {
         Assert.assertEquals(201, response.getStatusCode());
         String message = response.jsonPath().get("message");
         Map<String, String> anime = response.jsonPath().get("data");
-        Assert.assertEquals("created anime",message);
-        Assert.assertEquals("title1",anime.get("title"));
-        Assert.assertEquals("description1",anime.get("description"));
+        Assert.assertEquals("created anime", message);
+        Assert.assertEquals("title1", anime.get("title"));
+        Assert.assertEquals("description1", anime.get("description"));
     }
 
     @When("an admin remove an anime")
@@ -363,10 +363,10 @@ public class SpringBootTestDefinitions {
     public void theGenreIsAddedToGenreModel() {
         Assert.assertEquals(201, response.getStatusCode());
         String message = response.jsonPath().get("message");
-        Map<String,String> genre = response.jsonPath().get("data");
-        Assert.assertEquals("created genre",message);
-        Assert.assertEquals("name1",genre.get("name"));
-        Assert.assertEquals("description1",genre.get("description"));
+        Map<String, String> genre = response.jsonPath().get("data");
+        Assert.assertEquals("created genre", message);
+        Assert.assertEquals("name1", genre.get("name"));
+        Assert.assertEquals("description1", genre.get("description"));
     }
 
     @When("an admin remove a genre")
