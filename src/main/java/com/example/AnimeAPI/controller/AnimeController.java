@@ -27,7 +27,7 @@ public class AnimeController {
      * A GET endpoint that returns all animes
      * @return ResponseEntity
      */
-    @GetMapping(path = "/animes")
+    @GetMapping(path = "/anime")
     public ResponseEntity<?> getAllAnimes() {
         List<Anime> animeList = animeService.getAllAnimes();
         message.put("message", "success");
@@ -40,7 +40,7 @@ public class AnimeController {
      * @param anime {Object}
      * @return ResponseEntity
      */
-    @PostMapping(path = "/animes")
+    @PostMapping(path = "/anime/add")
     public ResponseEntity<?> createAnime(@RequestBody Anime anime) {
         Anime newAnime = animeService.createAnime(anime);
         if (newAnime != null) {
@@ -60,7 +60,7 @@ public class AnimeController {
      * @return ResponseEntity
      */
     // http://localhost:8080/api/animes/1
-    @DeleteMapping(path = "/animes/{animeId}")
+    @DeleteMapping(path = "/anime/{animeId}")
     public ResponseEntity<?> deleteAnime(@PathVariable Long animeId) {
         Anime anime = animeService.deleteAnime(animeId);
         message.put("message", "Anime with id " + animeId + " deleted");
@@ -76,7 +76,7 @@ public class AnimeController {
      * @return ResponseEntity
      */
     // http://localhost:8080/api/animes/1
-    @PutMapping(path = "/animes/{animeId}")
+    @PutMapping(path = "/anime/{animeId}")
     public ResponseEntity<?> updateAnime(@PathVariable Long animeId, @RequestBody Anime animeObject) {
         Anime anime = animeService.updateAnime(animeId, animeObject);
         message.put("message", "success");
@@ -85,12 +85,12 @@ public class AnimeController {
     }
 
     /**
-     * A GET method to find animes by ID.
+     * A GET method to find anime by ID.
      *
      * @param animeId {Long}
      * @return ResponseEntity
      */
-    @GetMapping(path = "/animes/{animeId}")
+    @GetMapping(path = "/anime/{animeId}")
     public ResponseEntity<?> getAnimeById(@PathVariable Long animeId) {
         Anime anime = animeService.getAnimeById(animeId);
         message.put("message", "success");
