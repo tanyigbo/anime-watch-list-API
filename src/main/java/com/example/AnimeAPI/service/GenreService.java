@@ -47,7 +47,7 @@ public class GenreService {
      */
     public Genre createGenre(Genre genreObject){
         User user = getCurrentLoggedInUser();
-        if (user.getUserType().equals("ADMIN")) {
+        if (user.getUserType().toLowerCase().equals("admin")) {
             Optional<Genre> genre = genreRepository.findByName(genreObject.getName());
             if(genre.isPresent()) {
                 throw new InformationNotFoundException("This genre already exists:" + genreObject.getName());
@@ -69,7 +69,7 @@ public class GenreService {
      */
     public Genre deleteGenre(Long genreId) {
         User user = getCurrentLoggedInUser();
-        if (user.getUserType().equals("ADMIN")) {
+        if (user.getUserType().toLowerCase().equals("admin")) {
             Optional<Genre> genre = genreRepository.findById(genreId);
             if (genre.isPresent()) {
                 genreRepository.delete(genre.get());
