@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/api")
 public class AnimeController {
-    static HashMap<String, Object> message = new HashMap<>();
+    static HashMap<String, Object> message;
 
     @Autowired
     private AnimeService animeService;
@@ -43,8 +43,8 @@ public class AnimeController {
             message.put("data", newAnime);
             return new ResponseEntity<>(message, HttpStatus.CREATED);
         } else {
-            message.put("message", "Failed to create anime");
-            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+            message.put("message", "Insufficient rights");
+            return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
         }
     }
 
@@ -57,10 +57,16 @@ public class AnimeController {
     // http://localhost:8080/api/animes/1
     @DeleteMapping(path = "/animes/{animeId}")
     public ResponseEntity<?> deleteAnime(@PathVariable Long animeId) {
+        message = new HashMap<>();
         Anime anime = animeService.deleteAnime(animeId);
-        message.put("message", "Anime with id " + animeId + " deleted");
-        message.put("data", anime);
-        return new ResponseEntity<>(message, HttpStatus.NO_CONTENT);
+        if (anime != null) {
+            message.put("message", "Anime with id " + animeId + " deleted");
+            message.put("data", anime);
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } else {
+            message.put("message", "Insufficient rights");
+            return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
+        }
     }
 
     /**
