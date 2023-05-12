@@ -3,8 +3,11 @@ package com.example.AnimeAPI.service;
 import com.example.AnimeAPI.exception.InformationExistException;
 import com.example.AnimeAPI.exception.InformationNotFoundException;
 import com.example.AnimeAPI.model.Anime;
+import com.example.AnimeAPI.model.User;
 import com.example.AnimeAPI.repository.AnimeRepository;
+import com.example.AnimeAPI.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +19,11 @@ public class AnimeService {
 
     @Autowired
     public AnimeService(AnimeRepository animeRepository){this.animeRepository = animeRepository;}
+
+    public static User getCurrentLoggedInUser() {
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userDetails.getUser();
+    }
 
     /**
      * Retrieves all the animes from the repository.
@@ -35,13 +43,16 @@ public class AnimeService {
      * @throws InformationNotFoundException if the anime already exists.
      */
     public Anime createAnime(Anime animeObject){
-        Optional<Anime> anime = animeRepository.findByTitle(animeObject.getTitle());
-        if(anime.isPresent()){
-            throw new InformationNotFoundException("This anime already exists:" + animeObject.getTitle());
-        }else {
-            return animeRepository.save(animeObject);
+        User user = getCurrentLoggedInUser();
+        if (user.getUserType().equals("ADMIN")) {
+            Optional<Anime> anime = animeRepository.findByTitle(animeObject.getTitle());
+            if(anime.isPresent()){
+                throw new InformationNotFoundException("This anime already exists:" + animeObject.getTitle());
+            }else {
+                return animeRepository.save(animeObject);
+            }
         }
-
+        return null;
     }
 
     /**
@@ -54,13 +65,17 @@ public class AnimeService {
      * @return Anime {Object}
      */
     public Anime deleteAnime(Long animeId) {
-        Optional<Anime> anime = animeRepository.findById(animeId);
-        if (anime.isPresent()) {
-            animeRepository.delete(anime.get());
-            return anime.get();
-        } else {
-            throw new InformationNotFoundException("Anime with given id " + animeId + " does not exist.");
+        User user = getCurrentLoggedInUser();
+        if (user.getUserType().equals("ADMIN")) {
+            Optional<Anime> anime = animeRepository.findById(animeId);
+            if (anime.isPresent()) {
+                animeRepository.delete(anime.get());
+                return anime.get();
+            } else {
+                throw new InformationNotFoundException("Anime with given id " + animeId + " does not exist.");
+            }
         }
+        return null;
     }
 
     /**
