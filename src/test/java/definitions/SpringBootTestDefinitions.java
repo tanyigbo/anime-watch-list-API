@@ -46,7 +46,7 @@ public class SpringBootTestDefinitions {
      */
 
     /**
-     *   Scenario: An admin is able to log in to their admin account
+     * Scenario: An admin is able to log in to their admin account
      */
     @When("An admin provides their username and password to an account")
     public void anAdminProvidesTheirUsernameAndPasswordToAnAccount() throws JSONException {
@@ -69,10 +69,15 @@ public class SpringBootTestDefinitions {
 
 
     /**
-     *   Scenario: A user is able to log in to their standard account
+     * Scenario: A user is able to log in to their standard account
      */
     @Given("A list of registered users")
     public void aListOfRegisteredUsers() {
+        request.header("Authorization", "Bearer " + adminUserToken);
+        response = request.get(BASE_URL + port + "/auth/users");
+        Assert.assertEquals(302,response.getStatusCode());
+        List<Map<String, String>> users = response.jsonPath().get("data");
+        Assert.assertTrue(users.size() > 0);
     }
 
     @When("A registered user enters username and password")
@@ -102,7 +107,7 @@ public class SpringBootTestDefinitions {
      */
 
     /**
-     *   Scenario: An unregistered user is able to register
+     * Scenario: An unregistered user is able to register
      */
     @Given("A username is not registered")
     public void aUsernameIsNotRegistered() throws JSONException {
@@ -132,11 +137,10 @@ public class SpringBootTestDefinitions {
         Assert.assertEquals("user created", message);
         Assert.assertEquals("JohnDoe", user.get("username"));
         Assert.assertEquals("GENERAL", user.get("userType"));
-
     }
 
     /**
-     *   Scenario: Any user is able to view an anime or all anime
+     * Scenario: Any user is able to view an anime or all anime
      */
     @Given("A list of anime are available")
     public void aListOfAnimeAreAvailable() {
@@ -172,7 +176,7 @@ public class SpringBootTestDefinitions {
     }
 
     /**
-     *   Scenario: Any user is able to view a genre or all genres
+     * Scenario: Any user is able to view a genre or all genres
      */
     @Given("A list of genre are available")
     public void aListOfGenreAreAvailable() {
