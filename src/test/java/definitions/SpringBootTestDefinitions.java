@@ -382,7 +382,7 @@ public class SpringBootTestDefinitions {
     }
 
     /**
-     * Scenario: An admin can add a anime to a genre
+     * Scenario: An admin can add and remove an anime for a genre
      */
     @Given("a list of anime exist")
     public void aListOfAnimeExist() {
