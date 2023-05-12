@@ -35,7 +35,7 @@ public class GenreController {
      * @param genre {Object}
      * @return ResponseEntity
      */
-    @PostMapping(path = "/genres")
+    @PostMapping(path = "/genres/add")
     public ResponseEntity<?> createGenre(@RequestBody Genre genre) {
         Genre newGenre = genreService.createGenre(genre);
         if (newGenre != null) {
@@ -43,8 +43,8 @@ public class GenreController {
             message.put("data", newGenre);
             return new ResponseEntity<>(message, HttpStatus.CREATED);
         } else {
-            message.put("message", "Failed to create genre");
-            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+            message.put("message", "Insufficient rights");
+            return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
         }
     }
 
@@ -58,9 +58,14 @@ public class GenreController {
     @DeleteMapping(path = "/genres/{genreId}")
     public ResponseEntity<?> deleteGenre(@PathVariable Long genreId) {
         Genre genre = genreService.deleteGenre(genreId);
-        message.put("message", "Genre with id " + genreId + " deleted");
-        message.put("data", genre);
-        return new ResponseEntity<>(message, HttpStatus.NO_CONTENT);
+        if (genre != null) {
+            message.put("message", "Genre with id " + genreId + " deleted");
+            message.put("data", genre);
+            return new ResponseEntity<>(message, HttpStatus.NO_CONTENT);
+        } else {
+            message.put("message", "Insufficient rights");
+            return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
+        }
     }
 
     /**

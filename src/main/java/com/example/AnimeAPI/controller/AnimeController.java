@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/api")
 public class AnimeController {
-    static HashMap<String, Object> message = new HashMap<>();
+    static HashMap<String, Object> message;
 
     @Autowired
     private AnimeService animeService;
@@ -27,8 +27,9 @@ public class AnimeController {
      * A GET endpoint that returns all animes
      * @return ResponseEntity
      */
-    // http://localhost:8080/api/animes
-    @GetMapping(path = "/animes")
+
+    // http://localhost:8080/api/anime
+    @GetMapping(path = "/anime")
     public ResponseEntity<?> getAllAnimes() {
         List<Anime> animeList = animeService.getAllAnimes();
         message.put("message", "success");
@@ -41,8 +42,8 @@ public class AnimeController {
      * @param anime {Object}
      * @return ResponseEntity
      */
-    // http://localhost:8080/api/animes
-    @PostMapping(path = "/animes")
+    // http://localhost:8080/api/anime/add
+    @PostMapping(path = "/anime/add")
     public ResponseEntity<?> createAnime(@RequestBody Anime anime) {
         Anime newAnime = animeService.createAnime(anime);
         if (newAnime != null) {
@@ -50,8 +51,8 @@ public class AnimeController {
             message.put("data", newAnime);
             return new ResponseEntity<>(message, HttpStatus.CREATED);
         } else {
-            message.put("message", "Failed to create anime");
-            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+            message.put("message", "Insufficient rights");
+            return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
         }
     }
 
@@ -62,12 +63,18 @@ public class AnimeController {
      * @return ResponseEntity
      */
     // http://localhost:8080/api/animes/1
-    @DeleteMapping(path = "/animes/{animeId}")
+    @DeleteMapping(path = "/anime/{animeId}")
     public ResponseEntity<?> deleteAnime(@PathVariable Long animeId) {
+        message = new HashMap<>();
         Anime anime = animeService.deleteAnime(animeId);
-        message.put("message", "Anime with id " + animeId + " deleted");
-        message.put("data", anime);
-        return new ResponseEntity<>(message, HttpStatus.NO_CONTENT);
+        if (anime != null) {
+            message.put("message", "Anime with id " + animeId + " deleted");
+            message.put("data", anime);
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } else {
+            message.put("message", "Insufficient rights");
+            return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
+        }
     }
 
     /**
@@ -78,7 +85,7 @@ public class AnimeController {
      * @return ResponseEntity
      */
     // http://localhost:8080/api/animes/1
-    @PutMapping(path = "/animes/{animeId}")
+    @PutMapping(path = "/anime/{animeId}")
     public ResponseEntity<?> updateAnime(@PathVariable Long animeId, @RequestBody Anime animeObject) {
         Anime anime = animeService.updateAnime(animeId, animeObject);
         message.put("message", "success");
@@ -87,13 +94,13 @@ public class AnimeController {
     }
 
     /**
-     * A GET method to find animes by ID.
+     * A GET method to find anime by ID.
      *
      * @param animeId {Long}
      * @return ResponseEntity
      */
-    // http://localhost:8080/api/animes/1
-    @GetMapping(path = "/animes/{animeId}")
+    // http://localhost:8080/api/anime/1
+    @GetMapping(path = "/anime/{animeId}")
     public ResponseEntity<?> getAnimeById(@PathVariable Long animeId) {
         Anime anime = animeService.getAnimeById(animeId);
         message.put("message", "success");
