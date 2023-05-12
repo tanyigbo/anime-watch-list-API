@@ -140,7 +140,7 @@ public class SpringBootTestDefinitions {
     }
 
     /**
-     * Scenario: Any user is able to view an anime or all anime
+     * Scenario: Any user is able to view all anime
      */
     @Given("A list of anime are available")
     public void aListOfAnimeAreAvailable() {
@@ -154,51 +154,36 @@ public class SpringBootTestDefinitions {
     @When("A user searches for all anime")
     public void aUserSearchesForAllAnime() {
         response = request.get(BASE_URL + port + "/api/anime");
-        String message = response.jsonPath().getString("message");
-        List<Map<String, String>> animes = response.jsonPath().get("data");
-        Assert.assertEquals("success", message);
-        Assert.assertTrue(animes.size() > 0);
     }
 
     @Then("A list of all anime is returned")
     public void aListOfAllAnimeIsReturned() {
-    }
-
-    @When("A user searches for an anime by Id")
-    public void aUserSearchesForAnAnimeById() {
-        request.header("Content-Type", "application/json");
-        response = request.get(BASE_URL + port + "/api/anime/2");
-    }
-
-    @Then("The anime with provided Id is returned")
-    public void theAnimeWithProvidedIdIsReturned() {
-        Assert.assertEquals(200, response.getStatusCode());
+        String message = response.jsonPath().getString("message");
+        List<Map<String, String>> anime = response.jsonPath().get("data");
+        Assert.assertEquals("success", message);
+        Assert.assertTrue(anime.size() > 0);
     }
 
     /**
-     * Scenario: Any user is able to view a genre or all genres
+     * Scenario: Any user is able to view all genres
      */
     @Given("A list of genre are available")
     public void aListOfGenreAreAvailable() {
+
     }
 
     @When("A user searches for all genres")
     public void aUserSearchesForAllGenres() {
+        response = request.get(BASE_URL + port +"/api/genres");
     }
 
     @Then("A list of all genres is returned")
     public void aListOfAllGenresIsReturned() {
-    }
-
-    @When("A user searches for an genre by Id")
-    public void aUserSearchesForAnGenreById() {
-        request.header("Content-Type", "application/json");
-        response = request.get(BASE_URL + port + "/api/genres/2");
-    }
-
-    @Then("The genre with provided Id is returned")
-    public void theGenreWithProvidedIdIsReturned() {
-        Assert.assertEquals(200, response.getStatusCode());
+        Assert.assertEquals(200,response.getStatusCode());
+        List<Map<String, String >> genres = response.jsonPath().get("data");
+        String message = response.jsonPath().get("message");
+        Assert.assertEquals("genres found",message);
+        Assert.assertTrue(genres.size() > 0);
     }
 
 
@@ -207,6 +192,41 @@ public class SpringBootTestDefinitions {
      * Registered Users
      *
      */
+
+    /**
+     * Any logged-in user can view an anime or genre by id
+     */
+    @When("A user searches for an anime by Id")
+    public void aUserSearchesForAnAnimeById() {
+        response = request.get(BASE_URL + port + "/api/anime/2");
+    }
+
+    @Then("The anime with provided Id is returned")
+    public void theAnimeWithProvidedIdIsReturned() {
+        Assert.assertEquals(200, response.getStatusCode());
+        String message = response.jsonPath().get("message");
+        Map<String, String> anime = response.jsonPath().get("data");
+        Assert.assertEquals("success",message);
+        Assert.assertEquals("2",anime.get("id"));
+        Assert.assertEquals("DBZ2",anime.get("title"));
+        Assert.assertEquals("Monkey fights ugly aliens part 2",anime.get("description"));
+    }
+
+    @When("A user searches for an genre by Id")
+    public void aUserSearchesForAnGenreById() {
+        response = request.get(BASE_URL + port + "/api/genres/2");
+    }
+
+    @Then("The genre with provided Id is returned")
+    public void theGenreWithProvidedIdIsReturned() {
+        Assert.assertEquals(200, response.getStatusCode());
+        String message = response.jsonPath().get("message");
+        Map<String, String> genre = response.jsonPath().get("data");
+        Assert.assertEquals("success",message);
+        Assert.assertEquals("2",genre.get("id"));
+        Assert.assertEquals("Adventure",genre.get("name"));
+        Assert.assertEquals("Explore places",genre.get("description"));
+    }
 
     /**
      * Scenario: Any logged-in user can add or remove an anime to their watchlist
@@ -332,18 +352,17 @@ public class SpringBootTestDefinitions {
         Assert.assertTrue(genres.size() > 0);
     }
 
-    @When("an admin adds a anime to a genre")
-    public void anAdminAddsAAnimeToAGenre() {
+    @When("an admin adds an anime to a genre")
+    public void anAdminAddsAnAnimeToAGenre() {
         request.header("Content-Type", "application/json");
         response = request.post(BASE_URL + port + "/api/anime-details/1/1");
     }
 
-    @Then("the amime is added to genre model")
-    public void theAmimeIsAddedToGenreModel() {
+    @Then("the anime is added to genre model")
+    public void theAnimeIsAddedToGenreModel() {
         Assert.assertEquals(200, response.getStatusCode());
         String responseMessage = response.jsonPath().get("message");
         Assert.assertEquals("success", responseMessage);
-
     }
 
     @When("an admin removes an anime")
