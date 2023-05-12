@@ -1,7 +1,9 @@
 package com.example.AnimeAPI.controller;
 
 import com.example.AnimeAPI.model.Anime;
+import com.example.AnimeAPI.model.Genre;
 import com.example.AnimeAPI.service.AnimeService;
+import com.example.AnimeAPI.service.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,9 @@ public class AnimeController {
 
     @Autowired
     private AnimeService animeService;
+
+    @Autowired
+    private GenreService genreService;
 
     /***
      * A GET endpoint that returns all animes
@@ -92,4 +97,6 @@ public class AnimeController {
         message.put("data", anime);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
+
+
 }

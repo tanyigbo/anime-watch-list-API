@@ -59,4 +59,18 @@ Feature: Anime Watch List Rest API functionalities
     When an admin add a genre
     Then the genre is added to genre model
     When an admin remove a genre
+
     Then the genre is removed from genre model
+    When an admin update a genre
+    Then the genre is updated in genre model
+    When an admin search genre by id
+    Then that genre is returned from genre model
+
+  Scenario: An admin can add a anime to a genre
+    Given a list of anime exist
+    And a list of genre exists
+    When an admin adds a anime to a genre
+    Then the amime is added to genre model
+    When an admin removes an anime
+    Then the anime is removed from genre model
+
