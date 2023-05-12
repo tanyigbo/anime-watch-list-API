@@ -1,5 +1,6 @@
 package com.example.AnimeAPI.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -10,13 +11,16 @@ import java.util.Set;
 @Table(name = "anime")// Table name in database
 public class Anime {
 
+    @JsonIgnore
     @OneToMany(mappedBy = "anime", orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
     Set<UserAnime> userAnimeList;
+
     @Column
     @OneToMany(mappedBy = "anime", orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
     Set<AnimeDetail> animeDetailSet;
+
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
