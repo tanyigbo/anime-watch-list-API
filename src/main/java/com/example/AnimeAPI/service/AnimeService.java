@@ -126,7 +126,7 @@ public class AnimeService {
     public Anime getAnimeById(Long animeId){
         Optional<Anime> anime = animeRepository.findById(animeId);
         if (anime.isEmpty()){
-            throw new InformationNotFoundException("Anime with id" + animeId + "not found");
+            throw new InformationNotFoundException("Anime with id " + animeId + " not found");
         }else {
             return anime.get();
         }
