@@ -4,8 +4,11 @@ import com.example.AnimeAPI.exception.InformationExistException;
 import com.example.AnimeAPI.model.Anime;
 import com.example.AnimeAPI.model.AnimeDetail;
 import com.example.AnimeAPI.model.Genre;
+import com.example.AnimeAPI.model.User;
 import com.example.AnimeAPI.repository.AnimeDetailRepository;
+import com.example.AnimeAPI.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -25,6 +28,11 @@ public final AnimeService animeService;
         this.animeService = animeService;
     }
 
+    public static User getCurrentLoggedInUser() {
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userDetails.getUser();
+    }
+
     /**
      * This method adds a specified anime to a specified genre.
      * It fetches the Genre object and the Anime object using the provided IDs.
@@ -38,15 +46,17 @@ public final AnimeService animeService;
      * @throws InformationExistException If the anime or genre does not exist.
      */
     public AnimeDetail addAnimeToGenre(Long animeId, Long genreId) throws InformationExistException{
-
-        Genre genre = genreService.getGenreById(genreId);
-        Anime anime = animeService.getAnimeById(animeId);
-        Optional<AnimeDetail> animeDetail = animeDetailRepository.findByAnimeAndGenre(anime, genre);
-        if (animeDetail.isPresent()){
-            return null;
+        User user = getCurrentLoggedInUser();
+        if(user.getUserType().equals("ADMIN")) {
+            Genre genre = genreService.getGenreById(genreId);
+            Anime anime = animeService.getAnimeById(animeId);
+            Optional<AnimeDetail> animeDetail = animeDetailRepository.findByAnimeAndGenre(anime, genre);
+            if (animeDetail.isPresent()) {
+                return null;
+            }
+            return animeDetailRepository.save(new AnimeDetail(genre, anime));
         }
-       return animeDetailRepository.save(new AnimeDetail(genre,anime));
-
+        return null;
     }
 
     /**
@@ -61,12 +71,16 @@ public final AnimeService animeService;
      * @return The deleted AnimeDetail object if the operation was successful, or null if the anime was not associated with the genre.
      */
     public AnimeDetail removeAnimeFromGenre(Long animeId, Long genreId){
-        Genre genre = genreService.getGenreById(genreId);
-        Anime anime = animeService.getAnimeById(animeId);
-        Optional<AnimeDetail> animeDetail = animeDetailRepository.findByAnimeAndGenre(anime, genre);
-        if (animeDetail.isPresent()){
-            animeDetailRepository.delete(animeDetail.get());
-            return animeDetail.get();
+        User user = getCurrentLoggedInUser();
+        if(user.getUserType().equals("ADMIN")) {
+            Genre genre = genreService.getGenreById(genreId);
+            Anime anime = animeService.getAnimeById(animeId);
+            Optional<AnimeDetail> animeDetail = animeDetailRepository.findByAnimeAndGenre(anime, genre);
+            if (animeDetail.isPresent()) {
+                animeDetailRepository.delete(animeDetail.get());
+                return animeDetail.get();
+            }
+            return null;
         }
         return null;
     }

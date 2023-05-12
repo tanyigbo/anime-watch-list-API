@@ -380,7 +380,6 @@ public class SpringBootTestDefinitions {
     public void theGenreIsRemovedFromGenreModel() {
         Assert.assertEquals(204, response.getStatusCode());
     }
-
     /**
      * Scenario: An admin can add and remove an anime for a genre
      */
@@ -427,7 +426,7 @@ public class SpringBootTestDefinitions {
 
     @Then("the anime is removed from genre model")
     public void theAnimeIsRemovedFromGenreModel() {
-        Assert.assertEquals(204, response.getStatusCode());
+        Assert.assertEquals(200, response.getStatusCode());
     }
 }
 

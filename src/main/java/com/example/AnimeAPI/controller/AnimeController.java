@@ -27,6 +27,8 @@ public class AnimeController {
      * A GET endpoint that returns all animes
      * @return ResponseEntity
      */
+
+    // http://localhost:8080/api/anime
     @GetMapping(path = "/anime")
     public ResponseEntity<?> getAllAnimes() {
         List<Anime> animeList = animeService.getAllAnimes();
@@ -40,6 +42,7 @@ public class AnimeController {
      * @param anime {Object}
      * @return ResponseEntity
      */
+    // http://localhost:8080/api/anime/add
     @PostMapping(path = "/anime/add")
     public ResponseEntity<?> createAnime(@RequestBody Anime anime) {
         Anime newAnime = animeService.createAnime(anime);
@@ -96,6 +99,7 @@ public class AnimeController {
      * @param animeId {Long}
      * @return ResponseEntity
      */
+    // http://localhost:8080/api/anime/1
     @GetMapping(path = "/anime/{animeId}")
     public ResponseEntity<?> getAnimeById(@PathVariable Long animeId) {
         Anime anime = animeService.getAnimeById(animeId);
