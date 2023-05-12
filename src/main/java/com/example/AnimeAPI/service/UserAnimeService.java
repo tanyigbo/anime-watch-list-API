@@ -1,6 +1,7 @@
 package com.example.AnimeAPI.service;
 
 import com.example.AnimeAPI.exception.InformationExistException;
+import com.example.AnimeAPI.exception.InformationNotFoundException;
 import com.example.AnimeAPI.model.Anime;
 import com.example.AnimeAPI.model.User;
 import com.example.AnimeAPI.model.UserAnime;
@@ -51,6 +52,28 @@ public class UserAnimeService {
             userAnime.setRating(userAnimeObj.getRating());
             userAnime.setWatchStatus(userAnimeObj.getWatchStatus());
             return userAnimeRepository.save(userAnime);
+        }
+    }
+
+    /**
+     * Takes in a long anime id and user anime object and tries to find
+     * an existing record connection between the logged-in user and given
+     * anime id. If it exists, then update the rating and watch-status.
+     *
+     * @param animeId {Long}
+     * @param userAnimeObj {Object}
+     * @return ResponseEntity
+     */
+    public UserAnime updateAnimeInUserWatchlist(Long animeId, UserAnime userAnimeObj) {
+        Anime anime = animeService.getAnimeById(animeId);
+        UserAnime userAnime = userAnimeRepository.findByUserAndAnime(getCurrentLoggedInUser(), anime);
+        if (userAnime != null) {
+            userAnime = new UserAnime();
+            userAnime.setRating(userAnimeObj.getRating());
+            userAnime.setWatchStatus(userAnimeObj.getWatchStatus());
+            return userAnimeRepository.save(userAnime);
+        } else {
+            throw new InformationNotFoundException("Anime with id " + animeId + " is not in your watchlist.");
         }
     }
 }

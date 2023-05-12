@@ -38,4 +38,21 @@ public class UserAnimeController {
         message.put("message", "Successfully added anime with id " + animeId + " to your watchlist");
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
+
+    /**
+     * A PUT endpoint to update an anime watch status or rating
+     * in user's watchlist.
+     *
+     * @param animeId {Long}
+     * @param userAnimeObj {Object}
+     * @return
+     */
+    // http://localhost:8080/api/user-anime/1
+    @PutMapping(path = "/user-anime/{animeId}")
+    public ResponseEntity<?> updateAnimeInUserWatchlist(@PathVariable Long animeId, @RequestBody UserAnime userAnimeObj) {
+        message = new HashMap<>();
+        userAnimService.updateAnimeInUserWatchlist(animeId, userAnimeObj);
+        message.put("message", "Successfully updated");
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
 }
