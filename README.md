@@ -114,19 +114,21 @@ git clone "add clone text here"
 
 ## EndPoints
 # Endpoints for all users
-| Request Type | URL                                    | Functionality                                               | Access  |
-|--------------|----------------------------------------|-------------------------------------------------------------|---------|
-| POST         | /auth/users/register                   | Request to create a new user                                | Public  |
-| POST         | /auth/users/login                      | Responsible for logging in a user                           | Public  |
-| GET          | /api/genres                            | Returns all genres                                          | Public  |
-| GET          | /api/anime                             | Returns all animes                                          | Public  |
+| Request Type | URL                  | Functionality                     | Access |
+|--------------|----------------------|-----------------------------------|--------|
+| POST         | /auth/users/register | Request to create a new user      | Public |
+| POST         | /auth/users/login    | Responsible for logging in a user | Public |
+| GET          | /api/genres          | Returns all genres                | Public |
+| GET          | /api/anime           | Returns all anime                 | Public |
 
 # Endpoints for registered users
 | Request Type | URL                                    | Functionality                                               | Access  |
 |--------------|----------------------------------------|-------------------------------------------------------------|---------|
 | POST         | /api/user-anime/{animeId}              | Add an existing anime to current logged-in user's watchlist | Private |
 | PUT          | /api/user-anime/{animeId}              | Update an anime watch status or rating                      | Private |
+| DELETE       | /api/user-anime/{animeId}              | Removes anime from the users watchlist                      | Private |
 | GET          | /api/genres/{genreId}                  | Find genre by ID                                            | Private |
+| POST         | /api/anime-details/{animeId}/{genreId} | Adds a specified anime to a specified genre                 | Private |
 | DELETE       | /api/anime-details/{animeId}/{genreId} | Removes a specified anime from a specified genre            | Private |
 | GET          | /api/anime/{animeId}                   | Find anime by ID                                            | Private |
 # Endpoints for admin users
@@ -136,7 +138,6 @@ git clone "add clone text here"
 | GET          | /auth/users                            | Request for all users                       | Private |
 | POST         | /api/genres/add                        | Creates a genre                             | Private |
 | DELETE       | /api/genres/{genreId}                  | Delete genre                                | Private |
-| POST         | /api/anime-details/{animeId}/{genreId} | Adds a specified anime to a specified genre | Private |
 | POST         | /api/anime/add                         | Creates an anime                            | Private |
 | DELETE       | /api/anime/{animeId}                   | Delete anime                                | Private |
 
