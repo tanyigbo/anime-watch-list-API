@@ -4,12 +4,9 @@ import com.example.AnimeAPI.exception.InformationExistException;
 import com.example.AnimeAPI.exception.InformationNotAcceptedException;
 import com.example.AnimeAPI.exception.InformationNotFoundException;
 import com.example.AnimeAPI.model.Anime;
-import com.example.AnimeAPI.model.User;
 import com.example.AnimeAPI.model.UserAnime;
 import com.example.AnimeAPI.repository.UserAnimeRepository;
-import com.example.AnimeAPI.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,11 +22,25 @@ public class UserAnimeService {
         this.userAnimeRepository = userAnimeRepository;
     }
 
+    /**
+     * Returns an integer between the ratings of 0
+     * and 10.
+     * @param rating {int}
+     * @return {int}
+     */
     public static int checkRating(int rating) {
         if (rating <= 0) return 0;
         else return Math.min(rating, 10);
     }
 
+    /**
+     * Returns a string watch-status if argument is valid.
+     * Otherwise, throw new InformationNotAccepted exception.
+     *
+     * @param watchStatus {String}
+     * @return status {String}
+     * @throws InformationNotFoundException if argument does not match any status
+     */
     public static String checkWatchStatus(String watchStatus) {
         String[] status = {"completed","watching","dropped","not-started"};
         if (watchStatus == null) {
@@ -55,6 +66,9 @@ public class UserAnimeService {
      * @param userAnimeObj {Object}
      * @throws InformationExistException if record exists
      * @return UserAnime
+     *
+     * @link #checkRating(int) CheckRating
+     * @link #checkWatchStatus(String) CheckWatchStatus
      */
     public UserAnime addAnimeToUserWatchlist(Long animeId, UserAnime userAnimeObj) {
         Anime anime = animeService.getAnimeById(animeId);
@@ -65,7 +79,9 @@ public class UserAnimeService {
         userAnime = new UserAnime();
         userAnime.setUser(AnimeService.getCurrentLoggedInUser());
         userAnime.setAnime(anime);
+        // checks the rating before set
         userAnime.setRating(checkRating(userAnimeObj.getRating()));
+        // checks the watchStatus before set
         userAnime.setWatchStatus(checkWatchStatus(userAnimeObj.getWatchStatus()));
         return userAnimeRepository.save(userAnime);
     }
