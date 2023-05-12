@@ -2,6 +2,8 @@ package com.example.AnimeAPI.controller;
 
 import com.example.AnimeAPI.exception.InformationExistException;
 import com.example.AnimeAPI.model.User;
+import com.example.AnimeAPI.model.login.LoginRequest;
+import com.example.AnimeAPI.model.login.LoginResponse;
 import com.example.AnimeAPI.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,7 +33,7 @@ public class UserController {
      * @return ResponseEntity
      */
     @GetMapping(path = "/users")
-    // http://localhost:{portNumber}/api/auth/users
+    // http://localhost:{portNumber}/auth/users
     public ResponseEntity<?> getAllUsers(){
         response = new HashMap<>();
         List<User> users = userService.getAllUsers();
@@ -51,9 +53,7 @@ public class UserController {
     public ResponseEntity<?> createUser(@RequestBody User userObj){
         response = new HashMap<>();
         try {
-            System.out.println(userObj.toString());
             User newUser = userService.createUser(userObj);
-            System.out.println(newUser.toString());
             response.put("message","user created");
             response.put("data",newUser);
             return new ResponseEntity<>(response,HttpStatus.CREATED);
@@ -62,4 +62,21 @@ public class UserController {
             return new ResponseEntity<>(response,HttpStatus.CONFLICT);
         }
     }
+
+    @PostMapping(path = "/users/login")
+    // http://localhost:{portNumber}/auth/users/login
+    public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
+        response = new HashMap<>();
+        try {
+            LoginResponse loginResponse = userService.loginUser(loginRequest);
+            response.put("message", "user logged in");
+            response.put("data",loginResponse.getMessage());
+            return new ResponseEntity<>(response,HttpStatus.OK);
+        }catch (RuntimeException e){
+            response.put("message",e.getMessage());
+            return new ResponseEntity<>(response,HttpStatus.I_AM_A_TEAPOT);
+        }
+    }
+
+
 }
