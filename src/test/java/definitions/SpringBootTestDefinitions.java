@@ -255,4 +255,14 @@ public class SpringBootTestDefinitions {
 
     }
 
+    @When("an admin removes an anime")
+    public void anAdminRemovesAnAnime() {
+        request.header("Content-Type", "application/json");
+        response = request.delete(BASE_URL + port + "/api/anime-details/1/1");
+    }
+
+    @Then("the anime is removed from genre model")
+    public void theAnimeIsRemovedFromGenreModel() {
+        Assert.assertEquals(204, response.getStatusCode());
+    }
 }
