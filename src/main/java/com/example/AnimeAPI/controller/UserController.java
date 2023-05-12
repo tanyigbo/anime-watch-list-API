@@ -63,6 +63,21 @@ public class UserController {
         }
     }
 
+    /**
+     * This method is responsible for logging in a user. It takes a loginRequest object as input, which contains
+     * the user's login credentials. It then interacts with the userService to authenticate the user.
+     * If the authentication is successful, it returns a LoginResponse object wrapped in a ResponseEntity with an HTTP status of 200 (OK).
+     * If the authentication fails, it throws a RuntimeException, returns an error message wrapped in a ResponseEntity with an HTTP status of 418 (I_AM_A_TEAPOT).
+     *
+     * @param loginRequest The LoginRequest object that contains the user's login credentials. This object is part of the HTTP request body.
+     *
+     * @return ResponseEntity<?> If authentication is successful, it returns a LoginResponse object with a message and the data (loginResponse.getMessage()).
+     *                           If authentication fails, it returns an error message as part of a ResponseEntity with an HTTP status of 418.
+     *
+     * @throws RuntimeException If there's an issue during the authentication process, a RuntimeException is thrown.
+     *
+     * HTTP POST endpoint: http://localhost:{portNumber}/auth/users/login
+     */
     @PostMapping(path = "/users/login")
     // http://localhost:{portNumber}/auth/users/login
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {

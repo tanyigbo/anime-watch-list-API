@@ -22,6 +22,7 @@ public class GenreController {
      * A GET endpoint that returns all genres
      * @return ResponseEntity
      */
+    // http://localhost:8080/api/genres
     @GetMapping(path = "/genres")
     public ResponseEntity<?> getAllGenres(){
         List<Genre> genreList = genreService.getAllGenres();
@@ -35,6 +36,7 @@ public class GenreController {
      * @param genre {Object}
      * @return ResponseEntity
      */
+    // http://localhost:8080/api/genres/add
     @PostMapping(path = "/genres/add")
     public ResponseEntity<?> createGenre(@RequestBody Genre genre) {
         Genre newGenre = genreService.createGenre(genre);
@@ -90,6 +92,7 @@ public class GenreController {
      * @param genreId {Long}
      * @return ResponseEntity
      */
+    // http://localhost:8080/api/genres/1
     @GetMapping(path = "/genres/{genreId}")
     public ResponseEntity<?> getGenreById(@PathVariable Long genreId) {
         Genre genre = genreService.getGenreById(genreId);
