@@ -55,7 +55,7 @@ public class AnimeService {
      */
     public Anime createAnime(Anime animeObject){
         User user = getCurrentLoggedInUser();
-        if (user.getUserType().equals("ADMIN")) {
+        if (user.getUserType().toLowerCase().equals("admin")) {
             Optional<Anime> anime = animeRepository.findByTitle(animeObject.getTitle());
             if(anime.isPresent()){
                 throw new InformationNotFoundException("This anime already exists:" + animeObject.getTitle());
@@ -77,7 +77,7 @@ public class AnimeService {
      */
     public Anime deleteAnime(Long animeId) {
         User user = getCurrentLoggedInUser();
-        if (user.getUserType().equals("ADMIN")) {
+        if (user.getUserType().toLowerCase().equals("admin")) {
             Optional<Anime> anime = animeRepository.findById(animeId);
             if (anime.isPresent()) {
                 animeRepository.delete(anime.get());
