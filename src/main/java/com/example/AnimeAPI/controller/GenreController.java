@@ -25,7 +25,7 @@ public class GenreController {
     @GetMapping(path = "/genres")
     public ResponseEntity<?> getAllGenres(){
         List<Genre> genreList = genreService.getAllGenres();
-        message.put("message", "success");
+        message.put("message", "genres found");
         message.put("data", genreList);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
@@ -39,7 +39,7 @@ public class GenreController {
     public ResponseEntity<?> createGenre(@RequestBody Genre genre) {
         Genre newGenre = genreService.createGenre(genre);
         if (newGenre != null) {
-            message.put("message", "success");
+            message.put("message", "created genre");
             message.put("data", newGenre);
             return new ResponseEntity<>(message, HttpStatus.CREATED);
         } else {

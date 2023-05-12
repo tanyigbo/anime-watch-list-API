@@ -4,9 +4,12 @@ import com.example.AnimeAPI.exception.InformationExistException;
 import com.example.AnimeAPI.exception.InformationNotAcceptedException;
 import com.example.AnimeAPI.exception.InformationNotFoundException;
 import com.example.AnimeAPI.model.Anime;
+import com.example.AnimeAPI.model.User;
 import com.example.AnimeAPI.model.UserAnime;
 import com.example.AnimeAPI.repository.UserAnimeRepository;
+import com.example.AnimeAPI.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -86,6 +89,11 @@ public class UserAnimeService {
         return userAnimeRepository.save(userAnime);
     }
 
+    public static User getCurrentLoggedInUser() {
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userDetails.getUser();
+    }
+
     /**
      * Takes in a long anime id and user anime object and tries to find
      * an existing record connection between the logged-in user and given
@@ -101,9 +109,8 @@ public class UserAnimeService {
      */
     public UserAnime updateAnimeInUserWatchlist(Long animeId, UserAnime userAnimeObj) {
         Anime anime = animeService.getAnimeById(animeId);
-        UserAnime userAnime = userAnimeRepository.findByUserAndAnime(AnimeService.getCurrentLoggedInUser(), anime);
+        UserAnime userAnime = userAnimeRepository.findByUserAndAnime(getCurrentLoggedInUser(), anime);
         if (userAnime != null) {
-            userAnime = new UserAnime();
             // checks the rating before set
             userAnime.setRating(checkRating(userAnimeObj.getRating()));
             // checks the watchStatus before set
