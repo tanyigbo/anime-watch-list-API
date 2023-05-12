@@ -235,23 +235,41 @@ public class SpringBootTestDefinitions {
      */
     @Given("a list of anime exists")
     public void aListOfAnimeExists() {
+        // Do we need to repeat this?
     }
 
     @When("user adds anime to watchlist")
     public void userAddsAnimeToWatchlist() {
+        request.header("Authorization", "Bearer " + generalUserToken);
+        response = request.post(BASE_URL + port + "/api/anime/5");
     }
 
     @Then("the anime is added to user watchlist")
     public void theAnimeIsAddedToUserWatchlist() {
         Assert.assertEquals(201, response.getStatusCode());
+        String message = response.jsonPath().get("message");
+        Map<String, String> userAnime = response.jsonPath().get("data");
+        Assert.assertEquals("success",message);
+        Assert.assertEquals("5",userAnime.get("id"));
+        Assert.assertTrue(userAnime.get("anime").contains("DBZ5"));
+        Assert.assertTrue(userAnime.get("user").contains("GENERAL"));
     }
 
     @When("user removes an anime form their watch list")
     public void userRemovesAnAnimeFormTheirWatchList() {
+        request.header("Authorization", "Bearer " + generalUserToken);
+        response = request.post(BASE_URL + port + "/api/anime/5");
     }
 
     @Then("the anime is removed from the user watchlist")
     public void theAnimeIsRemovedFromTheUserWatchlist() {
+        Assert.assertEquals(200, response.getStatusCode());
+        String message = response.jsonPath().get("message");
+        Map<String, String> userAnime = response.jsonPath().get("data");
+        Assert.assertEquals("delete success",message);
+        Assert.assertEquals("5",userAnime.get("id"));
+        Assert.assertTrue(userAnime.get("anime").contains("DBZ5"));
+        Assert.assertTrue(userAnime.get("user").contains("GENERAL"));
     }
 
     /**
