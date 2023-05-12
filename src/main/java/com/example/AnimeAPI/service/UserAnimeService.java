@@ -53,7 +53,7 @@ public class UserAnimeService {
             }
         }
 
-        throw new InformationNotAcceptedException("Watch status (" + watchStatus + ") not accepted");
+        throw new InformationNotAcceptedException("Watch status (" + watchStatus + ") not accepted.");
     }
 
     /**
@@ -74,7 +74,7 @@ public class UserAnimeService {
         Anime anime = animeService.getAnimeById(animeId);
         UserAnime userAnime = userAnimeRepository.findByUserAndAnime(AnimeService.getCurrentLoggedInUser(), anime);
         if (userAnime != null) {
-            throw new InformationExistException("You have anime with id " + animeId + " in your watchlist");
+            throw new InformationExistException("You have anime with id " + animeId + " in your watchlist.");
         }
         userAnime = new UserAnime();
         userAnime.setUser(AnimeService.getCurrentLoggedInUser());
@@ -109,6 +109,17 @@ public class UserAnimeService {
             // checks the watchStatus before set
             userAnime.setWatchStatus(checkWatchStatus(userAnimeObj.getWatchStatus()));
             return userAnimeRepository.save(userAnime);
+        } else {
+            throw new InformationNotFoundException("Anime with id " + animeId + " is not in your watchlist.");
+        }
+    }
+
+    public UserAnime deleteAnimeFromUserWatchlist(Long animeId) {
+        Anime anime = animeService.getAnimeById(animeId);
+        UserAnime userAnime = userAnimeRepository.findByUserAndAnime(AnimeService.getCurrentLoggedInUser(), anime);
+        if (userAnime != null) {
+            userAnimeRepository.delete(userAnime);
+            return userAnime;
         } else {
             throw new InformationNotFoundException("Anime with id " + animeId + " is not in your watchlist.");
         }
