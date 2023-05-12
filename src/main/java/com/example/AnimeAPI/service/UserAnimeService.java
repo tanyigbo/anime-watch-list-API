@@ -114,6 +114,15 @@ public class UserAnimeService {
         }
     }
 
+    /**
+     * Takes in a long anime id and searches for an existing record
+     * in the userAnime repository. If it exists, then removes the record,
+     * otherwise, throws new InformationNotFound exception.
+     *
+     * @param animeId {Long}
+     * @return userAnime {Object}
+     * @throws InformationNotFoundException if record does not exist in userAnime repository
+     */
     public UserAnime deleteAnimeFromUserWatchlist(Long animeId) {
         Anime anime = animeService.getAnimeById(animeId);
         UserAnime userAnime = userAnimeRepository.findByUserAndAnime(AnimeService.getCurrentLoggedInUser(), anime);
