@@ -58,6 +58,13 @@ public class UserAnimeController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    /**
+     * A DELETE endpoint that routes to a delete business logic
+     * to remove an anime from the logged-in user's watchlist.
+     *
+     * @param animeId {Long}
+     * @return ResponseEntity
+     */
     // http://localhost:8080/api/user-anime/1
     @DeleteMapping(path = "/user-anime/{animeId}")
     public ResponseEntity<?> deleteAnimeFromUserWatchlist(@PathVariable Long animeId) {
