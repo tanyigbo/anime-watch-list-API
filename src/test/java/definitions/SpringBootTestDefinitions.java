@@ -355,18 +355,25 @@ public class SpringBootTestDefinitions {
         requestBody.put("name", "name1");
         requestBody.put("description", "description1");
         request.header("Content-Type", "application/json");
-        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/genres");
+        request.header("Authorization", "Bearer " + adminUserToken);
+        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/genres/add");
     }
 
     @Then("the genre is added to genre model")
     public void theGenreIsAddedToGenreModel() {
         Assert.assertEquals(201, response.getStatusCode());
+        String message = response.jsonPath().get("message");
+        Map<String,String> genre = response.jsonPath().get("data");
+        Assert.assertEquals("created genre",message);
+        Assert.assertEquals("name1",genre.get("name"));
+        Assert.assertEquals("description1",genre.get("description"));
     }
 
     @When("an admin remove a genre")
     public void anAdminRemoveAGenre() {
         request.header("Content-Type", "application/json");
-        response = request.delete(BASE_URL + port + "/api/genres/1");
+        request.header("Authorization", "Bearer " + adminUserToken);
+        response = request.delete(BASE_URL + port + "/api/genres/remove/1");
     }
 
     @Then("the genre is removed from genre model")
