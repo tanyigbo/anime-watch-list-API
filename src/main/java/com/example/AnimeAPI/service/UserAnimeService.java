@@ -1,6 +1,7 @@
 package com.example.AnimeAPI.service;
 
 import com.example.AnimeAPI.exception.InformationExistException;
+import com.example.AnimeAPI.exception.InformationNotAcceptedException;
 import com.example.AnimeAPI.exception.InformationNotFoundException;
 import com.example.AnimeAPI.model.Anime;
 import com.example.AnimeAPI.model.User;
@@ -24,9 +25,24 @@ public class UserAnimeService {
         this.userAnimeRepository = userAnimeRepository;
     }
 
-    public static User getCurrentLoggedInUser() {
-        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return userDetails.getUser();
+    public static int checkRating(int rating) {
+        if (rating <= 0) return 0;
+        else return Math.min(rating, 10);
+    }
+
+    public static String checkWatchStatus(String watchStatus) {
+        String[] status = {"completed","watching","dropped","not-started"};
+        if (watchStatus == null) {
+            return "not-started";
+        }
+
+        for (int i = 0; i < status.length; i++) {
+            if (watchStatus.toLowerCase().equals(status[i])) {
+                return status[i];
+            }
+        }
+
+        throw new InformationNotAcceptedException("Watch status (" + watchStatus + ") not accepted");
     }
 
     /**
@@ -42,17 +58,16 @@ public class UserAnimeService {
      */
     public UserAnime addAnimeToUserWatchlist(Long animeId, UserAnime userAnimeObj) {
         Anime anime = animeService.getAnimeById(animeId);
-        UserAnime userAnime = userAnimeRepository.findByUserAndAnime(getCurrentLoggedInUser(), anime);
+        UserAnime userAnime = userAnimeRepository.findByUserAndAnime(AnimeService.getCurrentLoggedInUser(), anime);
         if (userAnime != null) {
             throw new InformationExistException("You have anime with id " + animeId + " in your watchlist");
-        } else {
-            userAnime = new UserAnime();
-            userAnime.setUser(getCurrentLoggedInUser());
-            userAnime.setAnime(anime);
-            userAnime.setRating(userAnimeObj.getRating());
-            userAnime.setWatchStatus(userAnimeObj.getWatchStatus());
-            return userAnimeRepository.save(userAnime);
         }
+        userAnime = new UserAnime();
+        userAnime.setUser(AnimeService.getCurrentLoggedInUser());
+        userAnime.setAnime(anime);
+        userAnime.setRating(checkRating(userAnimeObj.getRating()));
+        userAnime.setWatchStatus(checkWatchStatus(userAnimeObj.getWatchStatus()));
+        return userAnimeRepository.save(userAnime);
     }
 
     /**
@@ -66,7 +81,7 @@ public class UserAnimeService {
      */
     public UserAnime updateAnimeInUserWatchlist(Long animeId, UserAnime userAnimeObj) {
         Anime anime = animeService.getAnimeById(animeId);
-        UserAnime userAnime = userAnimeRepository.findByUserAndAnime(getCurrentLoggedInUser(), anime);
+        UserAnime userAnime = userAnimeRepository.findByUserAndAnime(AnimeService.getCurrentLoggedInUser(), anime);
         if (userAnime != null) {
             userAnime = new UserAnime();
             userAnime.setRating(userAnimeObj.getRating());
