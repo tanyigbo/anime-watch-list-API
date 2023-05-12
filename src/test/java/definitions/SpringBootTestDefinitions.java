@@ -44,6 +44,10 @@ public class SpringBootTestDefinitions {
      * User Login
      *
      */
+
+    /**
+     *   Scenario: An admin is able to log in to their admin account
+     */
     @When("An admin provides their username and password to an account")
     public void anAdminProvidesTheirUsernameAndPasswordToAnAccount() throws JSONException {
         JSONObject requestBody = new JSONObject();
@@ -64,6 +68,9 @@ public class SpringBootTestDefinitions {
     }
 
 
+    /**
+     *   Scenario: A user is able to log in to their standard account
+     */
     @Given("A list of registered users")
     public void aListOfRegisteredUsers() {
     }
@@ -92,6 +99,10 @@ public class SpringBootTestDefinitions {
      *
      * All User
      *
+     */
+
+    /**
+     *   Scenario: An unregistered user is able to register
      */
     @Given("A username is not registered")
     public void aUsernameIsNotRegistered() throws JSONException {
@@ -124,6 +135,9 @@ public class SpringBootTestDefinitions {
 
     }
 
+    /**
+     *   Scenario: Any user is able to view an anime or all anime
+     */
     @Given("A list of anime are available")
     public void aListOfAnimeAreAvailable() {
         response = request.get(BASE_URL + port + "/api/anime");
@@ -157,6 +171,9 @@ public class SpringBootTestDefinitions {
         Assert.assertEquals(200, response.getStatusCode());
     }
 
+    /**
+     *   Scenario: Any user is able to view a genre or all genres
+     */
     @Given("A list of genre are available")
     public void aListOfGenreAreAvailable() {
     }
@@ -200,6 +217,7 @@ public class SpringBootTestDefinitions {
 
     @Then("the anime is added to user watchlist")
     public void theAnimeIsAddedToUserWatchlist() {
+        Assert.assertEquals(201, response.getStatusCode());
     }
 
     @When("user removes an anime form their watch list")
@@ -262,12 +280,8 @@ public class SpringBootTestDefinitions {
 
 
     /**
-     *   Scenario: An admin can add and remove
+     * Scenario: An admin can add and remove a genre
      */
-    @Given("A list of genres are available")
-    public void aListOfGenresAreAvailable() {
-    }
-
     @When("an admin add a genre")
     public void anAdminAddAGenre() throws JSONException {
         JSONObject requestBody = new JSONObject();
@@ -292,15 +306,10 @@ public class SpringBootTestDefinitions {
     public void theGenreIsRemovedFromGenreModel() {
         Assert.assertEquals(204, response.getStatusCode());
     }
-}
 
-
-    @Then("the anime is added to user watchlist")
-    public void theAnimeIsAddedToUserWatchlist() {
-        Assert.assertEquals(201, response.getStatusCode());
-    }
-
-
+    /**
+     * Scenario: An admin can add a anime to a genre
+     */
     @Given("a list of anime exist")
     public void aListOfAnimeExist() {
         response = request.get(BASE_URL + port + "/api/animes");
@@ -308,7 +317,6 @@ public class SpringBootTestDefinitions {
         List<Map<String, String>> animes = response.jsonPath().get("data");
         Assert.assertEquals("success", message);
         Assert.assertTrue(animes.size() > 0);
-
     }
 
     @And("a list of genre exists")
@@ -316,12 +324,12 @@ public class SpringBootTestDefinitions {
         response = request.get(BASE_URL + port + "/api/genres");
         String message = response.jsonPath().getString("message");
         List<Map<String, String>> genres = response.jsonPath().get("data");
-        Assert.assertEquals("success",message);
-        Assert.assertTrue(genres.size()>0);
+        Assert.assertEquals("success", message);
+        Assert.assertTrue(genres.size() > 0);
     }
 
     @When("an admin adds a anime to a genre")
-    public void anAdminAddsAAnimeToAGenre(){
+    public void anAdminAddsAAnimeToAGenre() {
         request.header("Content-Type", "application/json");
         response = request.post(BASE_URL + port + "/api/anime-details/1/1");
     }

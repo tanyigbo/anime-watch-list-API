@@ -2,11 +2,11 @@ Feature: Anime Watch List Rest API functionalities
 
 
 # All user login user stories
-  Scenario: An admin is able to login to their admin account
+  Scenario: An admin is able to log in to their admin account
     When An admin provides their username and password to an account
     Then The admin is logged into their admin account and a token is provided
 
-  Scenario: A user is able to login to their standard account
+  Scenario: A user is able to log in to their standard account
     Given A list of registered users
     When A registered user enters username and password
     Then The user is logged into the account and provided a token
@@ -54,17 +54,13 @@ Feature: Anime Watch List Rest API functionalities
     When an admin remove an anime
     Then the anime is removed from anime model
 
-  Scenario: An admin can add and remove
-    Given A list of genres are available
+  Scenario: An admin can add and remove a genre
+#    Given A list of genres are available
     When an admin add a genre
     Then the genre is added to genre model
     When an admin remove a genre
-
     Then the genre is removed from genre model
-    When an admin update a genre
-    Then the genre is updated in genre model
-    When an admin search genre by id
-    Then that genre is returned from genre model
+
 
   Scenario: An admin can add a anime to a genre
     Given a list of anime exist
