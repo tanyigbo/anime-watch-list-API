@@ -94,14 +94,20 @@ public class UserAnimeService {
      * @param animeId {Long}
      * @param userAnimeObj {Object}
      * @return ResponseEntity
+     * @throws InformationNotFoundException if JPA did not find record in UserAnime
+     *
+     * @link #checkRating(int) CheckRating
+     * @link #checkWatchStatus(String) CheckWatchStatus
      */
     public UserAnime updateAnimeInUserWatchlist(Long animeId, UserAnime userAnimeObj) {
         Anime anime = animeService.getAnimeById(animeId);
         UserAnime userAnime = userAnimeRepository.findByUserAndAnime(AnimeService.getCurrentLoggedInUser(), anime);
         if (userAnime != null) {
             userAnime = new UserAnime();
-            userAnime.setRating(userAnimeObj.getRating());
-            userAnime.setWatchStatus(userAnimeObj.getWatchStatus());
+            // checks the rating before set
+            userAnime.setRating(checkRating(userAnimeObj.getRating()));
+            // checks the watchStatus before set
+            userAnime.setWatchStatus(checkWatchStatus(userAnimeObj.getWatchStatus()));
             return userAnimeRepository.save(userAnime);
         } else {
             throw new InformationNotFoundException("Anime with id " + animeId + " is not in your watchlist.");
