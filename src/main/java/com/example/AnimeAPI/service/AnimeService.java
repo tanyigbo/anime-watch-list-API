@@ -3,9 +3,15 @@ package com.example.AnimeAPI.service;
 import com.example.AnimeAPI.exception.InformationExistException;
 import com.example.AnimeAPI.exception.InformationNotFoundException;
 import com.example.AnimeAPI.model.Anime;
+
 import com.example.AnimeAPI.model.User;
 import com.example.AnimeAPI.repository.AnimeRepository;
 import com.example.AnimeAPI.security.MyUserDetails;
+
+import com.example.AnimeAPI.model.Genre;
+import com.example.AnimeAPI.repository.AnimeRepository;
+import com.example.AnimeAPI.repository.GenreRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -17,8 +23,13 @@ import java.util.Optional;
 public class AnimeService {
     private final AnimeRepository animeRepository;
 
+    private final GenreRepository genreRepository;
+
     @Autowired
-    public AnimeService(AnimeRepository animeRepository){this.animeRepository = animeRepository;}
+    public AnimeService(AnimeRepository animeRepository, GenreRepository genreRepository){
+        this.animeRepository = animeRepository;
+        this.genreRepository = genreRepository;
+    }
 
     public static User getCurrentLoggedInUser() {
         MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -121,4 +132,6 @@ public class AnimeService {
         }
 
     }
+
+
 }

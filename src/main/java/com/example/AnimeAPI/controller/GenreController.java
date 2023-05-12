@@ -35,7 +35,7 @@ public class GenreController {
      * @param genre {Object}
      * @return ResponseEntity
      */
-    @PostMapping(path = "/genres")
+    @PostMapping(path = "/genres/add")
     public ResponseEntity<?> createGenre(@RequestBody Genre genre) {
         Genre newGenre = genreService.createGenre(genre);
         if (newGenre != null) {
