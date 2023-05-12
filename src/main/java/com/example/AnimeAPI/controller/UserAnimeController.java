@@ -34,8 +34,9 @@ public class UserAnimeController {
     @PostMapping(path = "/user-anime/{animeId}")
     public ResponseEntity<?> addAnimeToUserWatchlist(@PathVariable Long animeId, @RequestBody UserAnime userAnimeObj) {
         message = new HashMap<>();
-        userAnimService.addAnimeToUserWatchlist(animeId, userAnimeObj);
-        message.put("message", "Successfully added anime with id " + animeId + " to your watchlist");
+        UserAnime userAnime = userAnimService.addAnimeToUserWatchlist(animeId, userAnimeObj);
+        message.put("data", userAnime);
+        message.put("message", "Successfully added anime with id " + animeId + " to your watchlist.");
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
@@ -45,14 +46,32 @@ public class UserAnimeController {
      *
      * @param animeId {Long}
      * @param userAnimeObj {Object}
-     * @return
+     * @return ResponseEntity
      */
     // http://localhost:8080/api/user-anime/1
     @PutMapping(path = "/user-anime/{animeId}")
     public ResponseEntity<?> updateAnimeInUserWatchlist(@PathVariable Long animeId, @RequestBody UserAnime userAnimeObj) {
         message = new HashMap<>();
-        userAnimService.updateAnimeInUserWatchlist(animeId, userAnimeObj);
-        message.put("message", "Successfully updated");
+        UserAnime userAnime = userAnimService.updateAnimeInUserWatchlist(animeId, userAnimeObj);
+        message.put("data", userAnime);
+        message.put("message", "Successfully updated anime with id " + animeId + " in your watchlist.");
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    /**
+     * A DELETE endpoint that routes to a delete business logic
+     * to remove an anime from the logged-in user's watchlist.
+     *
+     * @param animeId {Long}
+     * @return ResponseEntity
+     */
+    // http://localhost:8080/api/user-anime/1
+    @DeleteMapping(path = "/user-anime/{animeId}")
+    public ResponseEntity<?> deleteAnimeFromUserWatchlist(@PathVariable Long animeId) {
+        message = new HashMap<>();
+        UserAnime userAnime = userAnimService.deleteAnimeFromUserWatchlist(animeId);
+        message.put("data", userAnime);
+        message.put("message", "Successfully deleted anime with id " + animeId + " from your watchlist.");
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }
