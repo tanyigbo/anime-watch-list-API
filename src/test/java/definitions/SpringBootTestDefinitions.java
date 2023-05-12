@@ -386,11 +386,11 @@ public class SpringBootTestDefinitions {
      */
     @Given("a list of anime exist")
     public void aListOfAnimeExist() {
-        response = request.get(BASE_URL + port + "/api/animes");
+        response = request.get(BASE_URL + port + "/api/anime");
         String message = response.jsonPath().getString("message");
-        List<Map<String, String>> animes = response.jsonPath().get("data");
+        List<Map<String, String>> anime = response.jsonPath().get("data");
         Assert.assertEquals("success", message);
-        Assert.assertTrue(animes.size() > 0);
+        Assert.assertTrue(anime.size() > 0);
     }
 
     @And("a list of genre exists")
@@ -404,6 +404,7 @@ public class SpringBootTestDefinitions {
 
     @When("an admin adds an anime to a genre")
     public void anAdminAddsAnAnimeToAGenre() {
+        request.header("Authorization", "Bearer " + adminUserToken);
         request.header("Content-Type", "application/json");
         response = request.post(BASE_URL + port + "/api/anime-details/1/1");
     }
@@ -412,12 +413,15 @@ public class SpringBootTestDefinitions {
     public void theAnimeIsAddedToGenreModel() {
         Assert.assertEquals(200, response.getStatusCode());
         String responseMessage = response.jsonPath().get("message");
+        Map<String, String> animeDetail = response.jsonPath().get("data");
         Assert.assertEquals("success", responseMessage);
+        Assert.assertTrue(animeDetail.get("genre").contains("Action"));
+        Assert.assertTrue(animeDetail.get("anime").contains("DBZ"));
     }
 
     @When("an admin removes an anime")
     public void anAdminRemovesAnAnime() {
-        request.header("Content-Type", "application/json");
+        request.header("Authorization", "Bearer " + adminUserToken);
         response = request.delete(BASE_URL + port + "/api/anime-details/1/1");
     }
 
