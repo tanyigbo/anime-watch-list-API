@@ -73,22 +73,6 @@ public class AnimeController {
         }
     }
 
-//    /**
-//     * A PUT endpoint routing to updateAnime business logic.
-//     *
-//     * @param animeId     {Long}
-//     * @param animeObject {Object}
-//     * @return ResponseEntity
-//     */
-//    // http://localhost:8080/api/animes/1
-//    @PutMapping(path = "/anime/{animeId}")
-//    public ResponseEntity<?> updateAnime(@PathVariable Long animeId, @RequestBody Anime animeObject) {
-//        Anime anime = animeService.updateAnime(animeId, animeObject);
-//        message.put("message", "success");
-//        message.put("data", anime);
-//        return new ResponseEntity<>(message, HttpStatus.OK);
-//    }
-
     /**
      * A GET method to find anime by ID.
      *
