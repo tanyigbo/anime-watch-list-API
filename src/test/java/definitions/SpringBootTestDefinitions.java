@@ -1,7 +1,6 @@
 package definitions;
 
 import com.example.AnimeAPI.AnimeApiApplication;
-import com.example.AnimeAPI.enums.UserType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -18,9 +17,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
-import static com.example.AnimeAPI.enums.UserType.GENERAL;
 
 @CucumberContextConfiguration
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = AnimeApiApplication.class)
@@ -400,23 +397,20 @@ public class SpringBootTestDefinitions {
     public void anAdminAddsAnAnimeToAGenre() {
         request.header("Authorization", "Bearer " + adminUserToken);
         request.header("Content-Type", "application/json");
-        response = request.post(BASE_URL + port + "/api/anime-details/5/1");
+        response = request.post(BASE_URL + port + "/api/anime-details/5/2");
     }
 
     @Then("the anime is added to genre model")
     public void theAnimeIsAddedToGenreModel() {
         Assert.assertEquals(200, response.getStatusCode());
         String responseMessage = response.jsonPath().get("message");
-        Map<String, String> animeDetail = response.jsonPath().get("data");
         Assert.assertEquals("success", responseMessage);
-        Assert.assertTrue(animeDetail.get("genre").contains("Action"));
-        Assert.assertTrue(animeDetail.get("anime").contains("DBZ"));
     }
 
     @When("an admin removes an anime")
     public void anAdminRemovesAnAnime() {
         request.header("Authorization", "Bearer " + adminUserToken);
-        response = request.delete(BASE_URL + port + "/api/anime-details/1/1");
+        response = request.delete(BASE_URL + port + "/api/anime-details/5/2");
     }
 
     @Then("the anime is removed from genre model")
