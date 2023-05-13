@@ -99,18 +99,19 @@ be scrapped or refactored.
 | PUT          | /api/user-anime/{animeId}              | Update an anime watch status or rating                      | Private |
 | DELETE       | /api/user-anime/{animeId}              | Removes anime from the users watchlist                      | Private |
 | GET          | /api/genres/{genreId}                  | Find genre by ID                                            | Private |
-| POST         | /api/anime-details/{animeId}/{genreId} | Adds a specified anime to a specified genre                 | Private |
-| DELETE       | /api/anime-details/{animeId}/{genreId} | Removes a specified anime from a specified genre            | Private |
 | GET          | /api/anime/{animeId}                   | Find anime by ID                                            | Private |
 
 # Endpoints for admin users
-| Request Type | URL                                    | Functionality                               | Access  |
-|--------------|----------------------------------------|---------------------------------------------|---------|
-| GET          | /auth/users                            | Request for all users                       | Private |
-| POST         | /api/genres/add                        | Creates a genre                             | Private |
-| DELETE       | /api/genres/{genreId}                  | Delete genre                                | Private |
-| POST         | /api/anime/add                         | Creates an anime                            | Private |
-| DELETE       | /api/anime/{animeId}                   | Delete anime                                | Private |
+| Request Type | URL                                    | Functionality                                    | Access  |
+|--------------|----------------------------------------|--------------------------------------------------|---------|
+| GET          | /auth/users                            | Request for all users                            | Private |
+| POST         | /api/genres/add                        | Creates a genre                                  | Private |
+| DELETE       | /api/genres/{genreId}                  | Delete genre                                     | Private |
+| POST         | /api/anime/add                         | Creates an anime                                 | Private |
+| DELETE       | /api/anime/{animeId}                   | Delete anime                                     | Private |
+| POST         | /api/anime-details/{animeId}/{genreId} | Adds a specified anime to a specified genre      | Private |
+| DELETE       | /api/anime-details/{animeId}/{genreId} | Removes a specified anime from a specified genre | Private |
+
 
 
 ## Features
