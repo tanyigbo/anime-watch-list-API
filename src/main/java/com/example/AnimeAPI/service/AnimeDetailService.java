@@ -28,6 +28,11 @@ public final AnimeService animeService;
         this.animeService = animeService;
     }
 
+    /**
+     * Gets authorized user details.
+     *
+     * @return User {Object}
+     */
     public static User getCurrentLoggedInUser() {
         MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDetails.getUser();
@@ -47,7 +52,7 @@ public final AnimeService animeService;
      */
     public AnimeDetail addAnimeToGenre(Long animeId, Long genreId) throws InformationExistException{
         User user = getCurrentLoggedInUser();
-        if(user.getUserType().equals("ADMIN")) {
+        if(user.getUserType().equalsIgnoreCase("ADMIN")) {
             Genre genre = genreService.getGenreById(genreId);
             Anime anime = animeService.getAnimeById(animeId);
             Optional<AnimeDetail> animeDetail = animeDetailRepository.findByAnimeAndGenre(anime, genre);
@@ -72,7 +77,7 @@ public final AnimeService animeService;
      */
     public AnimeDetail removeAnimeFromGenre(Long animeId, Long genreId){
         User user = getCurrentLoggedInUser();
-        if(user.getUserType().equals("ADMIN")) {
+        if(user.getUserType().equalsIgnoreCase("ADMIN")) {
             Genre genre = genreService.getGenreById(genreId);
             Anime anime = animeService.getAnimeById(animeId);
             Optional<AnimeDetail> animeDetail = animeDetailRepository.findByAnimeAndGenre(anime, genre);
