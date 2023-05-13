@@ -1,6 +1,5 @@
 package com.example.AnimeAPI.model;
 
-import com.example.AnimeAPI.enums.WatchStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
