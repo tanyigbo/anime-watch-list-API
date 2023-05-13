@@ -9,15 +9,13 @@ import com.example.AnimeAPI.repository.AnimeRepository;
 import com.example.AnimeAPI.repository.GenreRepository;
 import com.example.AnimeAPI.repository.UserAnimeRepository;
 import com.example.AnimeAPI.repository.UserRepository;
+import com.example.AnimeAPI.service.UserAnimeService;
 import com.example.AnimeAPI.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
-
-import static com.example.AnimeAPI.enums.WatchStatus.*;
-import static com.example.AnimeAPI.enums.WatchStatus.DROPPED;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -29,7 +27,7 @@ public class DataLoader implements CommandLineRunner {
     private final UserAnimeRepository userAnimeRepository;
 
     @Autowired
-    public DataLoader(UserRepository userRepository, UserService userService,AnimeRepository animeRepository,
+    public DataLoader(UserRepository userRepository, UserService userService, UserAnimeService userAnimeService, AnimeRepository animeRepository,
                       GenreRepository genreRepository, UserAnimeRepository userAnimeRepository) {
         this.userRepository = userRepository;
         this.userService = userService;

@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/api")
 public class GenreController {
-    static HashMap<String, Object> message = new HashMap<>();
+    static HashMap<String, Object> message;
 
     @Autowired
     private GenreService genreService;
@@ -25,8 +25,9 @@ public class GenreController {
     // http://localhost:8080/api/genres
     @GetMapping(path = "/genres")
     public ResponseEntity<?> getAllGenres(){
+        message = new HashMap<>();
         List<Genre> genreList = genreService.getAllGenres();
-        message.put("message", "success");
+        message.put("message", "genres found");
         message.put("data", genreList);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
@@ -39,9 +40,10 @@ public class GenreController {
     // http://localhost:8080/api/genres/add
     @PostMapping(path = "/genres/add")
     public ResponseEntity<?> createGenre(@RequestBody Genre genre) {
+        message = new HashMap<>();
         Genre newGenre = genreService.createGenre(genre);
         if (newGenre != null) {
-            message.put("message", "success");
+            message.put("message", "created genre");
             message.put("data", newGenre);
             return new ResponseEntity<>(message, HttpStatus.CREATED);
         } else {
@@ -59,6 +61,7 @@ public class GenreController {
     // http://localhost:8080/api/genres/1
     @DeleteMapping(path = "/genres/{genreId}")
     public ResponseEntity<?> deleteGenre(@PathVariable Long genreId) {
+        message = new HashMap<>();
         Genre genre = genreService.deleteGenre(genreId);
         if (genre != null) {
             message.put("message", "Genre with id " + genreId + " deleted");
@@ -71,22 +74,6 @@ public class GenreController {
     }
 
     /**
-     * A PUT endpoint routing to updateGenre business logic.
-     *
-     * @param genreId     {Long}
-     * @param genreObject {Object}
-     * @return ResponseEntity
-     */
-    // http://localhost:8080/api/genres/1
-    @PutMapping(path = "/genres/{genreId}")
-    public ResponseEntity<?> updateGenre(@PathVariable Long genreId, @RequestBody Genre genreObject) {
-        Genre genre = genreService.updateGenre(genreId, genreObject);
-        message.put("message", "success");
-        message.put("data", genre);
-        return new ResponseEntity<>(message, HttpStatus.OK);
-    }
-
-    /**
      * A GET method to find genre by ID.
      *
      * @param genreId {Long}
@@ -95,6 +82,7 @@ public class GenreController {
     // http://localhost:8080/api/genres/1
     @GetMapping(path = "/genres/{genreId}")
     public ResponseEntity<?> getGenreById(@PathVariable Long genreId) {
+        message = new HashMap<>();
         Genre genre = genreService.getGenreById(genreId);
         message.put("message", "success");
         message.put("data", genre);

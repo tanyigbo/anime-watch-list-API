@@ -36,7 +36,7 @@ public class UserAnimeController {
         message = new HashMap<>();
         UserAnime userAnime = userAnimService.addAnimeToUserWatchlist(animeId, userAnimeObj);
         message.put("data", userAnime);
-        message.put("message", "Successfully added anime with id " + animeId + " to your watchlist.");
+        message.put("message", "success");
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
@@ -54,7 +54,7 @@ public class UserAnimeController {
         message = new HashMap<>();
         UserAnime userAnime = userAnimService.updateAnimeInUserWatchlist(animeId, userAnimeObj);
         message.put("data", userAnime);
-        message.put("message", "Successfully updated anime with id " + animeId + " in your watchlist.");
+        message.put("message", "update success");
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
@@ -71,7 +71,7 @@ public class UserAnimeController {
         message = new HashMap<>();
         UserAnime userAnime = userAnimService.deleteAnimeFromUserWatchlist(animeId);
         message.put("data", userAnime);
-        message.put("message", "Successfully deleted anime with id " + animeId + " from your watchlist.");
+        message.put("message", "delete success");
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

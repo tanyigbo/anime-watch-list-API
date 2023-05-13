@@ -1,7 +1,8 @@
 package com.example.AnimeAPI.model;
 
-import com.example.AnimeAPI.enums.WatchStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 
@@ -17,9 +18,9 @@ public class UserAnime {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private User user;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "anime_id")
     private Anime anime;

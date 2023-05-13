@@ -103,7 +103,6 @@ public class UserAnimeService {
         Anime anime = animeService.getAnimeById(animeId);
         UserAnime userAnime = userAnimeRepository.findByUserAndAnime(AnimeService.getCurrentLoggedInUser(), anime);
         if (userAnime != null) {
-            userAnime = new UserAnime();
             // checks the rating before set
             userAnime.setRating(checkRating(userAnimeObj.getRating()));
             // checks the watchStatus before set

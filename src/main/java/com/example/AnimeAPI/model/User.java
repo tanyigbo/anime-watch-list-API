@@ -1,6 +1,9 @@
 package com.example.AnimeAPI.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -26,6 +29,7 @@ public class User {
 
     @Column
     @OneToMany(mappedBy = "user", orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private Set<UserAnime> userAnimeSet;
 
     public User() {

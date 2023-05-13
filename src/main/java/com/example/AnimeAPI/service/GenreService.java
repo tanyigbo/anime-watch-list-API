@@ -1,13 +1,10 @@
 package com.example.AnimeAPI.service;
 
-import com.example.AnimeAPI.exception.InformationExistException;
 import com.example.AnimeAPI.exception.InformationNotFoundException;
 import com.example.AnimeAPI.model.Genre;
 import com.example.AnimeAPI.model.User;
 import com.example.AnimeAPI.repository.GenreRepository;
-import com.example.AnimeAPI.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,11 +18,6 @@ public class GenreService {
     @Autowired
     public GenreService(GenreRepository genreRepository) {
         this.genreRepository = genreRepository;
-    }
-
-    public static User getCurrentLoggedInUser() {
-        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return userDetails.getUser();
     }
 
     /**
@@ -46,8 +38,8 @@ public class GenreService {
      * @throws InformationNotFoundException if the genre already exists.
      */
     public Genre createGenre(Genre genreObject){
-        User user = getCurrentLoggedInUser();
-        if (user.getUserType().toLowerCase().equals("admin")) {
+        User user = AnimeService.getCurrentLoggedInUser();
+        if (user.getUserType().equalsIgnoreCase("admin")) {
             Optional<Genre> genre = genreRepository.findByName(genreObject.getName());
             if(genre.isPresent()) {
                 throw new InformationNotFoundException("This genre already exists:" + genreObject.getName());
@@ -68,8 +60,8 @@ public class GenreService {
      * @return Genre {Object}
      */
     public Genre deleteGenre(Long genreId) {
-        User user = getCurrentLoggedInUser();
-        if (user.getUserType().toLowerCase().equals("admin")) {
+        User user = AnimeService.getCurrentLoggedInUser();
+        if (user.getUserType().equalsIgnoreCase("admin")) {
             Optional<Genre> genre = genreRepository.findById(genreId);
             if (genre.isPresent()) {
                 genreRepository.delete(genre.get());
@@ -79,33 +71,6 @@ public class GenreService {
             }
         }
         return null;
-    }
-
-    /**
-     * Takes an integer genre id and genre object, then
-     * tries to find genre record with given id. If it is found
-     * and the given name within the given object is different from the
-     * genre name in the repository, then update the genre's record in the
-     * repository. Otherwise, throws new exception for non-existing genre record or
-     * given object's name equals record's name.
-     *
-     * @param genreId {Long}
-     * @param genreObject {Object}
-     * @return Genre {Object}
-     */
-    public Genre updateGenre(Long genreId, Genre genreObject) {
-        Optional<Genre> genre = genreRepository.findById(genreId);
-        if (genre.isPresent()) {
-            if (genreObject.getName().equals(genre.get().getName())) {
-                throw new InformationExistException("This name " + genreObject.getName() + " is already in use.");
-            } else {
-                genre.get().setName(genreObject.getName());
-                genre.get().setDescription(genreObject.getDescription());
-                return genreRepository.save(genre.get());
-            }
-        } else {
-            throw new InformationNotFoundException("Genre with given id " + genreId + " does not exist.");
-        }
     }
 
     /**
