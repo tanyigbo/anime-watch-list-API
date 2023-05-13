@@ -19,7 +19,7 @@
 - [Installation](#installation)
 - [Dependencies Used](#dependencies-used)
 - [Features](#features)
-    - [HurdlesAndUnsolved](#hurdlesAndunsolved)
+- [Things We Would Do Differently](#things-we-would-do-differently)
 - [Documentation Used](#documentation-used)
 
 ## Description
@@ -58,6 +58,10 @@ be scrapped or refactored.
 - Kanban board
 - JUnit
 
+## [Planning board](https://github.com/users/tanyigbo/projects/2/views/1)
+
+![Board.](/documentation/Anime-watch-list.JPG)
+
 ## User-Story
 
 - As any user, I should be able to see all Anime, so I can see what anime exist.
@@ -72,38 +76,13 @@ be scrapped or refactored.
 
 ![ERD.](/documentation/AnimeAPI-Database-ERD.png)
 
-## [Planning board](https://github.com/users/tanyigbo/projects/2/views/1)
-
-![Board.](/documentation/Anime-watch-list.JPG)
-
 ### Roles
 
 - Dominique Akers - Models,Controllers,Service,seed,tests
 - Tobe Anyigbo - project management, quality assurance, security
 - Trevor Hendricks - Models,Controllers,Service,seed,tests
 
-### Installation
-To set up the app locally on your own system:
-1. Fork this [repository](https://github.com/tanyigbo/anime-watch-list-API)
-2. Clone the repo to your local machine using the link from the green <>Code combo button:
-```
-git clone <https://github.com/{GitHub UserName}/anime-watch-list-API>
-```
-3. Then open the repo in IntelliJ or your IDE of choice
-4. All required dependencies are included
 
-### Dependencies Used
--[Spring Jpa](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa/3.0.6)
-
--[Spring Security](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security)
-
--[Spring Boot Starter](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter/3.0.6)
-
--[Spring Boot Starter Web](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web/3.0.5)
-
--[PostGres Driver](https://mvnrepository.com/artifact/org.postgresql/postgresql/42.6.0)
-
--[Cucumber](https://cucumber.io/docs/installation/java/)
 
 # Endpoints for all users
 | Request Type | URL                  | Functionality                     | Access |
@@ -142,9 +121,32 @@ git clone <https://github.com/{GitHub UserName}/anime-watch-list-API>
 - Security for endpoints
 
 ## Things We Would Do Differently
-
+- Plan out our MVP into Bronze, Silver, and Gold milestones to better focus our initial efforts.
 - Implementing user-type and watch-status as an Enum
 - Validating Enum implementation with Rest-Assured
+
+### Installation
+To set up the app locally on your own system:
+1. Fork this [repository](https://github.com/tanyigbo/anime-watch-list-API)
+2. Clone the repo to your local machine using the link from the green <>Code combo button:
+```
+git clone <https://github.com/{GitHub UserName}/anime-watch-list-API>
+```
+3. Then open the repo in IntelliJ or your IDE of choice
+4. All required dependencies are included
+
+### Dependencies Used
+-[Spring Jpa](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa/3.0.6)
+
+-[Spring Security](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security)
+
+-[Spring Boot Starter](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter/3.0.6)
+
+-[Spring Boot Starter Web](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web/3.0.5)
+
+-[PostGres Driver](https://mvnrepository.com/artifact/org.postgresql/postgresql/42.6.0)
+
+-[Cucumber](https://cucumber.io/docs/installation/java/)
 
 ## Documentation Used
 
