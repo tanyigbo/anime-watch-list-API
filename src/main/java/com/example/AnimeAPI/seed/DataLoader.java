@@ -22,7 +22,6 @@ public class DataLoader implements CommandLineRunner {
 
     private final UserRepository userRepository;
     private final UserService userService;
-    private final UserAnimeService userAnimeService;
     private final AnimeRepository animeRepository;
     private final GenreRepository genreRepository;
     private final UserAnimeRepository userAnimeRepository;
@@ -32,7 +31,6 @@ public class DataLoader implements CommandLineRunner {
                       GenreRepository genreRepository, UserAnimeRepository userAnimeRepository) {
         this.userRepository = userRepository;
         this.userService = userService;
-        this.userAnimeService = userAnimeService;
         this.animeRepository = animeRepository;
         this.genreRepository = genreRepository;
         this.userAnimeRepository = userAnimeRepository;
