@@ -21,6 +21,11 @@ public class AnimeService {
         this.animeRepository = animeRepository;
     }
 
+    /**
+     * Gets authorized user details.
+     *
+     * @return User {Object}
+     */
     public static User getCurrentLoggedInUser() {
         MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDetails.getUser();
