@@ -1,9 +1,7 @@
 package com.example.AnimeAPI.controller;
 
 import com.example.AnimeAPI.model.Anime;
-import com.example.AnimeAPI.model.Genre;
 import com.example.AnimeAPI.service.AnimeService;
-import com.example.AnimeAPI.service.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +18,10 @@ public class AnimeController {
     @Autowired
     private AnimeService animeService;
 
-    @Autowired
-    private GenreService genreService;
-
     /***
-     * A GET endpoint that returns all animes
+     * A GET endpoint that returns all anime.
      * @return ResponseEntity
      */
-
     // http://localhost:8080/api/anime
     @GetMapping(path = "/anime")
     public ResponseEntity<?> getAllAnimes() {
@@ -46,6 +40,7 @@ public class AnimeController {
     // http://localhost:8080/api/anime/add
     @PostMapping(path = "/anime/add")
     public ResponseEntity<?> createAnime(@RequestBody Anime anime) {
+        message = new HashMap<>();
         Anime newAnime = animeService.createAnime(anime);
         if (newAnime != null) {
             message.put("message", "created anime");
@@ -78,21 +73,21 @@ public class AnimeController {
         }
     }
 
-    /**
-     * A PUT endpoint routing to updateAnime business logic.
-     *
-     * @param animeId     {Long}
-     * @param animeObject {Object}
-     * @return ResponseEntity
-     */
-    // http://localhost:8080/api/animes/1
-    @PutMapping(path = "/anime/{animeId}")
-    public ResponseEntity<?> updateAnime(@PathVariable Long animeId, @RequestBody Anime animeObject) {
-        Anime anime = animeService.updateAnime(animeId, animeObject);
-        message.put("message", "success");
-        message.put("data", anime);
-        return new ResponseEntity<>(message, HttpStatus.OK);
-    }
+//    /**
+//     * A PUT endpoint routing to updateAnime business logic.
+//     *
+//     * @param animeId     {Long}
+//     * @param animeObject {Object}
+//     * @return ResponseEntity
+//     */
+//    // http://localhost:8080/api/animes/1
+//    @PutMapping(path = "/anime/{animeId}")
+//    public ResponseEntity<?> updateAnime(@PathVariable Long animeId, @RequestBody Anime animeObject) {
+//        Anime anime = animeService.updateAnime(animeId, animeObject);
+//        message.put("message", "success");
+//        message.put("data", anime);
+//        return new ResponseEntity<>(message, HttpStatus.OK);
+//    }
 
     /**
      * A GET method to find anime by ID.
@@ -103,6 +98,7 @@ public class AnimeController {
     // http://localhost:8080/api/anime/1
     @GetMapping(path = "/anime/{animeId}")
     public ResponseEntity<?> getAnimeById(@PathVariable Long animeId) {
+        message = new HashMap<>();
         Anime anime = animeService.getAnimeById(animeId);
         message.put("message", "success");
         message.put("data", anime);
