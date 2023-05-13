@@ -80,9 +80,9 @@ be scrapped or refactored.
 
 ## Roles
 
-- Dominique Akers - Data Models, Controllers, Services, Data-Loader, Quality Assurance (Tests)
-- Tobe Anyigbo - Project Management, Quality Assurance (Tests), API Security (Authorization/Authentication/JWT)
-- Trevor Hendricks - Data Models, Controllers, Services, Exception Handling, Optimization
+- [Dominique Akers](https://github.com/Dommy99) - Data Models, Controllers, Services, Data-Loader, Quality Assurance (Tests)
+- [Tobe Anyigbo](https://github.com/tanyigbo) - Project Management, Quality Assurance (Tests), API Security (Authorization/Authentication/JWT)
+- [Trevor Hendricks](https://github.com/t-hendricks) - Data Models, Controllers, Services, Exception Handling, Optimization
 
 # Endpoints for all users
 | Request Type | URL                  | Functionality                     | Access |
