@@ -4,9 +4,7 @@ import com.example.AnimeAPI.exception.InformationNotFoundException;
 import com.example.AnimeAPI.model.Genre;
 import com.example.AnimeAPI.model.User;
 import com.example.AnimeAPI.repository.GenreRepository;
-import com.example.AnimeAPI.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,11 +18,6 @@ public class GenreService {
     @Autowired
     public GenreService(GenreRepository genreRepository) {
         this.genreRepository = genreRepository;
-    }
-
-    public static User getCurrentLoggedInUser() {
-        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return userDetails.getUser();
     }
 
     /**
