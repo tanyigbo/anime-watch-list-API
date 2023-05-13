@@ -1,6 +1,5 @@
 package com.example.AnimeAPI.controller;
 
-import com.example.AnimeAPI.exception.InformationNotFoundException;
 import com.example.AnimeAPI.model.AnimeDetail;
 import com.example.AnimeAPI.service.AnimeDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,7 @@ import java.util.HashMap;
 @RequestMapping(path = "/api")
 public class AnimeDetailController {
 
-    static HashMap<String, Object> message = new HashMap<>();
+    static HashMap<String, Object> message;
 
     @Autowired
     private AnimeDetailService animeDetailService;
@@ -34,6 +33,7 @@ public class AnimeDetailController {
     // http://localhost:8080/api/anime-details/1/1
      @PostMapping(path = "/anime-details/{animeId}/{genreId}")
     public ResponseEntity<?> addAnimeToGenre(@PathVariable Long animeId, @PathVariable Long genreId){
+            message = new HashMap<>();
             AnimeDetail animeDetail = animeDetailService.addAnimeToGenre(animeId, genreId);
             if (animeDetail != null) {
                 message.put("message", "success");
@@ -42,7 +42,6 @@ public class AnimeDetailController {
                 message.put("message", "failed");
                 return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
             }
-
     }
 
     /**
@@ -60,6 +59,7 @@ public class AnimeDetailController {
     // http://localhost:8080/api/anime-details/1/1
     @DeleteMapping(path = "/anime-details/{animeId}/{genreId}")
     public ResponseEntity<?> removeAnimeFromGenre(@PathVariable Long animeId, @PathVariable Long genreId){
+        message = new HashMap<>();
         AnimeDetail animeDetail = animeDetailService.removeAnimeFromGenre(animeId, genreId);
         if (animeDetail != null) {
             message.put("message", "success");
