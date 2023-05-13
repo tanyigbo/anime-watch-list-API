@@ -27,7 +27,6 @@ public class User {
     @Column(nullable = false)
     private String userType;
 
-    @JsonIgnore
     @Column
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
