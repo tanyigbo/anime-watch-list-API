@@ -39,7 +39,10 @@ public class UserService {
         this.myUserDetails = myUserDetails;
     }
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        if (AnimeService.getCurrentLoggedInUser().getUserType().equalsIgnoreCase("admin")) {
+            return userRepository.findAll();
+        }
+        return null;
     }
 
     public User createUser(User userObject) {
