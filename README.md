@@ -14,12 +14,14 @@
 - [Description](#description)
 - [Approach](#approach)
 - [Other Tools And Tech](#other-tools-and-tech)
-- [User-Story](#user-Story)
+- [Planning Board](#planning-board)
+- [User-Stories](#user-stories)
 - [Roles](#roles)
-- [Installation](#installation)
-- [Dependencies Used](#dependencies-used)
+- [Endpoints](#endpoints-for-all-users)
 - [Features](#features)
 - [Things We Would Do Differently](#things-we-would-do-differently)
+- [Installation](#installation)
+- [Dependencies Used](#dependencies-used)
 - [Documentation Used](#documentation-used)
 
 ## Description
@@ -58,11 +60,11 @@ be scrapped or refactored.
 - Kanban board
 - JUnit
 
-## [Planning board](https://github.com/users/tanyigbo/projects/2/views/1)
+## [Planning Board](https://github.com/users/tanyigbo/projects/2/views/1)
 
 ![Board.](/documentation/Anime-watch-list.JPG)
 
-## User-Story
+## User-Stories
 
 - As any user, I should be able to see all Anime, so I can see what anime exist.
 - As any user, I should be able to see all Genres, so I can see what genres exist.
@@ -76,13 +78,11 @@ be scrapped or refactored.
 
 ![ERD.](/documentation/AnimeAPI-Database-ERD.png)
 
-### Roles
+## Roles
 
-- Dominique Akers - Models,Controllers,Service,seed,tests
-- Tobe Anyigbo - project management, quality assurance, security
-- Trevor Hendricks - Models,Controllers,Service,seed,tests
-
-
+- Dominique Akers - Data Models, Controllers, Services, Data-Loader, Quality Assurance (Tests)
+- Tobe Anyigbo - Project Management, Quality Assurance (Tests), API Security (Authorization/Authentication/JWT)
+- Trevor Hendricks - Data Models, Controllers, Services, Exception Handling, Optimization
 
 # Endpoints for all users
 | Request Type | URL                  | Functionality                     | Access |
@@ -102,8 +102,8 @@ be scrapped or refactored.
 | POST         | /api/anime-details/{animeId}/{genreId} | Adds a specified anime to a specified genre                 | Private |
 | DELETE       | /api/anime-details/{animeId}/{genreId} | Removes a specified anime from a specified genre            | Private |
 | GET          | /api/anime/{animeId}                   | Find anime by ID                                            | Private |
-# Endpoints for admin users
 
+# Endpoints for admin users
 | Request Type | URL                                    | Functionality                               | Access  |
 |--------------|----------------------------------------|---------------------------------------------|---------|
 | GET          | /auth/users                            | Request for all users                       | Private |
@@ -118,7 +118,7 @@ be scrapped or refactored.
 - Full CRUD functionality
 - User login
 - User register
-- Security for endpoints
+- Private security endpoints
 
 ## Things We Would Do Differently
 - Plan out our MVP into Bronze, Silver, and Gold milestones to better focus our initial efforts.
@@ -136,17 +136,23 @@ git clone <https://github.com/{GitHub UserName}/anime-watch-list-API>
 4. All required dependencies are included
 
 ### Dependencies Used
--[Spring Jpa](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa/3.0.6)
+- [Spring Jpa](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa/3.0.6)
 
--[Spring Security](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security)
+- [Spring Security](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security)
 
--[Spring Boot Starter](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter/3.0.6)
+- [Spring Boot Starter](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter/3.0.6)
 
--[Spring Boot Starter Web](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web/3.0.5)
+- [Spring Boot Starter Web](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web/3.0.5)
 
--[PostGres Driver](https://mvnrepository.com/artifact/org.postgresql/postgresql/42.6.0)
+- [Postgres Driver](https://mvnrepository.com/artifact/org.postgresql/postgresql/42.6.0)
 
--[Cucumber](https://cucumber.io/docs/installation/java/)
+- [Cucumber](https://cucumber.io/docs/installation/java/)
+
+- [JUnit](https://junit.org/junit5/)
+
+- [H2 Database](https://mvnrepository.com/artifact/com.h2database/h2)
+
+- [JWT](https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api)
 
 ## Documentation Used
 
