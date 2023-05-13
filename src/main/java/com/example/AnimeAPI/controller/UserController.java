@@ -37,9 +37,14 @@ public class UserController {
     public ResponseEntity<?> getAllUsers(){
         response = new HashMap<>();
         List<User> users = userService.getAllUsers();
-        response.put("message","success");
-        response.put("data", users);
-        return new ResponseEntity<>(response, HttpStatus.FOUND);
+        if (users != null) {
+            response.put("message","success");
+            response.put("data", users);
+            return new ResponseEntity<>(response, HttpStatus.FOUND);
+        } else {
+            response.put("message", "Insufficient rights");
+            return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
+        }
     }
 
     /**
